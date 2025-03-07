@@ -17,7 +17,7 @@ app.use('*', cors())
 // routes
 // homepage
 app.get('/', (req, res) => {
-    res.send("This is the homepage")
+    res.send("This is the homepage and this is updated")
 })
 
 // run app (listen on port)
