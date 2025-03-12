@@ -8,6 +8,14 @@ const cors = require("cors")
 const port = process.env.PORT || 3000
 
 // database connection-------------------------------------------
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("DB connected");
+  })
+  .catch((err) => {
+    console.log("DB connection failed! ", err);
+  });
 
 // express app setup-------------------------------------------
 const app = express()
