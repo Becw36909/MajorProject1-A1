@@ -1,7 +1,6 @@
 // Server
 // dependencies-------------------------------------------
 require("dotenv").config()
-const bodyParser = require("body-parser")
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -19,8 +18,8 @@ mongoose
 
 // express app setup-------------------------------------------
 const app = express()
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true}))
 app.use('*', cors())
 
 // routes-------------------------------------------

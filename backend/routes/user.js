@@ -9,13 +9,17 @@ router.get('/', (req, res) => {
     // get all users from the user model using the find() method
     User.find()
     .then(users => {
-        console.log(users)
+        // console.log(users)
         res.json(users)
 
     })
-    .catch( (users) => { 
+    .catch( users => { 
         console.log("problem with getting users ", err)
+        res.status(500).json({
+            message: "problem getting user",
+            error: err
     })
+})
 })
 
 
@@ -34,7 +38,7 @@ router.get('/:id', (req, res) => {
         }
 
     })
-    .catch( (err) => { 
+    .catch( err => { 
         console.log("error getting user ", err)
         res.status(500).json({
             message: "problem getting user",
@@ -70,7 +74,7 @@ router.post('/', (req, res) => {
         // send back 201 status and user object
         res.status(201).json(user)
     })
-    .catch( (err) => { 
+    .catch( err => { 
         console.log("error creating user ", err)
         // send back 500 message with error message
         res.status(500).json({
@@ -83,12 +87,59 @@ router.post('/', (req, res) => {
 
 // PUT - update a user by id--------------------------------------------
 // endpoint = /user/:id
+router.put('/:id', (req, res) => {
+    // check if the req.body is empty, if so - send back an error
+    if(!req.body){
+        return res.status(404).json({
+            message: "user content is empty!"
+        })
+    }
 
+    //update user with the User model, adding option {new:true} sends back the updated user
+    User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => { 
+        console.log("error updating user ", err)
+        // send back 500 message with error message
+        res.status(500).json({
+            message: "problem updating user",
+            error: err
+        })
+    })
+
+})
 
 
 // DELETE - delete user by id-------------------------------------------
 // endpoint = /user/:id
+router.delete('/:id', (req, res) => {
+    //validate the request by making sure id isn't missing
+    if(!req.params.id){
+        return res.status(400).json({
+            message: "user id is missing!"
+        })
+    }
 
+    // delete the user with the User model
+    User.findOneAndDelete({_id: req.params.id})
+    .then( () => {
+
+        res.json({
+            message: "User deleted!"
+        })
+    })
+    .catch(err => {
+        console.log("error deleting user", err)
+        // send back the 500 status with error message
+        res.status(500).json({
+            message: "problem deleting user",
+            error: err
+        })
+    })
+
+})
 
 
 
