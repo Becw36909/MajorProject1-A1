@@ -2,9 +2,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 require('mongoose-type-email')
+const Utils = require('./../Utils')
 
 
-// schema
+// schema------------------------------------
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -32,11 +33,23 @@ const userSchema = new mongoose.Schema({
     }
 }
 // do I want the timestamps option??
-// ,
-// {timestamps: true}
+ ,
+ {timestamps: true}
 )
 
-// create Mongoose model
+// hash password (middleware)-------------------------
+userSchema.pre('save', function(next){
+    // check if password is present and is modified
+    if(this.password && this.isModified()) {
+        // replace original password with new hashed password
+        this.password = Utils.hashPassword(this.password)
+    }
+    // continue
+    next()
+})
+
+
+// create Mongoose model--------------------------------
 const userModel = mongoose.model('User', userSchema)
 
 // export
