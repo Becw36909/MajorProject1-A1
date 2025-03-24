@@ -124,7 +124,7 @@ router.put("/:id", (req, res) => {
 
 // DELETE - delete user by id-------------------------------------------
 // endpoint = /user/:id
-router.delete("/:id", (req, res) => {
+router.delete("/:id?", (req, res) => {
   //validate the request by making sure id isn't missing
   if (!req.params.id) {
     return res.status(400).json({
