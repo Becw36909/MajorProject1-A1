@@ -1,10 +1,10 @@
 // Server
 // dependencies-------------------------------------------
-require("dotenv").config()
-const express = require("express")
-const mongoose = require("mongoose")
-const cors = require("cors")
-const port = process.env.PORT || 3000
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const port = process.env.PORT || 3000;
 
 // database connection-------------------------------------------
 mongoose
@@ -17,27 +17,26 @@ mongoose
   });
 
 // express app setup-------------------------------------------
-const app = express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true}))
-app.use('*', cors())
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("*", cors());
 
 // routes-------------------------------------------
 // homepage
-app.get('/', (req, res) => {
-    res.send("This is the homepage and this is updated")
-})
+app.get("/", (req, res) => {
+  res.send("This is the homepage and this is updated");
+});
 
 // user
-const userRouter = require("./routes/user")
-app.use('/user', userRouter)
+const userRouter = require("./routes/user");
+app.use("/user", userRouter);
 
 // auth
-const authRouter = require("./routes/auth")
-app.use('/auth', authRouter)
-
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
 
 // run app (listen on port)-------------------------------------------
 app.listen(port, () => {
-    console.log("App is running on port ", port)
-})
+  console.log("App is running on port ", port);
+});
