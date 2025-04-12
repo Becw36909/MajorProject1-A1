@@ -9,7 +9,6 @@ router.get("/", (req, res) => {
   // get all users from the user model using the find() method
   User.find()
     .then((users) => {
-      // console.log(users)
       res.json(users);
     })
     .catch((users) => {
@@ -107,7 +106,7 @@ router.put("/:id", (req, res) => {
     });
   }
 
-  //update user with the User model, adding option {new:true} sends back the updated user
+  // update user with the User model, adding option {new:true} sends back the updated user
   User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((user) => {
       res.json(user);

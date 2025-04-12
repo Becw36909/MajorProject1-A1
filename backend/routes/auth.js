@@ -77,7 +77,6 @@ router.get("/validate", (req, res) => {
       return res.sendStatus(403);
     } else {
       // 4. if valid - send back tokenData (decrypted) as response
-
       res.json(tokenData);
     }
   });
