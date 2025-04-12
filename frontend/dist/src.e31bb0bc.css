@@ -1,0 +1,17 @@
+:root {
+  /* Changes the primary theme color to chosen colour using primitives */
+  --sl-color-primary-50: white;
+  --sl-color-primary-100: #ccccff;
+  --sl-color-primary-200: #9999ff;
+  --sl-color-primary-300: #6666ff;
+  --sl-color-primary-400: #3333ff;
+  --sl-color-primary-500: blue;
+  --sl-color-primary-600: rgb(0, 0, 229.5);
+  --sl-color-primary-700: #0000cc;
+  --sl-color-primary-800: rgb(0, 0, 178.5);
+  --sl-color-primary-900: #000099;
+  --sl-color-primary-950: rgb(0, 0, 127.5);
+  --sl-focus-ring-color-primary: rgba(0, 0, 0, 0.1);
+}
+
+/*# sourceMappingURL=/src.e31bb0bc.css.map */
