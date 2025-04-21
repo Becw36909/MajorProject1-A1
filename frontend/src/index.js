@@ -1,8 +1,12 @@
-console.log("index.js hey what up")
+import App from './App.js'
 
+// components (custom web components)
+import './components/va-app-header'
 
-// import styles
-import './styles/master.scss'
+// styles
+import './scss/master.scss'
 
-// import modules that are needed
-import { gsap } from "gsap";
+// app.init
+document.addEventListener('DOMContentLoaded', () => {
+  App.init()
+})
