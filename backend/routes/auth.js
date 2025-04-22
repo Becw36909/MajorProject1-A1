@@ -7,79 +7,80 @@ const router = express.Router();
 const User = require("./../models/User");
 const jwt = require("jsonwebtoken");
 
-// POST /auth/signin---------------------------
-router.post("/signin", (req, res) => {
-  // res.send("Auth > signin route")
-  // 1. Validate request (email and password)
-  if (!req.body.email || !req.body.password) {
-    return res.status(400).json({
-      message: "Please provide email and password",
-    });
+// GET /signIn ---------------------------------------
+router.post('/signin', (req, res) => {
+  // 1. check if email and passwore are empty
+  if( !req.body.email || !req.body.password ){     
+    return res.status(400).json({message: "Please provide email and password"})
   }
-
-  // 2. Find the user in the database
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      // if user doesn't exist
-      if (user == null) {
-        return res.status(400).json({
-          message: "Account doesn't exist",
-        });
-      }
-      // continue (user must exist)
-      // 3. user exists - verify password
-      if (Utils.verifyPassword(req.body.password, user.password)) {
-        // 4. password check == true, so create user object without password
-        const userObject = {
-          id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          bio: user.bio,
-          // do I want to include the access level??
-          // accessLevel: user.accessLevel
-        };
-        // 5. generate the access tken
-        const accessToken = Utils.generateAccessToken(userObject);
-
-        // 6. send back response with accessToken and user object
-        res.json({
+  // 2. continue to check credentials
+  // find the user in the database
+  User.findOne({email: req.body.email})
+  .then(async user => {
+     // account doesn't exist
+     if(user == null) return res.status(400).json({message: 'No account found'})     
+     // user exists, now check password
+     if( Utils.verifyHash(req.body.password, user.password) ){
+        // credentials match - create JWT token
+        let payload = {
+          _id: user._id          
+        }
+        let accessToken = Utils.generateAccessToken(payload)        
+        // strip the password from our user object        
+        user.password = undefined
+        // send back response
+        return res.json({
           accessToken: accessToken,
-          user: userObject,
-        });
-      } else {
-        // password doesn't match, send back error
+          user: user
+        })
+     }else{
+        // Password didn't match!
         return res.status(400).json({
-          message: "Password/Email incorrect",
-        });
-      }
+           message: "Password / Email incorrect"
+        })        
+     }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({
+      message: "account doesn't exist",
+      error: err
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        message: "problem signing in",
-        error: err,
-      });
-    });
-});
+  })
+})
 
-// GET /auth/validate--------------------------
-router.get("/validate", (req, res) => {
-  // res.send("Auth > validate route")
 
-  // 1. get token from header
-  const token = req.headers["authorization"].split(" ")[1];
-
-  // 2. validate the token using jwt.verify()
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
-    // 3. if not valid - send back 403 status (forbidden)
-    if (err) {
-      return res.sendStatus(403);
-    } else {
-      // 4. if valid - send back tokenData (decrypted) as response
-      res.json(tokenData);
+// GET /validate --------------------------------------
+router.get('/validate', (req, res) => {   
+  // get token
+  let token = req.headers['authorization'].split(' ')[1];
+  // validate token using jwt
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+    if(err){
+      console.log(err)
+      return res.status(401).json({
+        message: "Unauthorised"
+      })
     }
-  });
-});
 
-module.exports = router;
+    // token valid - send back to payload/authData as json
+    User.findById(authData._id)
+      .then(user => {
+        // remove password field (never send this back!)
+        user.password = undefined
+        res.json({
+          user: user
+        })
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(500).json({
+          message: "problem validating token",
+          error: err
+        })
+      })
+  })
+})
+
+  
+module.exports = router

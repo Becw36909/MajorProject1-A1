@@ -2,6 +2,10 @@
 require("dotenv").config();
 let crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require('uuid')
+const path = require('path')
+
+
 
 // Utils class
 class Utils {
@@ -27,6 +31,46 @@ class Utils {
   generateAccessToken(user) {
     return jwt.sign({ user: user }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "30min",
+    });
+  }
+
+  authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (token == null) {
+      return res.status(401).json({
+        message: "Unauthorised",
+      });
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.status(401).json({
+          message: "Unauthorised",
+        });
+      }
+      req.user = user;
+      next();
+    });
+  }
+
+  uploadFile(file, uploadPath, callback) {
+    // get file extension (.jpg, .png etc)
+    const fileExt = file.name.split(".").pop();
+    // create unique file name
+    const uniqueFilename = uuidv4() + "." + fileExt;
+    // set upload path (where to store image on server)
+    const uploadPathFull = path.join(uploadPath, uniqueFilename);
+    // console.log(uploadPathFull)
+    // move image to uploadPath
+    file.mv(uploadPathFull, function (err) {
+      if (err) {
+        console.log(err);
+        return false;
+      }
+      if (typeof callback == "function") {
+        callback(uniqueFilename);
+      }
     });
   }
 }

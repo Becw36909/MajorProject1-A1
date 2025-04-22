@@ -1,28 +1,27 @@
 // User routes
 const express = require("express");
 const router = express.Router();
+const Utils = require("../Utils")
 const User = require("./../models/User");
+const path = require('path')
+const { authenticateToken } = require("../Utils");
 
-// GET - get all users-------------------------------------------------
+
+
+// GET - get all users (auth required) -------------------------------------------------
 // endpoint = /user
-router.get("/", (req, res) => {
-  // get all users from the user model using the find() method
+router.get("/", authenticateToken, (req, res) => {
   User.find()
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((users) => {
-      console.log("problem with getting users ", err);
-      res.status(500).json({
-        message: "problem getting user",
-        error: err,
-      });
+    .then((users) => res.json(users))
+    .catch((err) => {
+      console.log("error finding users", err);
+      res.status(500).json({ message: "problem finding users", error: err });
     });
 });
 
-// GET - get a single user by id----------------------------------------
+// GET - get a single user by id (auth required)----------------------------------------
 // endpoint = /user/:id
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticateToken, (req, res) => {
   // use the User model to find one user by id
   User.findById(req.params.id)
     .then((user) => {
@@ -70,6 +69,7 @@ router.post("/", (req, res) => {
         accessLevel: req.body.accessLevel,
         password: req.body.password,
         bio: req.body.bio,
+        avatar: req.body.avatar,
       });
 
       // save newUser document to the database
@@ -98,39 +98,40 @@ router.post("/", (req, res) => {
 
 // PUT - update a user by id--------------------------------------------
 // endpoint = /user/:id
-router.put("/:id", (req, res) => {
-  // check if the req.body is empty, if so - send back an error
-  if (!req.body) {
-    return res.status(404).json({
-      message: "user content is empty!",
-    });
+router.put("/:id", authenticateToken, (req, res) => {
+  if (!req.body && !req.files) {
+    return res.status(400).json({ message: "No data provided." });
   }
 
-  // update user with the User model, adding option {new:true} sends back the updated user
-  User.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((user) => {
-      res.json(user);
-    })
-    .catch((err) => {
-      console.log("error updating user ", err);
-      // send back 500 message with error message
-      res.status(500).json({
-        message: "problem updating user",
-        error: err,
-      });
+  let updateData = req.body;
+
+  if (req.files && req.files.avatar) {
+    Utils.uploadFile(req.files.avatar, path.join(__dirname, "../public/images"), (filename) => {
+      updateData.profileImage = filename;
+
+      User.findByIdAndUpdate(req.params.id, updateData, { new: true })
+        .then((user) => res.json(user))
+        .catch((err) => {
+          console.log("error updating user", err);
+          res.status(500).json({ message: "problem updating user", error: err });
+        });
     });
+  } else {
+    // Ensure optional avatar does not overwrite existing one with undefined
+    if (!updateData.profileImage) delete updateData.profileImage;
+
+    User.findByIdAndUpdate(req.params.id, updateData, { new: true })
+      .then((user) => res.json(user))
+      .catch((err) => {
+        console.log("error updating user", err);
+        res.status(500).json({ message: "problem updating user", error: err });
+      });
+  }
 });
 
-// DELETE - delete user by id-------------------------------------------
+// DELETE - delete user by id (auth required)-------------------------------------------
 // endpoint = /user/:id
-router.delete("/:id?", (req, res) => {
-  //validate the request by making sure id isn't missing
-  if (!req.params.id) {
-    return res.status(400).json({
-      message: "user id is missing!",
-    });
-  }
-
+router.delete("/:id", authenticateToken, (req, res) => {
   // delete the user with the User model
   User.findOneAndDelete({ _id: req.params.id })
     .then(() => {
