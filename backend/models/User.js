@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     accessLevel: {
-      type: Number,
+      type: String,
+      enum: ["user", "admin"],
       required: true,
     },
     password: {
@@ -34,8 +35,7 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       required: false,
-    
-    }
+    },
   },
   { timestamps: true }
 );

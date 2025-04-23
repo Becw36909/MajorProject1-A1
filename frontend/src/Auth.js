@@ -12,9 +12,12 @@ class Auth {
   
   async signUp(userData, fail = false){  
     const response = await fetch(`${App.apiBase}/user`, {
-      method: 'POST',      
-      body: userData
-    })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
 
     // if response not ok
     if(!response.ok){      
@@ -25,6 +28,8 @@ class Auth {
       Toast.show(`Problem getting user: ${response.status}`)   
       // run fail() functon if set
       if(typeof fail == 'function') fail()
+        return // add return here to stop further execution
+
     }
     /// sign up success - show toast and redirect to sign in page
     Toast.show('Account created, please sign in')        
@@ -32,36 +37,40 @@ class Auth {
     gotoRoute('/signin')
   }
 
-
-  async signIn(userData, fail = false){
-    const response = await fetch(`${App.apiBase}/auth/signin`, {
-      method: 'POST',      
-      body: userData
-    })
-
-    // if response not ok
-    if(!response.ok){
-      // console log error
-      const err = await response.json()
-      if(err) console.log(err)
-      // show error      
-      Toast.show(`Problem signing in: ${err.message}`, 'error')   
-      // run fail() functon if set
-      if(typeof fail == 'function') fail()
+  async signIn(userData, fail = false) {
+    try {
+      const response = await fetch(`${App.apiBase}/auth/signin`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const data = await response.json(); // Read once
+  
+      if (!response.ok) {
+        console.error(data);
+        Toast.show(`Problem signing in: ${data.message}`, 'error');
+        if (typeof fail == 'function') fail();
+        return;
+      }
+  
+      Toast.show(`Welcome ${data.user.firstName}`);
+      localStorage.setItem('accessToken', data.accessToken);
+      this.currentUser = data.user;
+  
+      Router.init();
+      gotoRoute('/');
+      return data;
+  
+    } catch (err) {
+      console.error("Unexpected error in signIn:", err);
+      Toast.show("Something went wrong!", "error");
+      if (typeof fail === "function") fail();
     }
-
-    // sign in success
-    const data = await response.json()
-    Toast.show(`Welcome  ${data.user.firstName}`)
-    // save access token (jwt) to local storage
-    localStorage.setItem('accessToken', data.accessToken)
-    // set current user
-    this.currentUser = data.user      
-    // console.log(this.currentUser)           
-    // redirect to home
-    Router.init()
-    gotoRoute('/')
   }
+  
 
 
   async check(success){

@@ -7494,8 +7494,11 @@ class Auth {
   async signUp(userData) {
     let fail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     const response = await fetch("".concat(_App.default.apiBase, "/user"), {
-      method: 'POST',
-      body: userData
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userData)
     }); // if response not ok
 
     if (!response.ok) {
@@ -7507,6 +7510,7 @@ class Auth {
 
 
       if (typeof fail == 'function') fail();
+      return; // add return here to stop further execution
     } /// sign up success - show toast and redirect to sign in page
 
 
@@ -7518,36 +7522,42 @@ class Auth {
 
   async signIn(userData) {
     let fail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    const response = await fetch("".concat(_App.default.apiBase, "/auth/signin"), {
-      method: 'POST',
-      body: userData
-    }); // if response not ok
 
-    if (!response.ok) {
-      // console log error
-      const err = await response.json();
-      if (err) console.log(err); // show error      
+    try {
+      const response = await fetch("".concat(_App.default.apiBase, "/auth/signin"), {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      });
+      const data = await response.json(); // Read once
 
-      _Toast.default.show("Problem signing in: ".concat(err.message), 'error'); // run fail() functon if set
+      if (!response.ok) {
+        console.error(data);
 
+        _Toast.default.show("Problem signing in: ".concat(data.message), 'error');
 
-      if (typeof fail == 'function') fail();
-    } // sign in success
+        if (typeof fail == 'function') fail();
+        return;
+      }
 
+      _Toast.default.show("Welcome ".concat(data.user.firstName));
 
-    const data = await response.json();
+      localStorage.setItem('accessToken', data.accessToken);
+      this.currentUser = data.user;
 
-    _Toast.default.show("Welcome  ".concat(data.user.firstName)); // save access token (jwt) to local storage
+      _Router.default.init();
 
+      (0, _Router.gotoRoute)('/');
+      return data;
+    } catch (err) {
+      console.error("Unexpected error in signIn:", err);
 
-    localStorage.setItem('accessToken', data.accessToken); // set current user
+      _Toast.default.show("Something went wrong!", "error");
 
-    this.currentUser = data.user; // console.log(this.currentUser)           
-    // redirect to home
-
-    _Router.default.init();
-
-    (0, _Router.gotoRoute)('/');
+      if (typeof fail === "function") fail();
+    }
   }
 
   async check(success) {
@@ -7765,10 +7775,12 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["      \n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/logo.svg\">          \n          <sl-form class=\"form-signup dark-theme\" @sl-submit=", ">          \n            <div class=\"input-group\">\n              <sl-input name=\"email\" type=\"email\" placeholder=\"Email\" required></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input name=\"password\" type=\"password\" placeholder=\"Password\" required toggle-password></sl-input>\n            </div>\n            <sl-button class=\"submit-btn\" type=\"primary\" submit style=\"width: 100%;\">Sign In</sl-button>\n          </sl-form>\n          <p>No Account? <a href=\"/signup\" @click=", ">Sign Up</a></p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["      \n    <div class=\"page-content page-centered\">\n      <div class=\"signinup-box\">\n        <img class=\"signinup-logo\" src=\"/images/logo.svg\" />\n        <form class=\"form-signin dark-theme\" id=\"signin-form\">\n          <sl-input name=\"email\" id=\"email\" label=\"Email\" type=\"email\" required></sl-input>\n          <sl-input name=\"password\" id=\"password\" label=\"Password\" type=\"password\" required></sl-input>\n          <sl-button type=\"submit\" variant=\"primary\">Sign In</sl-button>\n        </form>\n        <p>Don\u2019t have an account? <a href=\"/signup\" @click=", ">Sign Up</a></p>\n      </div>\n    </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7788,20 +7800,35 @@ class SignInView {
     _Utils.default.pageIntroAnim();
   }
 
-  signInSubmitHandler(e) {
+  async signInSubmitHandler(e) {
     e.preventDefault();
-    const formData = e.detail.formData;
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.setAttribute('loading', ''); // sign in using Auth    
+    const emailEl = document.querySelector("sl-input#email");
+    const passwordEl = document.querySelector("sl-input#password");
+    const email = emailEl === null || emailEl === void 0 ? void 0 : emailEl.value;
+    const password = passwordEl === null || passwordEl === void 0 ? void 0 : passwordEl.value;
+    const credentials = {
+      email,
+      password
+    };
 
-    _Auth.default.signIn(formData, () => {
-      submitBtn.removeAttribute('loading');
-    });
+    try {
+      const result = await _Auth.default.signIn(credentials);
+
+      if (result !== null && result !== void 0 && result.error) {
+        _Toast.default.show(result.message || "Invalid credentials", "danger");
+      } // no need for success toast — Auth.js already does that
+
+    } catch (err) {
+      console.error("Sign in failed:", err);
+
+      _Toast.default.show("Sign in failed. Please try again.", "danger");
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), this.signInSubmitHandler, _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject(), _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
+    document.querySelector("#signin-form").addEventListener("submit", this.signInSubmitHandler);
   }
 
 }
@@ -7809,7 +7836,7 @@ class SignInView {
 var _default = new SignInView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/signup.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../Toast":"Toast.js"}],"views/pages/signup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7827,10 +7854,12 @@ var _Router = require("./../../Router");
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["      \n      <div class=\"page-content page-centered\">      \n        <div class=\"signinup-box\">\n        <img class=\"signinup-logo\" src=\"/images/logo.svg\">\n          <h1>Sign Up</h1>\n          <sl-form class=\"form-signup\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input name=\"firstName\" type=\"text\" placeholder=\"First Name\" required></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input name=\"lastName\" type=\"text\" placeholder=\"Last Name\" required></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input name=\"email\" type=\"email\" placeholder=\"Email\" required></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input name=\"password\" type=\"password\" placeholder=\"Password\" required toggle-password></sl-input>\n            </div>            \n            <sl-button type=\"primary\" class=\"submit-btn\" submit style=\"width: 100%;\">Sign Up</sl-button>\n          </sl-form>\n          <p>Have an account? <a href=\"/signin\" @click=", ">Sign In</a></p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n       <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/logo.svg\">\n          <form class=\"form-signup dark-theme\" id=\"signup-form\">\n            <sl-input name=\"firstName\" id=\"firstName\" label=\"First Name\" required></sl-input>\n            <sl-input name=\"lastName\" id=\"lastName\" label=\"Last Name\" required></sl-input>\n            <sl-input name=\"email\" id=\"email\" label=\"Email\" type=\"email\" required></sl-input>\n            <sl-input name=\"password\" id=\"password\" label=\"Password\" type=\"password\" required></sl-input>\n            <sl-radio-group name=\"accessLevel\" label=\"Access Level\" required>\n              <sl-radio value=\"user\">Horse Owner</sl-radio>\n              <sl-radio value=\"admin\">Stable Manager</sl-radio>\n            </sl-radio-group>\n            <sl-button type=\"submit\" variant=\"primary\">Sign Up</sl-button>\n          </form>\n          <p>Already registered? <a href=\"/signin\" @click=", ">Sign In</a></p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7843,27 +7872,43 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class SignUpView {
   init() {
-    console.log('SignUpView.init');
-    document.title = 'Sign In';
+    console.log("SignUpView.init");
+    document.title = "Sign In";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
-  signUpSubmitHandler(e) {
-    e.preventDefault();
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.setAttribute('loading', '');
-    const formData = e.detail.formData; // sign up using Auth
+  async signUpSubmitHandler(e) {
+    var _document$querySelect, _document$querySelect2, _document$querySelect3, _document$querySelect4, _document$querySelect5;
 
-    _Auth.default.signUp(formData, () => {
-      submitBtn.removeAttribute('loading');
-    });
+    e.preventDefault();
+    const firstName = (_document$querySelect = document.querySelector("#firstName")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.value;
+    const lastName = (_document$querySelect2 = document.querySelector("#lastName")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.value;
+    const email = (_document$querySelect3 = document.querySelector("#email")) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.value;
+    const password = (_document$querySelect4 = document.querySelector("#password")) === null || _document$querySelect4 === void 0 ? void 0 : _document$querySelect4.value;
+    const accessLevel = (_document$querySelect5 = document.querySelector("sl-radio-group[name='accessLevel']")) === null || _document$querySelect5 === void 0 ? void 0 : _document$querySelect5.value;
+    const data = {
+      firstName,
+      lastName,
+      email,
+      password,
+      accessLevel
+    };
+
+    try {
+      await _Auth.default.signUp(data); // Auth.signUp already handles toasts and navigation
+    } catch (err) {
+      _Toast.default.show("Something went wrong during sign up", "danger");
+
+      console.error("Sign up failed:", err);
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), this.signUpSubmitHandler, _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject(), _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
+    document.querySelector("#signup-form").addEventListener("submit", this.signUpSubmitHandler);
   }
 
 }
@@ -7871,7 +7916,7 @@ class SignUpView {
 var _default = new SignUpView();
 
 exports.default = _default;
-},{"./../../App":"App.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Utils":"Utils.js"}],"../node_modules/moment/moment.js":[function(require,module,exports) {
+},{"./../../App":"App.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Utils":"Utils.js","../../Toast":"Toast.js"}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 //! moment.js
@@ -13716,28 +13761,8 @@ var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n                <input type=\"file\" name=\"avatar\" />\n              "]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n                <sl-avatar image=\"", "/images/", "\"></sl-avatar>\n                <input type=\"file\" name=\"avatar\" />\n              "]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n          <p>Updated: ", "</p>\n          <sl-form class=\"page-form\" @sl-submit=", ">\n            <div class=\"input-group\">\n              <sl-input type=\"text\" name=\"firstName\" value=\"", "\" placeholder=\"First Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input type=\"text\" name=\"lastName\" value=\"", "\" placeholder=\"Last Name\"></sl-input>\n            </div>\n            <div class=\"input-group\">\n              <sl-input type=\"text\" name=\"email\" value=\"", "\" placeholder=\"Email Address\"></sl-input>\n            </div>            \n            <div class=\"input-group\">\n              <label>Avatar</label><br>          \n              ", "\n            </div>\n            <sl-button type=\"primary\" class=\"submit-btn\" submit>Update Profile</sl-button>\n          </sl-form>\n        "]);
+  const data = _taggedTemplateLiteral([""]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -13747,7 +13772,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n          <sl-spinner></sl-spinner>\n        "]);
+  const data = _taggedTemplateLiteral(["<img src=\"", "/images/", "\" width=\"60\" />"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -13757,7 +13782,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <va-app-header title=\"Edit Profile\" user=", "></va-app-header>\n      <div class=\"page-content\">        \n        ", "\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n<div class=\"page-content\">\n        <h2>Edit Profile</h2>\n        <form id=\"edit-profile-form\" class=\"page-form\">\n          <div class=\"input-group\">\n            <label for=\"firstName\">First Name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"lastName\">Last Name</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"email\">Email</label>\n            <input type=\"email\" name=\"email\" id=\"email\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label>Avatar</label><br>\n            ", "\n            <input type=\"file\" name=\"avatar\" />\n          </div>\n          <button type=\"submit\" class=\"submit-btn\">Update Profile</button>\n        </form>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13791,28 +13816,31 @@ class EditProfileView {
 
   async updateProfileSubmitHandler(e) {
     e.preventDefault();
-    const formData = e.detail.formData;
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.setAttribute('loading', '');
+    const form = e.target;
+    const formData = new FormData();
+    formData.append("firstName", form.firstName.value);
+    formData.append("lastName", form.lastName.value);
+    formData.append("email", form.email.value);
 
-    try {
-      const updatedUser = await _UserAPI.default.updateUser(_Auth.default.currentUser._id, formData);
-      delete updatedUser.password;
-      this.user = updatedUser;
-      _Auth.default.currentUser = updatedUser;
-      this.render();
-
-      _Toast.default.show('profile updated');
-    } catch (err) {
-      _Toast.default.show(err, 'error');
+    if (form.avatar.files.length > 0) {
+      formData.append("avatar", form.avatar.files[0]);
     }
 
-    submitBtn.removeAttribute('loading');
+    let result = await _UserAPI.default.updateUser(_App.default.state.user._id, formData);
+
+    if (result.error) {
+      _Toast.default.show(result.message, "danger");
+    } else {
+      _Toast.default.show("Profile updated", "success");
+
+      window.location.href = "/profile";
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), this.user == null ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3(), (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a'), this.updateProfileSubmitHandler.bind(this), this.user.firstName, this.user.lastName, this.user.email, this.user.avatar ? (0, _litHtml.html)(_templateObject4(), _App.default.apiBase, this.user.avatar) : (0, _litHtml.html)(_templateObject5())));
+    const template = (0, _litHtml.html)(_templateObject(), this.user.firstName, this.user.lastName, this.user.email, this.user.profileImage ? (0, _litHtml.html)(_templateObject2(), _App.default.apiBase, this.user.profileImage) : (0, _litHtml.html)(_templateObject3()));
     (0, _litHtml.render)(template, _App.default.rootEl);
+    document.querySelector("#edit-profile-form").addEventListener("submit", this.updateProfileSubmitHandler.bind(this));
   }
 
 }
@@ -13924,7 +13952,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class App {
   constructor() {
-    this.name = "Haircuts";
+    this.name = "AgistEase";
     this.version = "1.0.0";
     this.apiBase = 'http://localhost:3000';
     this.rootEl = document.getElementById("root");
@@ -15905,7 +15933,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60807" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57259" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
