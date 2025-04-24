@@ -69,7 +69,7 @@ router.post("/", (req, res) => {
         accessLevel: req.body.accessLevel,
         password: req.body.password,
         bio: req.body.bio,
-        avatar: req.body.avatar,
+        profileImage: req.body.profileImage,
       });
 
       // save newUser document to the database
@@ -105,8 +105,8 @@ router.put("/:id", authenticateToken, (req, res) => {
 
   let updateData = req.body;
 
-  if (req.files && req.files.avatar) {
-    Utils.uploadFile(req.files.avatar, path.join(__dirname, "../public/images"), (filename) => {
+  if (req.files && req.files.profileImage) {
+    Utils.uploadFile(req.files.profileImage, path.join(__dirname, "../public/images"), (filename) => {
       updateData.profileImage = filename;
 
       User.findByIdAndUpdate(req.params.id, updateData, { new: true })
@@ -117,7 +117,7 @@ router.put("/:id", authenticateToken, (req, res) => {
         });
     });
   } else {
-    // Ensure optional avatar does not overwrite existing one with undefined
+    // Ensure optional profileImage does not overwrite existing one with undefined
     if (!updateData.profileImage) delete updateData.profileImage;
 
     User.findByIdAndUpdate(req.params.id, updateData, { new: true })

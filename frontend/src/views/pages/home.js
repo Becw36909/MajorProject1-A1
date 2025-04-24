@@ -14,13 +14,15 @@ class HomeView {
 
   render(){
     const template = html`
-      <va-app-header title="Home" user=${JSON.stringify(Auth.currentUser)}></va-app-header>
+      <ag-app-header title="Home" user=${JSON.stringify(Auth.currentUser)}></ag-app-header>
       
       <div class="page-content">
         <h1 class="anim-in">Hey ${Auth.currentUser.firstName}</h1>
 
         <h3>Button example:</h3>
         <sl-button class="anim-in" @click=${() => gotoRoute('/profile')}>View Profile</sl-button>
+                    <sl-button @click="${() => Auth.signOut()}">Sign Out</sl-button>
+
         <p>&nbsp;</p>
         <h3>Link example</h3>
         <a href="/profile" @click=${anchorRoute}>View Profile</a>

@@ -35,11 +35,12 @@ class EditProfileView {
     formData.append("lastName", form.lastName.value);
     formData.append("email", form.email.value);
 
-    if (form.avatar.files.length > 0) {
-      formData.append("avatar", form.avatar.files[0]);
+    if (form.profileImage.files.length > 0) {
+      formData.append('profileImage', form.profileImage.files[0])
     }
 
-    let result = await UserAPI.updateUser(App.state.user._id, formData);
+    let result = await UserAPI.updateUser(Auth.currentUser._id, formData);
+
     if (result.error) {
       Toast.show(result.message, "danger");
     } else {
@@ -49,7 +50,16 @@ class EditProfileView {
   }
 
   render(){
+
+      // guard clause while user data is being fetched
+  if (!this.user) {
+    render(html`<p>Loading...</p>`, App.rootEl)
+    return
+  }
+
     const template = html`
+          <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
+    
 <div class="page-content">
         <h2>Edit Profile</h2>
         <form id="edit-profile-form" class="page-form">
@@ -66,9 +76,9 @@ class EditProfileView {
             <input type="email" name="email" id="email" value="${this.user.email}" required />
           </div>
           <div class="input-group">
-            <label>Avatar</label><br>
+            <label>Profile Image</label><br>
             ${this.user.profileImage ? html`<img src="${App.apiBase}/images/${this.user.profileImage}" width="60" />` : html``}
-            <input type="file" name="avatar" />
+            <input type="file" name="profileImage" />
           </div>
           <button type="submit" class="submit-btn">Update Profile</button>
         </form>

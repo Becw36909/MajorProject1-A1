@@ -1,28 +1,16 @@
-import App from './../../App'
-import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute} from './../../Router'
-import Auth from './../../Auth'
+import { html, render } from 'lit-html'
 import Utils from './../../Utils'
+import './../components/ag-app-header'
 
-class TemplateView {
-  init(){
-    document.title = 'Template'    
-    this.render()    
+export default {
+  render(content) {
+    const template = html`
+      <div class="layout">
+        <ag-app-header></ag-app-header>
+        <main class="page-content">${content}</main>
+      </div>
+    `
+    render(template, document.querySelector('#app'))
     Utils.pageIntroAnim()
   }
-
-  render(){
-    const template = html`
-      <va-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></va-app-header>
-      <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
-        
-      </div>      
-    `
-    render(template, App.rootEl)
-  }
 }
-
-
-export default new TemplateView()

@@ -15,10 +15,10 @@ class ProfileView {
 
   render(){
     const template = html`
-      <va-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></va-app-header>
+      <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
       <div class="page-content calign">        
-        ${Auth.currentUser && Auth.currentUser.avatar ? html`
-          <sl-avatar style="--size: 200px; margin-bottom: 1em;" image=${(Auth.currentUser && Auth.currentUser.avatar) ? `${App.apiBase}/images/${Auth.currentUser.avatar}` : ''}></sl-avatar>
+        ${Auth.currentUser && Auth.currentUser.profileImage ? html`
+          <sl-avatar style="--size: 200px; margin-bottom: 1em;" image=${(Auth.currentUser && Auth.currentUser.profileImage) ? `${App.apiBase}/images/${Auth.currentUser.profileImage}` : ''}></sl-avatar>
         `:html`
         <sl-avatar style="--size: 200px; margin-bottom: 1em;"></sl-avatar>
         `}
