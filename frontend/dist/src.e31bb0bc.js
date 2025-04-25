@@ -13789,7 +13789,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["<img src=\"", "/images/", "\" width=\"60\" />"]);
+  const data = _taggedTemplateLiteral(["<img\n                  src=\"", "/images/", "\"\n                  width=\"60\"\n                />"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -13799,7 +13799,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n          <ag-app-header title=\"Profile\" user=\"", "\"></ag-app-header>\n    \n<div class=\"page-content\">\n        <h2>Edit Profile</h2>\n        <form id=\"edit-profile-form\" class=\"page-form\">\n          <div class=\"input-group\">\n            <label for=\"firstName\">First Name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"lastName\">Last Name</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"email\">Email</label>\n            <input type=\"email\" name=\"email\" id=\"email\" value=\"", "\" required />\n          </div>\n          <div class=\"input-group\">\n            <label>Profile Image</label><br>\n            ", "\n            <input type=\"file\" name=\"profileImage\" />\n          </div>\n          <button type=\"submit\" class=\"submit-btn\">Update Profile</button>\n        </form>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Profile\"\n        user=\"", "\"\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h2>Edit Profile</h2>\n        <form id=\"edit-profile-form\" class=\"page-form\">\n          <div class=\"input-group\">\n            <label for=\"firstName\">First Name</label>\n            <input\n              type=\"text\"\n              name=\"firstName\"\n              id=\"firstName\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"lastName\">Last Name</label>\n            <input\n              type=\"text\"\n              name=\"lastName\"\n              id=\"lastName\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"email\">Email</label>\n            <input\n              type=\"email\"\n              name=\"email\"\n              id=\"email\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"phoneNumber\">Phone Number</label>\n            <input\n              type=\"tel\"\n              name=\"phoneNumber\"\n              id=\"phoneNumber\"\n              value=\"", "\"\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"bio\">Bio</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">\n", "</textarea\n            >\n          </div>\n          <div class=\"input-group\">\n            <label>Profile Image</label><br />\n            ", "\n            <input type=\"file\" name=\"profileImage\" />\n          </div>\n          <button type=\"submit\" class=\"submit-btn\">Update Profile</button>\n        </form>\n      </div>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -13822,8 +13822,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class EditProfileView {
   init() {
-    console.log('EditProfileView.init');
-    document.title = 'Edit Profile';
+    console.log("EditProfileView.init");
+    document.title = "Edit Profile";
     this.user = null;
     this.render();
 
@@ -13837,7 +13837,7 @@ class EditProfileView {
       this.user = await _UserAPI.default.getUser(_Auth.default.currentUser._id);
       this.render();
     } catch (err) {
-      _Toast.default.show(err, 'error');
+      _Toast.default.show(err, "error");
     }
   }
 
@@ -13848,9 +13848,11 @@ class EditProfileView {
     formData.append("firstName", form.firstName.value);
     formData.append("lastName", form.lastName.value);
     formData.append("email", form.email.value);
+    formData.append("phoneNumber", form.phoneNumber.value);
+    formData.append("bio", form.bio.value);
 
     if (form.profileImage.files.length > 0) {
-      formData.append('profileImage', form.profileImage.files[0]);
+      formData.append("profileImage", form.profileImage.files[0]);
     }
 
     let result = await _UserAPI.default.updateUser(_Auth.default.currentUser._id, formData);
@@ -13871,7 +13873,7 @@ class EditProfileView {
       return;
     }
 
-    const template = (0, _litHtml.html)(_templateObject2(), JSON.stringify(_Auth.default.currentUser), this.user.firstName, this.user.lastName, this.user.email, this.user.profileImage ? (0, _litHtml.html)(_templateObject3(), _App.default.apiBase, this.user.profileImage) : (0, _litHtml.html)(_templateObject4()));
+    const template = (0, _litHtml.html)(_templateObject2(), JSON.stringify(_Auth.default.currentUser), this.user.firstName, this.user.lastName, this.user.email, this.user.phoneNumber || "", this.user.bio || "", this.user.profileImage ? (0, _litHtml.html)(_templateObject3(), _App.default.apiBase, this.user.profileImage) : (0, _litHtml.html)(_templateObject4()));
     (0, _litHtml.render)(template, _App.default.rootEl);
     document.querySelector("#edit-profile-form").addEventListener("submit", this.updateProfileSubmitHandler.bind(this));
   }
@@ -14188,7 +14190,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54071" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61730" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

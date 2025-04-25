@@ -1,28 +1,28 @@
-import App from './../../App'
-import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute} from './../../Router'
-import Auth from './../../Auth'
-import Utils from './../../Utils'
-import UserAPI from './../../UserAPI'
-import Toast from '../../Toast'
-import moment from 'moment'
+import App from "./../../App";
+import { html, render } from "lit-html";
+import { gotoRoute, anchorRoute } from "./../../Router";
+import Auth from "./../../Auth";
+import Utils from "./../../Utils";
+import UserAPI from "./../../UserAPI";
+import Toast from "../../Toast";
+import moment from "moment";
 
 class EditProfileView {
-  init(){
-    console.log('EditProfileView.init')
-    document.title = 'Edit Profile'    
-    this.user = null
-    this.render()    
-    Utils.pageIntroAnim()
-    this.getUser()    
+  init() {
+    console.log("EditProfileView.init");
+    document.title = "Edit Profile";
+    this.user = null;
+    this.render();
+    Utils.pageIntroAnim();
+    this.getUser();
   }
 
-  async getUser(){
+  async getUser() {
     try {
-      this.user = await UserAPI.getUser(Auth.currentUser._id)      
-      this.render()
-    }catch(err){
-      Toast.show(err, 'error')
+      this.user = await UserAPI.getUser(Auth.currentUser._id);
+      this.render();
+    } catch (err) {
+      Toast.show(err, "error");
     }
   }
 
@@ -34,9 +34,11 @@ class EditProfileView {
     formData.append("firstName", form.firstName.value);
     formData.append("lastName", form.lastName.value);
     formData.append("email", form.email.value);
+    formData.append("phoneNumber", form.phoneNumber.value);
+    formData.append("bio", form.bio.value);
 
     if (form.profileImage.files.length > 0) {
-      formData.append('profileImage', form.profileImage.files[0])
+      formData.append("profileImage", form.profileImage.files[0]);
     }
 
     let result = await UserAPI.updateUser(Auth.currentUser._id, formData);
@@ -49,45 +51,86 @@ class EditProfileView {
     }
   }
 
-  render(){
-
-      // guard clause while user data is being fetched
-  if (!this.user) {
-    render(html`<p>Loading...</p>`, App.rootEl)
-    return
-  }
+  render() {
+    // guard clause while user data is being fetched
+    if (!this.user) {
+      render(html`<p>Loading...</p>`, App.rootEl);
+      return;
+    }
 
     const template = html`
-          <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
-    
-<div class="page-content">
+      <ag-app-header
+        title="Profile"
+        user="${JSON.stringify(Auth.currentUser)}"
+      ></ag-app-header>
+
+      <div class="page-content">
         <h2>Edit Profile</h2>
         <form id="edit-profile-form" class="page-form">
           <div class="input-group">
             <label for="firstName">First Name</label>
-            <input type="text" name="firstName" id="firstName" value="${this.user.firstName}" required />
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value="${this.user.firstName}"
+              required
+            />
           </div>
           <div class="input-group">
             <label for="lastName">Last Name</label>
-            <input type="text" name="lastName" id="lastName" value="${this.user.lastName}" required />
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value="${this.user.lastName}"
+              required
+            />
           </div>
           <div class="input-group">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="${this.user.email}" required />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value="${this.user.email}"
+              required
+            />
           </div>
           <div class="input-group">
-            <label>Profile Image</label><br>
-            ${this.user.profileImage ? html`<img src="${App.apiBase}/images/${this.user.profileImage}" width="60" />` : html``}
+            <label for="phoneNumber">Phone Number</label>
+            <input
+              type="tel"
+              name="phoneNumber"
+              id="phoneNumber"
+              value="${this.user.phoneNumber || ""}"
+            />
+          </div>
+          <div class="input-group">
+            <label for="bio">Bio</label>
+            <textarea name="bio" id="bio" rows="4">
+${this.user.bio || ""}</textarea
+            >
+          </div>
+          <div class="input-group">
+            <label>Profile Image</label><br />
+            ${this.user.profileImage
+              ? html`<img
+                  src="${App.apiBase}/images/${this.user.profileImage}"
+                  width="60"
+                />`
+              : html``}
             <input type="file" name="profileImage" />
           </div>
           <button type="submit" class="submit-btn">Update Profile</button>
         </form>
       </div>
     `;
-    render(template, App.rootEl)
-    document.querySelector("#edit-profile-form").addEventListener("submit", this.updateProfileSubmitHandler.bind(this));
-
+    render(template, App.rootEl);
+    document
+      .querySelector("#edit-profile-form")
+      .addEventListener("submit", this.updateProfileSubmitHandler.bind(this));
   }
 }
 
-export default new EditProfileView()
+export default new EditProfileView();

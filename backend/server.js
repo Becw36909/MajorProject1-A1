@@ -39,6 +39,15 @@ app.use("/user", userRouter);
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
+// horse
+const horseRoutes = require('./routes/horse');
+app.use("/horse", horseRoutes);
+
+// service request
+const requestRoutes = require('./routes/request');
+app.use("/request", requestRoutes);
+
+
 // run app (listen on port)-------------------------------------------
 app.listen(port, () => {
   console.log("App is running on port ", port);
