@@ -38,8 +38,8 @@ class HorsesView {
 
         ${this.horses == 0
           ? html` <h1 class="anim-in">NO HORSES - ONLY SHOW ADD HORSE BUTTON</h1>
-          <sl-card> 
-           <p>ADD HORSE BUTTON</p> </sl-card> `
+          <sl-button size="large"> 
+           <p>ADD HORSE BUTTON</p> </sl-button> `
           : html`
               <h1 class="anim-in">
                 HERE ARE THE HORSES... LOOP ALL HORSES AS BUTTONS PLUS ADD HORSE BUTTON

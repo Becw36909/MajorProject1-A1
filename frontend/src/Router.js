@@ -9,6 +9,8 @@ import horsesView from './views/pages/horses'
 import requestsView from './views/pages/requests'
 import calendarView from './views/pages/calendar'
 import guideView from './views/pages/guide'
+import adminDashboardView from './views/pages/adminDashboard'
+import dashboardView from './views/pages/dashboard'
 
 // define routes
 const routes = {
@@ -22,8 +24,8 @@ const routes = {
 	'/requests': requestsView, 
 	'/calendar': calendarView, 
 	'/guide': guideView, 
-
-
+	'/adminDashboard': adminDashboardView, 
+	'/dashboard': dashboardView,
 	
 }
 
