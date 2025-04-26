@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    newUser: {
+      type: Boolean,
+      default: true,
+    }
   },
   { timestamps: true }
 );

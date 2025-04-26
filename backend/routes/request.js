@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
 // GET - Get all service requests
 router.get("/", (req, res) => {
   ServiceRequest.find()
-    .populate("horseID") // show full horse details - optional, is this needed??
+    .populate("horseID") // also show full horse details
     .then((requests) => res.json(requests))
     .catch((err) =>
       res.status(500).json({ message: "problem getting requests", error: err })

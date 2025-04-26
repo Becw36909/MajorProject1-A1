@@ -61,7 +61,15 @@ class Auth {
       this.currentUser = data.user;
   
       Router.init();
-      gotoRoute('/');
+      // redirection 
+      if(data.user.newUser == true){
+        // new user - redirect to the guide page
+        gotoRoute('/guide');
+
+      }else{
+        gotoRoute('/');
+
+      }
       return data;
   
     } catch (err) {

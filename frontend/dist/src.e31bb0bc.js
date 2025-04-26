@@ -7547,9 +7547,16 @@ class Auth {
       localStorage.setItem('accessToken', data.accessToken);
       this.currentUser = data.user;
 
-      _Router.default.init();
+      _Router.default.init(); // redirection 
 
-      (0, _Router.gotoRoute)('/');
+
+      if (data.user.newUser == true) {
+        // new user - redirect to the guide page
+        (0, _Router.gotoRoute)('/guide');
+      } else {
+        (0, _Router.gotoRoute)('/');
+      }
+
       return data;
     } catch (err) {
       console.error("Unexpected error in signIn:", err);
@@ -13708,16 +13715,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class UserAPI {
   async updateUser(userId, userData) {
+    let dataType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'form';
     // validate
-    if (!userId || !userData) return; // make fetch request to backend
+    if (!userId || !userData) return;
+    let responseHeader; // form data
 
-    const response = await fetch("".concat(_App.default.apiBase, "/user/").concat(userId), {
-      method: "PUT",
-      headers: {
-        "Authorization": "Bearer ".concat(localStorage.accessToken)
-      },
-      body: userData
-    }); // if response not ok
+    if (dataType == 'form') {
+      // fetch response header normal (form data)
+      responseHeader = {
+        method: "PUT",
+        headers: {
+          "Authorization": "Bearer ".concat(localStorage.accessToken)
+        },
+        body: userData
+      }; // json data
+    } else if (dataType == 'json') {
+      responseHeader = {
+        method: "PUT",
+        headers: {
+          "Authorization": "Bearer ".concat(localStorage.accessToken),
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      };
+    } // make fetch request to backend
+
+
+    const response = await fetch("".concat(_App.default.apiBase, "/user/").concat(userId), responseHeader); // if response not ok
 
     if (!response.ok) {
       // console log error
@@ -13892,7 +13916,52 @@ class EditProfileView {
 var _default = new EditProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"views/pages/horses.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"HorseAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App"));
+
+var _Auth = _interopRequireDefault(require("./Auth"));
+
+var _Toast = _interopRequireDefault(require("./Toast"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class HorseAPI {
+  // this needs to be updated to take the user id??
+  async getHorses() {
+    // fetch the json data
+    const response = await fetch("".concat(_App.default.apiBase, "/horse"), {
+      headers: {
+        "Authorization": "Bearer ".concat(localStorage.accessToken)
+      }
+    }); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)      
+
+      throw new Error('Problem getting horses');
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+}
+
+var _default = new HorseAPI();
+
+exports.default = _default;
+},{"./App":"App.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"views/pages/horses.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13910,10 +13979,34 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _HorseAPI = _interopRequireDefault(require("../../HorseAPI"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n              <h1 class=\"anim-in\">\n                HERE ARE THE HORSES... LOOP ALL HORSES AS BUTTONS PLUS ADD HORSE BUTTON\n              </h1>\n            "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral([" <h1 class=\"anim-in\">NO HORSES - ONLY SHOW ADD HORSE BUTTON</h1>\n          <sl-card> \n           <p>ADD HORSE BUTTON</p> </sl-card> "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the Horses view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the Horses view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >back to home</sl-button\n        >\n\n        ", "\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13926,16 +14019,28 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class HorsesView {
   init() {
-    console.log('HorseView.init');
-    document.title = 'Horses';
+    console.log("HorseView.init");
+    document.title = "Horses";
+    this.horses = null;
     this.render();
 
-    _Utils.default.pageIntroAnim(); // is this necessary??  
+    _Utils.default.pageIntroAnim();
 
+    this.getHorses();
+  }
+
+  async getHorses() {
+    try {
+      this.horses = await _HorseAPI.default.getHorses();
+      console.log(this.horses);
+      this.render();
+    } catch (err) {
+      _Toast.default.show(err, "error");
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)("/"), this.horses == 0 ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3()));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -13944,7 +14049,7 @@ class HorsesView {
 var _default = new HorsesView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/requests.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../HorseAPI":"HorseAPI.js","../../Toast":"Toast.js"}],"views/pages/requests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14066,10 +14171,14 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _UserAPI = _interopRequireDefault(require("../../UserAPI"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Guide\" user=\"", "\"></ag-app-header>\n      <div class=\"page-content\">        \n        <h1>Guide</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Guide\" user=\"", "\"></ag-app-header>\n      <div class=\"page-content\">        \n        <h1>Guide</h1>\n        <p>Page content ...</p>\n                <sl-button class=\"anim-in\" @click=", ">Go To Home</sl-button>\n\n      </div>      \n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14086,10 +14195,22 @@ class GuideView {
     this.render();
 
     _Utils.default.pageIntroAnim();
+
+    this.updateCurrentUser();
+  }
+
+  async updateCurrentUser() {
+    try {
+      const updatedUser = await _UserAPI.default.updateUser(_Auth.default.currentUser._id, {
+        newUser: false
+      }, 'json');
+    } catch (err) {
+      _Toast.default.show(err, 'error');
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), () => (0, _Router.gotoRoute)('/'));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14098,7 +14219,7 @@ class GuideView {
 var _default = new GuideView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"Router.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../UserAPI":"UserAPI.js","../../Toast":"Toast.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14417,7 +14538,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63429" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65334" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
