@@ -46,7 +46,7 @@ class EditProfileView {
     if (result.error) {
       Toast.show(result.message, "danger");
     } else {
-      Toast.show("Profile updated", "success");
+      localStorage.setItem("toastMessage", "Profile updated");
       window.location.href = "/profile";
     }
   }

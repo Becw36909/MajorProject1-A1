@@ -4,18 +4,18 @@ import {gotoRoute, anchorRoute} from './../../Router'
 import Auth from './../../Auth'
 import Utils from './../../Utils'
 
-class TemplateView {
+class GuideView {
   init(){
-    document.title = 'Template'    
+    document.title = 'Guide Page'    
     this.render()    
     Utils.pageIntroAnim()
   }
 
   render(){
     const template = html`
-      <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
+      <ag-app-header title="Guide" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
       <div class="page-content">        
-        <h1>Page title</h1>
+        <h1>Guide</h1>
         <p>Page content ...</p>
         
       </div>      
@@ -25,4 +25,4 @@ class TemplateView {
 }
 
 
-export default new TemplateView()
+export default new GuideView()

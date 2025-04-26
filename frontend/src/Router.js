@@ -5,6 +5,10 @@ import signinView from './views/pages/signin'
 import signupView from './views/pages/signup'
 import profileView from './views/pages/profile'
 import editProfileView from './views/pages/editProfile'
+import horsesView from './views/pages/horses'
+import requestsView from './views/pages/requests'
+import calendarView from './views/pages/calendar'
+import guideView from './views/pages/guide'
 
 // define routes
 const routes = {
@@ -13,7 +17,14 @@ const routes = {
 	'/signin': signinView,
 	'/signup': signupView,
 	'/profile': profileView,
-	'/editProfile': editProfileView	
+	'/editProfile': editProfileView,
+	'/horses': horsesView, 
+	'/requests': requestsView, 
+	'/calendar': calendarView, 
+	'/guide': guideView, 
+
+
+	
 }
 
 class Router {

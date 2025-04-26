@@ -17,7 +17,7 @@ class AgAppHeader extends HTMLElement {
     const template = html`
       <header class="app-header">
         <div class="app-header-left">
-          <img class="logo" src="/images/logo.svg" @click=${() => gotoRoute('/')} style="cursor: pointer;" />
+          <img class="logo" src="/images/agistease-logo.svg" @click=${() => gotoRoute('/')} style="cursor: pointer;" />
         </div>
         <div class="app-header-right">
           ${Auth.currentUser ? html`

@@ -8,7 +8,7 @@ import Toast from "../../Toast";
 class SignUpView {
   init() {
     console.log("SignUpView.init");
-    document.title = "Sign In";
+    document.title = "Sign Up";
     this.render();
     Utils.pageIntroAnim();
   }
@@ -59,7 +59,7 @@ class SignUpView {
     const template = html`
       <div class="page-content page-centered">
         <div class="signinup-box">
-          <img class="signinup-logo" src="/images/logo.svg" />
+          <img class="signinup-logo" src="/images/agistease-logo.svg" />
           <form class="form-signup dark-theme" id="signup-form">
             <sl-input
               name="firstName"

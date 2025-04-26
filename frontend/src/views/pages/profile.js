@@ -4,9 +4,16 @@ import {gotoRoute, anchorRoute} from './../../Router'
 import Auth from './../../Auth'
 import Utils from './../../Utils'
 import moment from 'moment'
+import Toast from "../../Toast";
+
 
 class ProfileView {
   init(){
+    const toastMessage = localStorage.getItem('toastMessage');
+    if (toastMessage) {
+      Toast.show(toastMessage);
+      localStorage.removeItem('toastMessage');
+    }
     console.log('ProfileView.init')
     document.title = 'Profile'    
     this.render()    

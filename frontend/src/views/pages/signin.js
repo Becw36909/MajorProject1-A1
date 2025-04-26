@@ -44,7 +44,7 @@ class SignInView {
     const template = html`
       <div class="page-content page-centered">
         <div class="signinup-box">
-          <img class="signinup-logo" src="/images/logo.svg" />
+          <img class="signinup-logo" src="/images/agistease-logo.svg" />
           <form class="form-signin dark-theme" id="signin-form">
             <sl-input
               name="email"

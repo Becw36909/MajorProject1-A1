@@ -7684,7 +7684,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Home\" user=", "></ag-app-header>\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">View Profile</sl-button>\n                    <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n        \n      </div>\n     \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Home\"\n        user=", "\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >View Profile</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >My Horses</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Request Services</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Calendar</sl-button\n        >\n\n        <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7697,15 +7697,15 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class HomeView {
   init() {
-    console.log('HomeView.init');
-    document.title = 'Home';
+    console.log("HomeView.init");
+    document.title = "Home";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)('/profile'), () => _Auth.default.signOut(), _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"), () => _Auth.default.signOut(), _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -7780,7 +7780,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/logo.svg\" />\n          <form class=\"form-signin dark-theme\" id=\"signin-form\">\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-button type=\"submit\" variant=\"primary\">Sign In</sl-button>\n          </form>\n          <p>\n            Don\u2019t have an account?\n            <a href=\"/signup\" @click=", ">Sign Up</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/agistease-logo.svg\" />\n          <form class=\"form-signin dark-theme\" id=\"signin-form\">\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-button type=\"submit\" variant=\"primary\">Sign In</sl-button>\n          </form>\n          <p>\n            Don\u2019t have an account?\n            <a href=\"/signup\" @click=", ">Sign Up</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7868,7 +7868,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/logo.svg\" />\n          <form class=\"form-signup dark-theme\" id=\"signup-form\">\n            <sl-input\n              name=\"firstName\"\n              id=\"firstName\"\n              label=\"First Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"lastName\"\n              id=\"lastName\"\n              label=\"Last Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-radio-group name=\"accessLevel\" label=\"I am a:\" required>\n              <sl-radio value=\"user\">Horse Owner</sl-radio>\n              <sl-radio value=\"admin\">Stable Manager</sl-radio>\n            </sl-radio-group>\n            <sl-button type=\"submit\" variant=\"primary\">Sign Up</sl-button>\n          </form>\n          <p>\n            Already registered?\n            <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/agistease-logo.svg\" />\n          <form class=\"form-signup dark-theme\" id=\"signup-form\">\n            <sl-input\n              name=\"firstName\"\n              id=\"firstName\"\n              label=\"First Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"lastName\"\n              id=\"lastName\"\n              label=\"Last Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-radio-group name=\"accessLevel\" label=\"I am a:\" required>\n              <sl-radio value=\"user\">Horse Owner</sl-radio>\n              <sl-radio value=\"admin\">Stable Manager</sl-radio>\n            </sl-radio-group>\n            <sl-button type=\"submit\" variant=\"primary\">Sign Up</sl-button>\n          </form>\n          <p>\n            Already registered?\n            <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7882,7 +7882,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 class SignUpView {
   init() {
     console.log("SignUpView.init");
-    document.title = "Sign In";
+    document.title = "Sign Up";
     this.render();
 
     _Utils.default.pageIntroAnim();
@@ -13627,6 +13627,8 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject3() {
@@ -13663,6 +13665,14 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class ProfileView {
   init() {
+    const toastMessage = localStorage.getItem('toastMessage');
+
+    if (toastMessage) {
+      _Toast.default.show(toastMessage);
+
+      localStorage.removeItem('toastMessage');
+    }
+
     console.log('ProfileView.init');
     document.title = 'Profile';
     this.render();
@@ -13680,7 +13690,7 @@ class ProfileView {
 var _default = new ProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js"}],"UserAPI.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js"}],"UserAPI.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13860,8 +13870,7 @@ class EditProfileView {
     if (result.error) {
       _Toast.default.show(result.message, "danger");
     } else {
-      _Toast.default.show("Profile updated", "success");
-
+      localStorage.setItem("toastMessage", "Profile updated");
       window.location.href = "/profile";
     }
   }
@@ -13883,7 +13892,213 @@ class EditProfileView {
 var _default = new EditProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"Router.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"views/pages/horses.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("./../../Router");
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the Horses view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class HorsesView {
+  init() {
+    console.log('HorseView.init');
+    document.title = 'Horses';
+    this.render();
+
+    _Utils.default.pageIntroAnim(); // is this necessary??  
+
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new HorsesView();
+
+exports.default = _default;
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/requests.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("./../../Router");
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the request services view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class RequestsView {
+  init() {
+    console.log('requestsView.init');
+    document.title = 'Request Services';
+    this.render();
+
+    _Utils.default.pageIntroAnim(); // is this necessary??  
+
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new RequestsView();
+
+exports.default = _default;
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/calendar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("./../../Router");
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the calendar view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class CalendarView {
+  init() {
+    console.log('calendarView.init');
+    document.title = 'Calendar';
+    this.render();
+
+    _Utils.default.pageIntroAnim(); // is this necessary??  
+
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new CalendarView();
+
+exports.default = _default;
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/guide.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("./../../Router");
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Guide\" user=\"", "\"></ag-app-header>\n      <div class=\"page-content\">        \n        <h1>Guide</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class GuideView {
+  init() {
+    document.title = 'Guide Page';
+    this.render();
+
+    _Utils.default.pageIntroAnim();
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser));
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new GuideView();
+
+exports.default = _default;
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13905,6 +14120,14 @@ var _profile = _interopRequireDefault(require("./views/pages/profile"));
 
 var _editProfile = _interopRequireDefault(require("./views/pages/editProfile"));
 
+var _horses = _interopRequireDefault(require("./views/pages/horses"));
+
+var _requests = _interopRequireDefault(require("./views/pages/requests"));
+
+var _calendar = _interopRequireDefault(require("./views/pages/calendar"));
+
+var _guide = _interopRequireDefault(require("./views/pages/guide"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import views
@@ -13915,7 +14138,11 @@ const routes = {
   '/signin': _signin.default,
   '/signup': _signup.default,
   '/profile': _profile.default,
-  '/editProfile': _editProfile.default
+  '/editProfile': _editProfile.default,
+  '/horses': _horses.default,
+  '/requests': _requests.default,
+  '/calendar': _calendar.default,
+  '/guide': _guide.default
 };
 
 class Router {
@@ -13969,7 +14196,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14043,7 +14270,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <header class=\"app-header\">\n        <div class=\"app-header-left\">\n          <img class=\"logo\" src=\"/images/logo.svg\" @click=", " style=\"cursor: pointer;\" />\n        </div>\n        <div class=\"app-header-right\">\n          ", "\n        </div>\n      </header>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <header class=\"app-header\">\n        <div class=\"app-header-left\">\n          <img class=\"logo\" src=\"/images/agistease-logo.svg\" @click=", " style=\"cursor: pointer;\" />\n        </div>\n        <div class=\"app-header-right\">\n          ", "\n        </div>\n      </header>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14190,7 +14417,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61730" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63429" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
