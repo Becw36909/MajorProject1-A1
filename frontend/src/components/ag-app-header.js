@@ -1,7 +1,7 @@
-// frontend/src/components/ag-app-header.js
 import { html, render } from 'lit-html'
 import { anchorRoute, gotoRoute } from '../Router'
 import Auth from '../Auth'
+
 
 class AgAppHeader extends HTMLElement {
   connectedCallback() {

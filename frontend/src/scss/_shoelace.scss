@@ -6,6 +6,12 @@ sl-dialog::part(title){
   font-size: 1.6em;
 }
 
+// turn off disabled icon on sl-panel bar hover
+sl-split-panel::part(divider) {
+  pointer-events: none;
+  cursor: default;
+}
+
 
 // RESPONSIVE - MOBILE -------------------
 @media all and (max-width: 768px){ 

@@ -1,28 +1,31 @@
-import App from './../../App'
-import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute} from './../../Router'
-import Auth from './../../Auth'
-import Utils from './../../Utils'
+import App from "./../../App";
+import { html, render } from "lit-html";
+import { gotoRoute, anchorRoute } from "./../../Router";
+import Auth from "./../../Auth";
+import Utils from "./../../Utils";
 
 class TemplateView {
-  init(){
-    document.title = 'Template'    
-    this.render()    
-    Utils.pageIntroAnim()
+  init() {
+    document.title = "Template";
+    this.render();
+    Utils.pageIntroAnim();
   }
 
-  render(){
+  render() {
     const template = html`
-      <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
-      <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
-        
-      </div>      
-    `
-    render(template, App.rootEl)
+      <div class="dashboard-wrapper">
+        <ag-app-sidebar></ag-app-sidebar>
+        <div class="main-content">
+          <ag-topbar></ag-topbar>
+          <div class="page-content">
+            <h1>Page title</h1>
+            <p>Page content goes here...</p>
+          </div>
+        </div>
+      </div>
+    `;
+    render(template, App.rootEl);
   }
 }
 
-
-export default new TemplateView()
+export default new TemplateView();

@@ -9,6 +9,7 @@
   --app-header-height: 60px;
   --app-header-txt-color: #fff;
   --app-header-title-font-size: 1.6em;
+  --app-sidebar-bg: #5A3E2B;
   --sl-color-primary-50: #f4f4f4;
   --sl-color-primary-100: #daf4f2;
   --sl-color-primary-200: #b2e9e4;
@@ -153,6 +154,11 @@ sl-dialog::part(title) {
   font-size: 1.6em;
 }
 
+sl-split-panel::part(divider) {
+  pointer-events: none;
+  cursor: default;
+}
+
 @media all and (max-width: 768px) {
   sl-dialog::part(panel) {
     width: 100%;
@@ -187,6 +193,17 @@ sl-dialog::part(title) {
 .toast-entry.is-error {
   background: #d4195d;
   color: #fff;
+}
+
+.dashboard-main {
+  padding: 2rem;
+  background: #f7f1df;
+  min-height: 100%;
+}
+
+.page-content {
+  overflow-y: auto;
+  background: #f7f1df;
 }
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

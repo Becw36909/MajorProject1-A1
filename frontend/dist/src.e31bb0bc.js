@@ -14240,7 +14240,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div style=\"display: flex; height: 100vh; overflow: hidden;\">\n        <ag-app-sidebar></ag-app-sidebar>\n\n        <div style=\"flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto;\">\n          <ag-topbar></ag-topbar> <!-- Topbar should only be inside content side -->\n\n          <div class=\"page-content\" style=\"padding: 2rem;\">\n            <h1 class=\"anim-in\">Welcome, Admin ", "!</h1>\n\n            <h3>Quick Links:</h3>\n            <sl-button class=\"anim-in\" @click=", ">View Profile</sl-button>\n            <sl-button class=\"anim-in\" @click=", ">Manage Horses</sl-button>\n            <sl-button class=\"anim-in\" @click=", ">Manage Requests</sl-button>\n            <sl-button class=\"anim-in\" @click=", ">View Calendar</sl-button>\n\n            <p>&nbsp;</p>\n            <h3>Quick Links (Anchor Links):</h3>\n            <a href=\"/profile\" @click=", ">View Profile</a>\n          </div>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"dashboard-layout\">\n        <ag-app-sidebar></ag-app-sidebar>\n\n        <div class=\"dashboard-content\">\n          <ag-topbar></ag-topbar>\n\n          <div class=\"page-content\">\n            <h1>Welcome, ", "!</h1>\n\n            <h3>Quick Links:</h3>\n            <div class=\"dashboard-buttons\">\n              <sl-button @click=", ">View Profile</sl-button>\n              <sl-button @click=", ">Manage Horses</sl-button>\n              <sl-button @click=", ">Manage Requests</sl-button>\n              <sl-button @click=", ">View Calendar</sl-button>\n            </div>\n          </div>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14253,14 +14253,14 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class AdminDashboardView {
   init() {
-    document.title = "Dashboard";
+    document.title = "Admin Dashboard";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"), _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14290,7 +14290,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Profile\" user=\"", "\"></ag-app-header>\n      <div class=\"page-content\">        \n        <h1>Page title</h1>\n        <p>Page content ...</p>\n        \n      </div>      \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <sl-split-panel position-in-pixels=\"275\" style=\" --min: 200px; --max: 300px;\" disabled>\n        <div slot=\"start\" style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\">\n          <ag-app-sidebar></ag-app-sidebar>\n        </div>\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 200px;\" disabled>\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n            <div slot=\"end\" style=\"height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;\">\n              <h1>Welcome, ", "</h1>\n              <p>This will be your Admin Dashboard page content.</p>\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14303,14 +14303,14 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class DashboardView {
   init() {
-    document.title = 'Template';
+    document.title = 'Dashboard | AgistEase';
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser));
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -15958,128 +15958,21 @@ Object.keys(_isServer).forEach(function (key) {
     }
   });
 });
-},{"@lit/reactive-element":"../node_modules/@lit/reactive-element/reactive-element.js","lit-html":"../node_modules/lit/node_modules/lit-html/lit-html.js","lit-element/lit-element.js":"../node_modules/lit-element/lit-element.js","lit-html/is-server.js":"../node_modules/lit/node_modules/lit-html/is-server.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-loader.js":[function(require,module,exports) {
-var getBundleURL = require('./bundle-url').getBundleURL;
-
-function loadBundlesLazy(bundles) {
-  if (!Array.isArray(bundles)) {
-    bundles = [bundles];
-  }
-
-  var id = bundles[bundles.length - 1];
-
-  try {
-    return Promise.resolve(require(id));
-  } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
-      return new LazyPromise(function (resolve, reject) {
-        loadBundles(bundles.slice(0, -1)).then(function () {
-          return require(id);
-        }).then(resolve, reject);
-      });
-    }
-
-    throw err;
-  }
-}
-
-function loadBundles(bundles) {
-  return Promise.all(bundles.map(loadBundle));
-}
-
-var bundleLoaders = {};
-
-function registerBundleLoader(type, loader) {
-  bundleLoaders[type] = loader;
-}
-
-module.exports = exports = loadBundlesLazy;
-exports.load = loadBundles;
-exports.register = registerBundleLoader;
-var bundles = {};
-
-function loadBundle(bundle) {
-  var id;
-
-  if (Array.isArray(bundle)) {
-    id = bundle[1];
-    bundle = bundle[0];
-  }
-
-  if (bundles[bundle]) {
-    return bundles[bundle];
-  }
-
-  var type = (bundle.substring(bundle.lastIndexOf('.') + 1, bundle.length) || bundle).toLowerCase();
-  var bundleLoader = bundleLoaders[type];
-
-  if (bundleLoader) {
-    return bundles[bundle] = bundleLoader(getBundleURL() + bundle).then(function (resolved) {
-      if (resolved) {
-        module.bundle.register(id, resolved);
-      }
-
-      return resolved;
-    }).catch(function (e) {
-      delete bundles[bundle];
-      throw e;
-    });
-  }
-}
-
-function LazyPromise(executor) {
-  this.executor = executor;
-  this.promise = null;
-}
-
-LazyPromise.prototype.then = function (onSuccess, onError) {
-  if (this.promise === null) this.promise = new Promise(this.executor);
-  return this.promise.then(onSuccess, onError);
-};
-
-LazyPromise.prototype.catch = function (onError) {
-  if (this.promise === null) this.promise = new Promise(this.executor);
-  return this.promise.catch(onError);
-};
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/ag-app-sidebar.js":[function(require,module,exports) {
+},{"@lit/reactive-element":"../node_modules/@lit/reactive-element/reactive-element.js","lit-html":"../node_modules/lit/node_modules/lit-html/lit-html.js","lit-element/lit-element.js":"../node_modules/lit-element/lit-element.js","lit-html/is-server.js":"../node_modules/lit/node_modules/lit-html/is-server.js"}],"components/ag-app-sidebar.js":[function(require,module,exports) {
 "use strict";
 
 var _lit = require("lit");
 
+var _Router = require("../Router");
+
+var _Auth = _interopRequireDefault(require("../Auth"));
+
+var _Utils = _interopRequireDefault(require("../Utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    aside {\n      width: 250px;\n      background-color: #faf3e0;\n      height: 100vh;\n      position: fixed;\n      left: 0;\n      top: 0;\n      padding: 1rem;\n      box-shadow: 2px 0 5px rgba(0,0,0,0.1);\n    }\n    nav a {\n      display: block;\n      margin: 1rem 0;\n      color: #5a3e2b;\n      font-weight: bold;\n      text-decoration: none;\n    }\n    nav a:hover {\n      text-decoration: underline;\n    }\n    .logo {\n      margin-bottom: 2rem;\n      font-size: 1.5rem;\n      font-weight: bold;\n      color: #6b8e23;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 280px;\n      height: 100vh;\n      background-color: var(--sl-color-neutral-100);\n      border-right: 1px solid var(--sl-color-neutral-200);\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 2rem 1rem;\n      box-sizing: border-box;\n    }\n\n    .profile-pic {\n      width: 120px;\n      height: 120px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 1rem;\n    }\n\n    .user-name {\n      font-weight: bold;\n      margin-bottom: 2rem;\n      text-align: center;\n    }\n\n    sl-button {\n      width: 100%;\n      margin-bottom: 1rem;\n    }\n  "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16089,7 +15982,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <aside>\n        <div class=\"logo\">AgistEase</div>\n        <nav>\n          <a href=\"/adminDashboard\" @click=", ">Dashboard</a>\n          <a href=\"/horses\" @click=", ">Horses</a>\n          <a href=\"/requests\" @click=", ">Service Requests</a>\n          <a href=\"/calendar\" @click=", ">Calendar</a>\n          <a href=\"/profile\" @click=", ">Profile</a>\n          <a href=\"/\" @click=", ">Sign Out</a>\n        </nav>\n      </aside>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <img \n        class=\"profile-pic\" \n        src=\"/images/", "\" \n        alt=\"Profile Picture\"\n      />\n      <div class=\"user-name\">", " ", "</div>\n\n      <sl-button variant=\"text\" @click=", ">Profile</sl-button>\n      <sl-button variant=\"text\" @click=", ">Horses</sl-button>\n      <sl-button variant=\"text\" @click=", ">Requests</sl-button>\n      <sl-button variant=\"text\" @click=", ">Calendar</sl-button>\n      <sl-button variant=\"danger\" @click=", ">Sign Out</sl-button>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16103,23 +15996,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class AgAppSidebar extends _lit.LitElement {
-  navigate(e) {
-    e.preventDefault();
-    const href = e.target.getAttribute('href');
-    history.pushState(null, null, href);
-    window.dispatchEvent(new Event('popstate'));
-  }
-
-  signOut(e) {
-    e.preventDefault();
-
-    require("_bundle_loader")(require.resolve('../Auth')).then(Auth => {
-      Auth.default.signOut();
-    });
-  }
-
   render() {
-    return (0, _lit.html)(_templateObject(), this.navigate, this.navigate, this.navigate, this.navigate, this.navigate, this.signOut);
+    const user = _Auth.default.currentUser;
+    return (0, _lit.html)(_templateObject(), (user === null || user === void 0 ? void 0 : user.profileImage) || 'default-profile.png', user === null || user === void 0 ? void 0 : user.firstName, user === null || user === void 0 ? void 0 : user.lastName, () => (0, _Router.gotoRoute)('/profile'), () => (0, _Router.gotoRoute)('/horses'), () => (0, _Router.gotoRoute)('/requests'), () => (0, _Router.gotoRoute)('/calendar'), () => _Auth.default.signOut());
   }
 
 }
@@ -16127,13 +16006,13 @@ class AgAppSidebar extends _lit.LitElement {
 _defineProperty(AgAppSidebar, "styles", (0, _lit.css)(_templateObject2()));
 
 customElements.define('ag-app-sidebar', AgAppSidebar);
-},{"lit":"../node_modules/lit/index.js","_bundle_loader":"../node_modules/parcel-bundler/src/builtins/bundle-loader.js","../Auth":[["src.e31bb0bc.js","index.js"],"src.e31bb0bc.js.map","src.e31bb0bc.css","Auth.js"]}],"components/ag-topbar.js":[function(require,module,exports) {
+},{"lit":"../node_modules/lit/index.js","../Router":"Router.js","../Auth":"Auth.js","../Utils":"Utils.js"}],"components/ag-topbar.js":[function(require,module,exports) {
 "use strict";
 
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 100px; /* Adgust height as needed */\n      background-image: url('/images/IMG_0745.JPG'); \n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url('/images/IMG_0745.JPG'); \n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* subtle drop shadow */\n\n    }\n  "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16166,7 +16045,39 @@ class AgTopbar extends _lit.LitElement {
 _defineProperty(AgTopbar, "styles", (0, _lit.css)(_templateObject2()));
 
 customElements.define('ag-topbar', AgTopbar);
-},{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -16255,7 +16166,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53369" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55195" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -16431,49 +16342,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/loaders/browser/css-loader.js":[function(require,module,exports) {
-module.exports = function loadCSSBundle(bundle) {
-  return new Promise(function (resolve, reject) {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = bundle;
-
-    link.onerror = function (e) {
-      link.onerror = link.onload = null;
-      reject(e);
-    };
-
-    link.onload = function () {
-      link.onerror = link.onload = null;
-      resolve();
-    };
-
-    document.getElementsByTagName('head')[0].appendChild(link);
-  });
-};
-},{}],"../node_modules/parcel-bundler/src/builtins/loaders/browser/js-loader.js":[function(require,module,exports) {
-module.exports = function loadJSBundle(bundle) {
-  return new Promise(function (resolve, reject) {
-    var script = document.createElement('script');
-    script.async = true;
-    script.type = 'text/javascript';
-    script.charset = 'utf-8';
-    script.src = bundle;
-
-    script.onerror = function (e) {
-      script.onerror = script.onload = null;
-      reject(e);
-    };
-
-    script.onload = function () {
-      script.onerror = script.onload = null;
-      resolve();
-    };
-
-    document.getElementsByTagName('head')[0].appendChild(script);
-  });
-};
-},{}],0:[function(require,module,exports) {
-var b=require("../node_modules/parcel-bundler/src/builtins/bundle-loader.js");b.register("css",require("../node_modules/parcel-bundler/src/builtins/loaders/browser/css-loader.js"));b.register("js",require("../node_modules/parcel-bundler/src/builtins/loaders/browser/js-loader.js"));
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js",0,"index.js"], null)
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/src.e31bb0bc.js.map

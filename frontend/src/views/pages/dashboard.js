@@ -6,19 +6,29 @@ import Utils from './../../Utils'
 
 class DashboardView {
   init(){
-    document.title = 'Template'    
+    document.title = 'Dashboard | AgistEase';
     this.render()    
     Utils.pageIntroAnim()
   }
 
   render(){
     const template = html`
-      <ag-app-header title="Profile" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
-      <div class="page-content">        
-        <h1>Page title</h1>
-        <p>Page content ...</p>
-        
-      </div>      
+      <sl-split-panel position-in-pixels="275" style=" --min: 200px; --max: 300px;" disabled>
+        <div slot="start" style=" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;">
+          <ag-app-sidebar></ag-app-sidebar>
+        </div>
+        <div slot="end">
+          <sl-split-panel vertical style="height: 200px;" disabled>
+            <div slot="start" style="height: 100px; overflow: hidden;">
+              <ag-topbar></ag-topbar>
+            </div>
+            <div slot="end" style="height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;">
+              <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+              <p>This will be your Admin Dashboard page content.</p>
+            </div>
+          </sl-split-panel>
+        </div>
+      </sl-split-panel>
     `
     render(template, App.rootEl)
   }
