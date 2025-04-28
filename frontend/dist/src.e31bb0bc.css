@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,300;0,500;1,100;1,200;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 :root {
   --base-txt-color: #222;
   --heading-color: #333;
-  --base-font-family: "Work Sans", sans-serif;
+  --base-font-family: "Quicksand", sans-serif;
+  --ag-logo-font-family: "Playfair Display", serif;
   --body-bg: #fff;
   --brand-color: #3cc6b9;
   --link-color: --brand-color;
@@ -157,6 +160,7 @@ sl-dialog::part(title) {
 sl-split-panel::part(divider) {
   pointer-events: none;
   cursor: default;
+  background-color: #FAF3E0;
 }
 
 @media all and (max-width: 768px) {

@@ -7691,7 +7691,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Home\"\n        user=", "\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >View Profile</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >My Horses</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Request Services</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Calendar</sl-button\n        >\n\n        <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Home\"\n        user=", "\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >View Profile</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >My Horses</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Request Services</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Calendar</sl-button\n        >\n\n                <sl-button class=\"anim-in\" @click=", "\n          >DASHBOARD</sl-button\n        >\n\n        <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7712,7 +7712,7 @@ class HomeView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"), () => _Auth.default.signOut(), _Router.anchorRoute);
+    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"), () => (0, _Router.gotoRoute)("/dashboard"), () => _Auth.default.signOut(), _Router.anchorRoute);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -15971,8 +15971,18 @@ var _Utils = _interopRequireDefault(require("../Utils"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject3() {
+  const data = _taggedTemplateLiteral([" <sl-avatar label=\"Default User\"> </sl-avatar> "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 280px;\n      height: 100vh;\n      background-color: var(--sl-color-neutral-100);\n      border-right: 1px solid var(--sl-color-neutral-200);\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 2rem 1rem;\n      box-sizing: border-box;\n    }\n\n    .profile-pic {\n      width: 120px;\n      height: 120px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 1rem;\n    }\n\n    .user-name {\n      font-weight: bold;\n      margin-bottom: 2rem;\n      text-align: center;\n    }\n\n    sl-button {\n      width: 100%;\n      margin-bottom: 1rem;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n              <sl-avatar\n                image=\"/images/", "\"\n                label=\"Profile Image\"\n              >\n              </sl-avatar>\n            "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -15982,7 +15992,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <img \n        class=\"profile-pic\" \n        src=\"/images/", "\" \n        alt=\"Profile Picture\"\n      />\n      <div class=\"user-name\">", " ", "</div>\n\n      <sl-button variant=\"text\" @click=", ">Profile</sl-button>\n      <sl-button variant=\"text\" @click=", ">Horses</sl-button>\n      <sl-button variant=\"text\" @click=", ">Requests</sl-button>\n      <sl-button variant=\"text\" @click=", ">Calendar</sl-button>\n      <sl-button variant=\"danger\" @click=", ">Sign Out</sl-button>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <style>\n        :host {\n          display: block;\n          width: 280px;\n          height: 100vh;\n          background-color: var(--app-sidebar-bg);\n          display: flex;\n          flex-direction: column;\n          align-items: left;\n          padding: 2rem 1rem;\n          box-sizing: border-box;\n        }\n\n        .logo {\n          text-align: center;\n          margin-bottom: 2rem;\n        }\n\n        .logo img {\n          width: 120px;\n        }\n\n        .logo-text {\n        font-family: 'Playfair Display', serif;\n        font-weight: 600;\n                  font-size: 3rem;\n                  color: #E8C872;\n\n        }\n\n        .profile {\n          text-align: center;\n          margin-bottom: 2rem;\n        }\n\n        sl-avatar {\n          --size: 70px;\n          margin-bottom: 0.5rem;\n        }\n\n        .sidebar-links {\n          display: flex;\n          flex-direction: column;\n          gap: 1.2rem;\n          padding: 1rem 0;\n        }\n\n        .sidebar-links a {\n                  color: #E8C872;\n          text-decoration: none;\n          font-size: 1.2rem;\n          transition: 0.2s;\n        }\n\n        .sidebar-links a:hover,\n        .sidebar-links a.active {\n          font-weight: bold;\n          text-decoration: underline;\n        }\n      </style>\n\n      <div class=\"logo\"><a href=\"/\" @click=", ">\n        <img src=\"/images/horse-head.svg\" alt=\"AgistEase Logo\" />\n        <div class=\"logo-text\">AgistEase</div></a>\n      </div>\n\n      <div class=\"profile\">\n        ", "\n        <div>", "</div>\n      </div>\n\n      <nav class=\"sidebar-links\">\n        <a href=\"/\" @click=", ">Home/Dashboard</a>\n        <a href=\"/horses\" @click=", ">My Horses</a>\n        <a href=\"/requests\" @click=", ">Request Services</a>\n\n        <a href=\"/profile\" @click=", ">My Profile</a>\n        <a href=\"/calendar\" @click=", ">Calendar</a>\n\n        <a href=\"#\" @click=", ">Sign Out</a>\n      </nav>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -15993,19 +16003,40 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 class AgAppSidebar extends _lit.LitElement {
+  constructor() {
+    super();
+  }
+
+  static get properties() {
+    return {
+      user: {
+        type: Object
+      }
+    };
+  }
+
+  firstUpdated() {
+    this.activateCurrentLink();
+  }
+
+  activateCurrentLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a");
+    navLinks.forEach(link => {
+      if (link.pathname === currentPath) {
+        link.classList.add("active");
+      }
+    });
+  }
+
   render() {
-    const user = _Auth.default.currentUser;
-    return (0, _lit.html)(_templateObject(), (user === null || user === void 0 ? void 0 : user.profileImage) || 'default-profile.png', user === null || user === void 0 ? void 0 : user.firstName, user === null || user === void 0 ? void 0 : user.lastName, () => (0, _Router.gotoRoute)('/profile'), () => (0, _Router.gotoRoute)('/horses'), () => (0, _Router.gotoRoute)('/requests'), () => (0, _Router.gotoRoute)('/calendar'), () => _Auth.default.signOut());
+    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, _Auth.default.currentUser.profileImage ? (0, _lit.html)(_templateObject2(), _Auth.default.currentUser.profileImage) : (0, _lit.html)(_templateObject3()), _Auth.default.currentUser.firstName || "", _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut());
   }
 
 }
 
-_defineProperty(AgAppSidebar, "styles", (0, _lit.css)(_templateObject2()));
-
-customElements.define('ag-app-sidebar', AgAppSidebar);
+customElements.define("ag-app-sidebar", AgAppSidebar);
 },{"lit":"../node_modules/lit/index.js","../Router":"Router.js","../Auth":"Auth.js","../Utils":"Utils.js"}],"components/ag-topbar.js":[function(require,module,exports) {
 "use strict";
 
@@ -16166,7 +16197,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55195" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50849" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
