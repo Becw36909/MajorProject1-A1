@@ -7,7 +7,14 @@ import Toast from "../../Toast";
 
 class DashboardView {
   constructor() {
-    this.sidebarRendered = false;
+    this.isMobile = window.innerWidth <= 768;
+    window.addEventListener('resize', () => {
+      const nowMobile = window.innerWidth <= 768;
+      if (nowMobile !== this.isMobile) {
+        this.isMobile = nowMobile;
+        this.render(); // re-render on resize
+      }
+    });
   }
   async init() {
     console.log(Auth.currentUser);
@@ -23,7 +30,28 @@ class DashboardView {
     Utils.pageIntroAnim();
   }
 
+  renderMobile() {
+    const template = html`
+      <div class="mobile-topbar">
+        <ag-topbar .user=${Auth.currentUser}></ag-topbar>
+      </div>
+      <div class="mobile-content" style="padding: 1.5rem;">
+        <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+        <p>This is the mobile version of your Admin Dashboard.</p>
+      </div>
+    `;
+    render(template, App.rootEl);
+  }
+  
+
   render() {
+
+    if (this.isMobile) {
+      this.renderMobile();
+      return;
+    }
+
+
     const template = html`
       <sl-split-panel
         position-in-pixels="275"

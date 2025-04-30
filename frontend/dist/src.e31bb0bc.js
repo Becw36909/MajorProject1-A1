@@ -14291,8 +14291,18 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject() {
+function _templateObject2() {
   const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 200px;\" disabled>\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n            <div\n              slot=\"end\"\n              style=\"height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;\"\n            >\n              <h1>Welcome, ", "</h1>\n              <p>This will be your Admin Dashboard page content.</p>\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <div class=\"mobile-topbar\">\n        <ag-topbar .user=", "></ag-topbar>\n      </div>\n      <div class=\"mobile-content\" style=\"padding: 1.5rem;\">\n        <h1>Welcome, ", "</h1>\n        <p>This is the mobile version of your Admin Dashboard.</p>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14305,7 +14315,15 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class DashboardView {
   constructor() {
-    this.sidebarRendered = false;
+    this.isMobile = window.innerWidth <= 768;
+    window.addEventListener('resize', () => {
+      const nowMobile = window.innerWidth <= 768;
+
+      if (nowMobile !== this.isMobile) {
+        this.isMobile = nowMobile;
+        this.render(); // re-render on resize
+      }
+    });
   }
 
   async init() {
@@ -14324,8 +14342,18 @@ class DashboardView {
     _Utils.default.pageIntroAnim();
   }
 
-  render() {
+  renderMobile() {
     const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, _Auth.default.currentUser.firstName);
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+  render() {
+    if (this.isMobile) {
+      this.renderMobile();
+      return;
+    }
+
+    const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, _Auth.default.currentUser.firstName);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -16140,8 +16168,34 @@ customElements.define("ag-app-sidebar", class AgAppSidebar extends _lit.LitEleme
 
 var _lit = require("lit");
 
+var _Router = require("../Router");
+
+var _Auth = _interopRequireDefault(require("../Auth"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n              <a href=\"/\" @click=", ">Home/Dashboard</a>\n              <a href=\"/dashboard\" @click=", ">Dashboard</a>\n              <a href=\"/horses\" @click=", ">My Horses</a>\n              <a href=\"/requests\" @click=", ">Request Services</a>\n              <a href=\"/profile\" @click=", ">My Profile</a>\n              <a href=\"/calendar\" @click=", ">Calendar</a>\n              <a href=\"#\" @click=", ">Sign Out</a>\n            "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url('/images/IMG_0745.JPG'); \n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* subtle drop shadow */\n\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n              <a href=\"/dashboard\" @click=", ">Admin Dashboard</a>\n              <a href=\"/horses\" @click=", ">Manage Horses</a>\n              <a href=\"/viewRequests\" @click=", ">Service Requests</a>\n              <a href=\"/profile\" @click=", ">My Profile</a>\n              <a href=\"/calendar\" @click=", ">Calendar</a>\n              <a href=\"#\" @click=", ">Sign Out</a>\n            "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16151,7 +16205,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"topbar\"></div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <!-- Desktop: Image topbar -->\n      <div class=\"topbar\"></div>\n\n      <!-- Mobile: Brand and hamburger -->\n      <div class=\"mobile-bar\">\n        <div class=\"logo-wrap\">\n          <img\n            class=\"logo-icon\"\n            src=\"/images/horse-head.svg\"\n            alt=\"AgistEase logo\"\n          />\n          <span class=\"logo-text\">AgistEase</span>\n        </div>\n        <button class=\"hamburger\" @click=", ">\u2630</button>\n      </div>\n\n      <!-- Mobile: Nav links toggle -->\n      <div class=\"nav-links ", "\">\n        ", "\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16165,16 +16219,33 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class AgTopbar extends _lit.LitElement {
+  constructor() {
+    super();
+    this.navOpen = false;
+  }
+
+  toggleNav() {
+    this.navOpen = !this.navOpen;
+  }
+
   render() {
-    return (0, _lit.html)(_templateObject());
+    var _Auth$currentUser;
+
+    return (0, _lit.html)(_templateObject(), this.toggleNav, this.navOpen ? "show" : "", ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin" ? (0, _lit.html)(_templateObject2(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()) : (0, _lit.html)(_templateObject3(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()));
   }
 
 }
 
-_defineProperty(AgTopbar, "styles", (0, _lit.css)(_templateObject2()));
+_defineProperty(AgTopbar, "styles", (0, _lit.css)(_templateObject4()));
 
-customElements.define('ag-topbar', AgTopbar);
-},{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+_defineProperty(AgTopbar, "properties", {
+  navOpen: {
+    type: Boolean
+  }
+});
+
+customElements.define("ag-topbar", AgTopbar);
+},{"lit":"../node_modules/lit/index.js","../Router":"Router.js","../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
