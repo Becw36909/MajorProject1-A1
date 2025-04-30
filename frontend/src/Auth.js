@@ -120,6 +120,7 @@ class Auth {
     // console.log(data)
     // set currentUser obj
     this.currentUser = data.user
+
     // run success
     success()
   }

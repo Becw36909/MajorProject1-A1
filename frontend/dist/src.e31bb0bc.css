@@ -6,24 +6,24 @@
   --heading-color: #333;
   --base-font-family: "Quicksand", sans-serif;
   --ag-logo-font-family: "Playfair Display", serif;
-  --body-bg: #fff;
-  --brand-color: #3cc6b9;
+  --body-bg: #f7f1df;
+  --brand-color: #6b8e23;
   --link-color: --brand-color;
   --app-header-height: 60px;
-  --app-header-txt-color: #fff;
+  --app-header-txt-color: #f7f1df;
   --app-header-title-font-size: 1.6em;
   --app-sidebar-bg: #5A3E2B;
-  --sl-color-primary-50: #f4f4f4;
-  --sl-color-primary-100: #daf4f2;
-  --sl-color-primary-200: #b2e9e4;
-  --sl-color-primary-300: #8bddd5;
-  --sl-color-primary-400: #63d2c7;
-  --sl-color-primary-500: #3cc6b9;
-  --sl-color-primary-600: #2fa096;
-  --sl-color-primary-700: #237971;
-  --sl-color-primary-800: #18514c;
-  --sl-color-primary-900: #0c2a27;
-  --sl-focus-ring-color-primary: rgba(60, 198, 185, 0.1);
+  --sl-color-primary-50: #6b8e23;
+  --sl-color-primary-100: #cce598;
+  --sl-color-primary-200: #b8db6f;
+  --sl-color-primary-300: #a4d146;
+  --sl-color-primary-400: #8ab72d;
+  --sl-color-primary-500: #6b8e23;
+  --sl-color-primary-600: #4c6519;
+  --sl-color-primary-700: #2d3c0f;
+  --sl-color-primary-800: #0f1305;
+  --sl-color-primary-900: black;
+  --sl-focus-ring-color-primary: rgba(107, 142, 35, 0.1);
 }
 
 * {
