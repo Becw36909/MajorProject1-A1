@@ -14269,7 +14269,7 @@ class AdminDashboardView {
 var _default = new AdminDashboardView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/dashboard.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/layouts/BaseView.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14277,22 +14277,69 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _App = _interopRequireDefault(require("./../../App"));
+class BaseView {
+  constructor() {
+    this.isMobile = window.innerWidth <= 768;
+
+    this._onResize = () => {
+      const nowMobile = window.innerWidth <= 768;
+
+      if (nowMobile !== this.isMobile) {
+        this.isMobile = nowMobile;
+        this.render();
+      }
+    };
+
+    window.addEventListener("resize", this._onResize);
+  }
+
+  destroy() {
+    window.removeEventListener("resize", this._onResize);
+  }
+
+}
+
+exports.default = BaseView;
+},{}],"views/layouts/BaseSplitView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("../../App"));
 
 var _litHtml = require("lit-html");
 
-var _Router = require("./../../Router");
+var _Auth = _interopRequireDefault(require("../../Auth"));
 
-var _Auth = _interopRequireDefault(require("./../../Auth"));
-
-var _Utils = _interopRequireDefault(require("./../../Utils"));
-
-var _Toast = _interopRequireDefault(require("../../Toast"));
+var _BaseView = _interopRequireDefault(require("./BaseView"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["<p>[Implement renderMobileContent()]</p>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["<p>[Implement renderContent()]</p>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 200px;\" disabled>\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n            <div\n              slot=\"end\"\n              style=\"height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;\"\n            >\n              <h1>Welcome, ", "</h1>\n              <p>This will be your Admin Dashboard page content.</p>\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 200px;\" disabled>\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n            <div\n              slot=\"end\"\n              style=\"height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14302,7 +14349,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"mobile-topbar\">\n        <ag-topbar .user=", "></ag-topbar>\n      </div>\n      <div class=\"mobile-content\" style=\"padding: 1.5rem;\">\n        <h1>Welcome, ", "</h1>\n        <p>This is the mobile version of your Admin Dashboard.</p>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n        <div class=\"mobile-topbar\">\n          <ag-topbar .user=", "></ag-topbar>\n        </div>\n        <div class=\"mobile-content\" style=\"padding: 1.5rem;\">\n          ", "\n        </div>\n      "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14313,21 +14360,82 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class DashboardView {
+class BaseSplitView extends _BaseView.default {
   constructor() {
-    this.isMobile = window.innerWidth <= 768;
-    window.addEventListener('resize', () => {
-      const nowMobile = window.innerWidth <= 768;
-
-      if (nowMobile !== this.isMobile) {
-        this.isMobile = nowMobile;
-        this.render(); // re-render on resize
-      }
-    });
+    super();
   }
 
-  async init() {
-    console.log(_Auth.default.currentUser);
+  render() {
+    if (this.isMobile) {
+      const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, this.renderMobileContent());
+      (0, _litHtml.render)(template, _App.default.rootEl);
+      return;
+    }
+
+    const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, this.renderContent());
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  } // These methods must be implemented by subclasses:
+
+
+  renderContent() {
+    return (0, _litHtml.html)(_templateObject3());
+  }
+
+  renderMobileContent() {
+    return (0, _litHtml.html)(_templateObject4());
+  }
+
+}
+
+exports.default = BaseSplitView;
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Auth":"Auth.js","./BaseView":"views/layouts/BaseView.js"}],"views/pages/dashboard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _litHtml = require("lit-html");
+
+var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This is the mobile version of your Dashboard.</p>\n    "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This will be your Dashboard page content.</p>\n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class DashboardView extends _BaseSplitView.default {
+  constructor() {
+    super();
+  }
+
+  init() {
     const toastMessage = localStorage.getItem("toastMessage");
 
     if (toastMessage) {
@@ -14342,19 +14450,12 @@ class DashboardView {
     _Utils.default.pageIntroAnim();
   }
 
-  renderMobile() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, _Auth.default.currentUser.firstName);
-    (0, _litHtml.render)(template, _App.default.rootEl);
+  renderContent() {
+    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName);
   }
 
-  render() {
-    if (this.isMobile) {
-      this.renderMobile();
-      return;
-    }
-
-    const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, _Auth.default.currentUser.firstName);
-    (0, _litHtml.render)(template, _App.default.rootEl);
+  renderMobileContent() {
+    return (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser.firstName);
   }
 
 }
@@ -14362,7 +14463,7 @@ class DashboardView {
 var _default = new DashboardView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../Toast":"Toast.js"}],"views/pages/viewRequests.js":[function(require,module,exports) {
+},{"./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js","../layouts/BaseSplitView":"views/layouts/BaseSplitView.js"}],"views/pages/viewRequests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16175,7 +16276,7 @@ var _Auth = _interopRequireDefault(require("../Auth"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n        .logo-wrap a {\n      text-decoration: none;\n    }\n      \n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -16205,7 +16306,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <!-- Desktop: Image topbar -->\n      <div class=\"topbar\"></div>\n\n      <!-- Mobile: Brand and hamburger -->\n      <div class=\"mobile-bar\">\n        <div class=\"logo-wrap\">\n          <img\n            class=\"logo-icon\"\n            src=\"/images/horse-head.svg\"\n            alt=\"AgistEase logo\"\n          />\n          <span class=\"logo-text\">AgistEase</span>\n        </div>\n        <button class=\"hamburger\" @click=", ">\u2630</button>\n      </div>\n\n      <!-- Mobile: Nav links toggle -->\n      <div class=\"nav-links ", "\">\n        ", "\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <!-- Desktop: Image topbar -->\n      <div class=\"topbar\"></div>\n\n      <!-- Mobile: Brand and hamburger -->\n      <div class=\"mobile-bar\">\n        <div class=\"logo-wrap\">\n          <a href=\"/\" @click=", ">\n            <img\n              class=\"logo-icon\"\n              src=\"/images/horse-head.svg\"\n              alt=\"AgistEase logo\"\n            />\n            <span class=\"logo-text\">AgistEase</span></a\n          >\n        </div>\n        <button class=\"hamburger\" @click=", ">\u2630</button>\n      </div>\n\n      <!-- Mobile: Nav links toggle -->\n      <div class=\"nav-links ", "\">\n        ", "\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16231,7 +16332,7 @@ class AgTopbar extends _lit.LitElement {
   render() {
     var _Auth$currentUser;
 
-    return (0, _lit.html)(_templateObject(), this.toggleNav, this.navOpen ? "show" : "", ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin" ? (0, _lit.html)(_templateObject2(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()) : (0, _lit.html)(_templateObject3(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()));
+    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, this.toggleNav, this.navOpen ? "show" : "", ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin" ? (0, _lit.html)(_templateObject2(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()) : (0, _lit.html)(_templateObject3(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()));
   }
 
 }
@@ -16366,7 +16467,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63069" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51682" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

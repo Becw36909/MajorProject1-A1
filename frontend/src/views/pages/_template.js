@@ -1,30 +1,31 @@
-import App from "./../../App";
-import { html, render } from "lit-html";
-import { gotoRoute, anchorRoute } from "./../../Router";
-import Auth from "./../../Auth";
 import Utils from "./../../Utils";
+import Auth from "./../../Auth";
+import BaseSplitView from "../layouts/BaseSplitView";
+import { html } from "lit-html";
 
-class TemplateView {
+class TemplateView extends BaseSplitView {
+  constructor() {
+    super();
+  }
+
   init() {
     document.title = "Template";
     this.render();
     Utils.pageIntroAnim();
   }
 
-  render() {
-    const template = html`
-      <div class="dashboard-wrapper">
-        <ag-app-sidebar></ag-app-sidebar>
-        <div class="main-content">
-          <ag-topbar></ag-topbar>
-          <div class="page-content">
-            <h1>Page title</h1>
-            <p>Page content goes here...</p>
-          </div>
-        </div>
-      </div>
+  renderContent() {
+    return html`
+      <h1>Template View</h1>
+      <p>This is the full-width content area for large screens.</p>
     `;
-    render(template, App.rootEl);
+  }
+
+  renderMobileContent() {
+    return html`
+      <h1>Template View</h1>
+      <p>This is the mobile version of the template view.</p>
+    `;
   }
 }
 

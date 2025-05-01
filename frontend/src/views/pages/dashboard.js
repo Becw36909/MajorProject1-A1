@@ -1,87 +1,38 @@
-import App from "./../../App";
-import { html, render } from "lit-html";
-import { gotoRoute, anchorRoute } from "./../../Router";
-import Auth from "./../../Auth";
 import Utils from "./../../Utils";
+import Auth from "./../../Auth";
 import Toast from "../../Toast";
+import { html } from "lit-html";
+import BaseSplitView from "../layouts/BaseSplitView";
 
-class DashboardView {
+class DashboardView extends BaseSplitView {
   constructor() {
-    this.isMobile = window.innerWidth <= 768;
-    window.addEventListener('resize', () => {
-      const nowMobile = window.innerWidth <= 768;
-      if (nowMobile !== this.isMobile) {
-        this.isMobile = nowMobile;
-        this.render(); // re-render on resize
-      }
-    });
+    super();
   }
-  async init() {
-    console.log(Auth.currentUser);
 
+  init() {
     const toastMessage = localStorage.getItem("toastMessage");
     if (toastMessage) {
       Toast.show(toastMessage);
       localStorage.removeItem("toastMessage");
     }
-    document.title = "Dashboard | AgistEase";
 
+    document.title = "Dashboard | AgistEase";
     this.render();
     Utils.pageIntroAnim();
   }
 
-  renderMobile() {
-    const template = html`
-      <div class="mobile-topbar">
-        <ag-topbar .user=${Auth.currentUser}></ag-topbar>
-      </div>
-      <div class="mobile-content" style="padding: 1.5rem;">
-        <h1>Welcome, ${Auth.currentUser.firstName}</h1>
-        <p>This is the mobile version of your Admin Dashboard.</p>
-      </div>
+  renderContent() {
+    return html`
+      <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+      <p>This will be your Dashboard page content.</p>
     `;
-    render(template, App.rootEl);
   }
-  
 
-  render() {
-
-    if (this.isMobile) {
-      this.renderMobile();
-      return;
-    }
-
-
-    const template = html`
-      <sl-split-panel
-        position-in-pixels="275"
-        style=" --min: 200px; --max: 300px;"
-        disabled
-      >
-        <div
-          slot="start"
-          class="sidebar-panel"
-          style=" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;"
-        >
-          <ag-app-sidebar .user=${Auth.currentUser}></ag-app-sidebar>
-        </div>
-        <div slot="end">
-          <sl-split-panel vertical style="height: 200px;" disabled>
-            <div slot="start" style="height: 100px; overflow: hidden;">
-              <ag-topbar></ag-topbar>
-            </div>
-            <div
-              slot="end"
-              style="height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;"
-            >
-              <h1>Welcome, ${Auth.currentUser.firstName}</h1>
-              <p>This will be your Admin Dashboard page content.</p>
-            </div>
-          </sl-split-panel>
-        </div>
-      </sl-split-panel>
+  renderMobileContent() {
+    return html`
+      <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+      <p>This is the mobile version of your Dashboard.</p>
     `;
-    render(template, App.rootEl);
   }
 }
 

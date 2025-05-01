@@ -67,6 +67,11 @@ class AgTopbar extends LitElement {
       gap: 0.5rem;
     }
 
+        .logo-wrap a {
+      text-decoration: none;
+    }
+      
+
     .logo-icon {
       height: 50px;
       width: auto;
@@ -111,12 +116,14 @@ class AgTopbar extends LitElement {
       <!-- Mobile: Brand and hamburger -->
       <div class="mobile-bar">
         <div class="logo-wrap">
-          <img
-            class="logo-icon"
-            src="/images/horse-head.svg"
-            alt="AgistEase logo"
-          />
-          <span class="logo-text">AgistEase</span>
+          <a href="/" @click=${anchorRoute}>
+            <img
+              class="logo-icon"
+              src="/images/horse-head.svg"
+              alt="AgistEase logo"
+            />
+            <span class="logo-text">AgistEase</span></a
+          >
         </div>
         <button class="hamburger" @click=${this.toggleNav}>☰</button>
       </div>
