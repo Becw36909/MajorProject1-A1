@@ -16,6 +16,8 @@ class AgTileButton extends LitElement {
       width: 180px;
       height: 180px;
       background-color: #d2691e;
+      border: 10px solid #5A3E2B-; /* Border color */
+
       border-radius: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       color: white;
@@ -51,25 +53,22 @@ class AgTileButton extends LitElement {
       height: 48px;
       margin-bottom: 0.8rem;
       object-fit: contain;
-        filter: brightness(0) invert(1); /* Optional: make white if needed */
-
+      filter: brightness(0) invert(1); /* Optional: make white if needed */
     }
 
     .icon-image,
-.icon,
-.circle-image {
-  margin-bottom: 0.4rem; /* was 0.8rem */
-}
-
+    .icon,
+    .circle-image {
+      margin-bottom: 0.4rem; /* was 0.8rem */
+    }
 
     .tile-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
 
     .label {
       font-size: 1.1rem;

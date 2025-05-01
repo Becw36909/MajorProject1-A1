@@ -42,17 +42,25 @@ customElements.define(
     render() {
       return html`
         <style>
-          :host {
-            display: block;
-            width: 280px;
-            height: 100vh;
-            background-color: var(--app-sidebar-bg);
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-            padding: 2rem 1rem;
-            box-sizing: border-box;
-          }
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 280px;
+  height: 100vh;
+  background-color: var(--app-sidebar-bg);
+  box-sizing: border-box;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+
+.sidebar-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 
           .logo {
             text-align: center;
@@ -142,7 +150,7 @@ customElements.define(
           }
 
           .sign-out-btn {
-            margin-top: 3rem;
+            margin-top: auto;
             display: flex;
             justify-content: center;
           }
@@ -174,15 +182,30 @@ customElements.define(
             padding-top: 2.8rem;
           }
 
+          @media (max-height: 900px) {
+  .sidebar-links {
+    gap: 1rem;
+  }
+}
+
+@media (max-height: 790px) {
+  .sidebar-links {
+    gap: 0.8rem;
+  }
+}
           
         </style>
 
+        <div class="sidebar-main">
+  <!-- logo -->
         <div class="logo">
           <a href="/" @click=${anchorRoute}>
             <img src="/images/horse-head.svg" alt="AgistEase Logo" />
             <div class="logo-text">AgistEase</div></a
           >
         </div>
+
+          <!-- profile -->
 
         <div class="profile">
           <a href="/profile" @click=${anchorRoute}>
@@ -203,6 +226,8 @@ customElements.define(
                 `}
           </a>
         </div>
+
+          <!-- links -->
 
         <nav class="sidebar-links">
           ${this.user?.accessLevel === "admin"
@@ -225,14 +250,22 @@ customElements.define(
                 <a href="/calendar" @click=${anchorRoute}>Calendar</a>
               `}
         </nav>
+
+          <!-- sign-out -->
+
         <div class="sign-out-btn">
           <a href="#" @click=${() => Auth.signOut()}
             ><sl-button size="medium" pill>Sign Out</sl-button></a
           >
         </div>
+
+        <!-- footer -->
+
         <div class="sidebar-footer">
           <span>AgistEase v${App.version}</span>
         </div>
+                </div>
+
       `;
     }
   }
