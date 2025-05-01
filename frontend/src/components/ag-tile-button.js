@@ -1,29 +1,30 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from "lit";
+import { anchorRoute, gotoRoute } from "../Router";
 
 class AgTileButton extends LitElement {
   static properties = {
     label: { type: String },
-    image: { type: String }, // Optional: circular image in center
-    icon: { type: String },  // Optional: emoji/character
-    clickable: { type: Boolean },
+    image: { type: String },
+    icon: { type: String },
+    iconImage: { type: String },
+    route: { type: String },
   };
 
   static styles = css`
     :host {
       display: block;
-      width: 160px;
-      height: 160px;
-      background-color: #D2691E;
+      width: 180px;
+      height: 180px;
+      background-color: #d2691e;
       border-radius: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       color: white;
-      font-family: 'Quicksand', sans-serif;
+      font-family: "Quicksand", sans-serif;
       text-align: center;
       padding: 1rem;
       box-sizing: border-box;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
-      margin: 1rem; /* ⬅️ add spacing here */
     }
 
     :host(:hover) {
@@ -45,6 +46,31 @@ class AgTileButton extends LitElement {
       margin-bottom: 0.8rem;
     }
 
+    .icon-image {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.8rem;
+      object-fit: contain;
+        filter: brightness(0) invert(1); /* Optional: make white if needed */
+
+    }
+
+    .icon-image,
+.icon,
+.circle-image {
+  margin-bottom: 0.4rem; /* was 0.8rem */
+}
+
+
+    .tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
     .label {
       font-size: 1.1rem;
       font-weight: 500;
@@ -53,23 +79,37 @@ class AgTileButton extends LitElement {
 
   constructor() {
     super();
-    this.label = '';
-    this.image = '';
-    this.icon = '';
-    this.clickable = true;
+    this.label = "";
+    this.image = "";
+    this.icon = "";
+    this.route = ""; // default: do nothing
+  }
+
+  _handleClick() {
+    if (this.route) {
+      gotoRoute(this.route);
+    }
   }
 
   render() {
     return html`
-      ${this.image
-        ? html`<img class="circle-image" src="${this.image}" alt="Tile image" />`
-        : this.icon
-        ? html`<div class="icon">${this.icon}</div>`
-        : html`<slot></slot>`}
+      <div class="tile-content" @click=${() => gotoRoute(this.route)}>
+        ${this.image
+          ? html`<img
+              class="circle-image"
+              src="${this.image}"
+              alt="Tile image"
+            />`
+          : this.iconImage
+          ? html`<img class="icon-image" src="${this.iconImage}" alt="icon" />`
+          : this.icon
+          ? html`<div class="icon">${this.icon}</div>`
+          : html`<slot></slot>`}
 
-      <div class="label">${this.label}</div>
+        <div class="label">${this.label}</div>
+      </div>
     `;
   }
 }
 
-customElements.define('ag-tile-button', AgTileButton);
+customElements.define("ag-tile-button", AgTileButton);

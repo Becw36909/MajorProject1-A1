@@ -76,7 +76,7 @@ customElements.define(
 
           .profile {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
           }
 
           .profile a {
@@ -152,7 +152,6 @@ customElements.define(
             color: #f7f1df;
             font-family: "Quicksand", sans-serif;
             font-weight: 600;
-            padding: 0.5rem 1rem;
             font-size: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 3px solid #f7f1df;
@@ -172,7 +171,7 @@ customElements.define(
             font-family: "Quicksand", sans-serif;
             color: #f7f1df;
             opacity: 0.7;
-            padding-top: 1rem;
+            padding-top: 2.8rem;
           }
 
           

@@ -14445,7 +14445,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          icon=\"\uD83D\uDC34\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          icon=\"\uD83D\uDD14\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          icon=\"\uD83D\uDC64\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          icon=\"\uD83D\uDCC5\"\n          @click=", "\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td>\n              <td>16:30</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td>\n              <td>8:30</td>\n              <td>Max</td>\n              <td>Lesson</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td>\n              <td>9:00</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td>\n              <td>16:30</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td>\n              <td>8:30</td>\n              <td>Max</td>\n              <td>Lesson</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td>\n              <td>9:00</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14477,7 +14477,7 @@ class DashboardView extends _BaseSplitView.default {
   }
 
   renderContent() {
-    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => _Utils.default.gotoRoute("/horses"), () => _Utils.default.gotoRoute("/requests"), () => _Utils.default.gotoRoute("/profile"), () => _Utils.default.gotoRoute("/calendar"));
+    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName);
   }
 
   renderMobileContent() {
@@ -16240,7 +16240,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n        <style>\n          :host {\n            display: block;\n            width: 280px;\n            height: 100vh;\n            background-color: var(--app-sidebar-bg);\n            display: flex;\n            flex-direction: column;\n            align-items: left;\n            padding: 2rem 1rem;\n            box-sizing: border-box;\n          }\n\n          .logo {\n            text-align: center;\n            margin-bottom: 2rem;\n          }\n\n          .logo a {\n            text-decoration: none;\n          }\n\n          .logo img {\n            width: 100px;\n          }\n\n          .logo-text {\n            font-family: \"Playfair Display\", serif;\n            font-weight: 600;\n            font-size: 2.8rem;\n            color: #e8c872;\n          }\n\n          .profile {\n            text-align: center;\n            margin-bottom: 2rem;\n          }\n\n          .profile a {\n            text-decoration: none;\n          }\n\n          .avatar {\n            width: 120px;\n            height: 120px;\n            border-radius: 50%;\n            border: 3px solid #f7f1df;\n            margin: 0 auto 0.5rem;\n            box-sizing: border-box;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            background-color: #444; /* fallback bg if image fails */\n            background-position: center;\n          }\n\n          .avatar:hover {\n            box-shadow: 0 0 6px #e8c872;\n            cursor: pointer;\n            transform: scale(1.1);\n          }\n\n          .avatar-initials {\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 3rem;\n            font-weight: bold;\n            color: #e8c872;\n            background-color: #6b8e23; /* background behind initials */\n            text-transform: uppercase;\n          }\n\n          .sidebar-links {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            padding: 1rem 0;\n          }\n\n          .sidebar-links a {\n            color: #f7f1df;\n            text-decoration: none;\n            font-size: 1.2rem;\n            padding-left: 1.2rem;\n            font-weight: 400;\n            transition: 0.2s;\n          }\n\n          .sidebar-links a:hover,\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: 600;\n            text-decoration: none;\n          }\n\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: bold;\n            text-decoration: underline;\n          }\n\n          .sign-out-btn {\n            margin-top: 3rem;\n            display: flex;\n            justify-content: center;\n          }\n\n          sl-button::part(base) {\n            background-color: #6b8e23;\n            color: #f7f1df;\n            font-family: \"Quicksand\", sans-serif;\n            font-weight: 600;\n            padding: 0.5rem 1rem;\n            font-size: 1rem;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            border: 3px solid #f7f1df;\n          }\n\n          sl-button::part(base):hover {\n            transform: scale(1.08);\n            box-shadow: 0 0 8px #e8c872;\n            cursor: pointer;\n          }\n\n          .sidebar-footer {\n            margin-top: auto;\n            text-align: center;\n            font-size: 1rem;\n            font-weight: 400;\n            font-family: \"Quicksand\", sans-serif;\n            color: #f7f1df;\n            opacity: 0.7;\n            padding-top: 1rem;\n          }\n\n          \n        </style>\n\n        <div class=\"logo\">\n          <a href=\"/\" @click=", ">\n            <img src=\"/images/horse-head.svg\" alt=\"AgistEase Logo\" />\n            <div class=\"logo-text\">AgistEase</div></a\n          >\n        </div>\n\n        <div class=\"profile\">\n          <a href=\"/profile\" @click=", ">\n            ", "\n          </a>\n        </div>\n\n        <nav class=\"sidebar-links\">\n          ", "\n        </nav>\n        <div class=\"sign-out-btn\">\n          <a href=\"#\" @click=", "\n            ><sl-button size=\"medium\" pill>Sign Out</sl-button></a\n          >\n        </div>\n        <div class=\"sidebar-footer\">\n          <span>AgistEase v", "</span>\n        </div>\n      "]);
+  const data = _taggedTemplateLiteral(["\n        <style>\n          :host {\n            display: block;\n            width: 280px;\n            height: 100vh;\n            background-color: var(--app-sidebar-bg);\n            display: flex;\n            flex-direction: column;\n            align-items: left;\n            padding: 2rem 1rem;\n            box-sizing: border-box;\n          }\n\n          .logo {\n            text-align: center;\n            margin-bottom: 2rem;\n          }\n\n          .logo a {\n            text-decoration: none;\n          }\n\n          .logo img {\n            width: 100px;\n          }\n\n          .logo-text {\n            font-family: \"Playfair Display\", serif;\n            font-weight: 600;\n            font-size: 2.8rem;\n            color: #e8c872;\n          }\n\n          .profile {\n            text-align: center;\n            margin-bottom: 1rem;\n          }\n\n          .profile a {\n            text-decoration: none;\n          }\n\n          .avatar {\n            width: 120px;\n            height: 120px;\n            border-radius: 50%;\n            border: 3px solid #f7f1df;\n            margin: 0 auto 0.5rem;\n            box-sizing: border-box;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            background-color: #444; /* fallback bg if image fails */\n            background-position: center;\n          }\n\n          .avatar:hover {\n            box-shadow: 0 0 6px #e8c872;\n            cursor: pointer;\n            transform: scale(1.1);\n          }\n\n          .avatar-initials {\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 3rem;\n            font-weight: bold;\n            color: #e8c872;\n            background-color: #6b8e23; /* background behind initials */\n            text-transform: uppercase;\n          }\n\n          .sidebar-links {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            padding: 1rem 0;\n          }\n\n          .sidebar-links a {\n            color: #f7f1df;\n            text-decoration: none;\n            font-size: 1.2rem;\n            padding-left: 1.2rem;\n            font-weight: 400;\n            transition: 0.2s;\n          }\n\n          .sidebar-links a:hover,\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: 600;\n            text-decoration: none;\n          }\n\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: bold;\n            text-decoration: underline;\n          }\n\n          .sign-out-btn {\n            margin-top: 3rem;\n            display: flex;\n            justify-content: center;\n          }\n\n          sl-button::part(base) {\n            background-color: #6b8e23;\n            color: #f7f1df;\n            font-family: \"Quicksand\", sans-serif;\n            font-weight: 600;\n            font-size: 1rem;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            border: 3px solid #f7f1df;\n          }\n\n          sl-button::part(base):hover {\n            transform: scale(1.08);\n            box-shadow: 0 0 8px #e8c872;\n            cursor: pointer;\n          }\n\n          .sidebar-footer {\n            margin-top: auto;\n            text-align: center;\n            font-size: 1rem;\n            font-weight: 400;\n            font-family: \"Quicksand\", sans-serif;\n            color: #f7f1df;\n            opacity: 0.7;\n            padding-top: 2.8rem;\n          }\n\n          \n        </style>\n\n        <div class=\"logo\">\n          <a href=\"/\" @click=", ">\n            <img src=\"/images/horse-head.svg\" alt=\"AgistEase Logo\" />\n            <div class=\"logo-text\">AgistEase</div></a\n          >\n        </div>\n\n        <div class=\"profile\">\n          <a href=\"/profile\" @click=", ">\n            ", "\n          </a>\n        </div>\n\n        <nav class=\"sidebar-links\">\n          ", "\n        </nav>\n        <div class=\"sign-out-btn\">\n          <a href=\"#\" @click=", "\n            ><sl-button size=\"medium\" pill>Sign Out</sl-button></a\n          >\n        </div>\n        <div class=\"sidebar-footer\">\n          <span>AgistEase v", "</span>\n        </div>\n      "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16377,8 +16377,20 @@ customElements.define("ag-topbar", AgTopbar);
 
 var _lit = require("lit");
 
+var _Router = require("../Router");
+
+function _templateObject6() {
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 180px;\n      height: 180px;\n      background-color: #d2691e;\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .icon-image {\n      width: 48px;\n      height: 48px;\n      margin-bottom: 0.8rem;\n      object-fit: contain;\n        filter: brightness(0) invert(1); /* Optional: make white if needed */\n\n    }\n\n    .icon-image,\n.icon,\n.circle-image {\n  margin-bottom: 0.4rem; /* was 0.8rem */\n}\n\n\n    .tile-content {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n}\n\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 160px;\n      height: 160px;\n      background-color: #D2691E;\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: 'Quicksand', sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n      margin: 1rem; /* \u2B05\uFE0F add spacing here */\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["<slot></slot>"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -16388,7 +16400,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["<slot></slot>"]);
+  const data = _taggedTemplateLiteral(["<div class=\"icon\">", "</div>"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -16398,7 +16410,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["<div class=\"icon\">", "</div>"]);
+  const data = _taggedTemplateLiteral(["<img class=\"icon-image\" src=\"", "\" alt=\"icon\" />"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -16408,7 +16420,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["<img class=\"circle-image\" src=\"", "\" alt=\"Tile image\" />"]);
+  const data = _taggedTemplateLiteral(["<img\n              class=\"circle-image\"\n              src=\"", "\"\n              alt=\"Tile image\"\n            />"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16418,7 +16430,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      ", "\n\n      <div class=\"label\">", "</div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"tile-content\" @click=", ">\n        ", "\n\n        <div class=\"label\">", "</div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16434,14 +16446,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 class AgTileButton extends _lit.LitElement {
   constructor() {
     super();
-    this.label = '';
-    this.image = '';
-    this.icon = '';
-    this.clickable = true;
+    this.label = "";
+    this.image = "";
+    this.icon = "";
+    this.route = ""; // default: do nothing
+  }
+
+  _handleClick() {
+    if (this.route) {
+      (0, _Router.gotoRoute)(this.route);
+    }
   }
 
   render() {
-    return (0, _lit.html)(_templateObject(), this.image ? (0, _lit.html)(_templateObject2(), this.image) : this.icon ? (0, _lit.html)(_templateObject3(), this.icon) : (0, _lit.html)(_templateObject4()), this.label);
+    return (0, _lit.html)(_templateObject(), () => (0, _Router.gotoRoute)(this.route), this.image ? (0, _lit.html)(_templateObject2(), this.image) : this.iconImage ? (0, _lit.html)(_templateObject3(), this.iconImage) : this.icon ? (0, _lit.html)(_templateObject4(), this.icon) : (0, _lit.html)(_templateObject5()), this.label);
   }
 
 }
@@ -16453,26 +16471,27 @@ _defineProperty(AgTileButton, "properties", {
   image: {
     type: String
   },
-  // Optional: circular image in center
   icon: {
     type: String
   },
-  // Optional: emoji/character
-  clickable: {
-    type: Boolean
+  iconImage: {
+    type: String
+  },
+  route: {
+    type: String
   }
 });
 
-_defineProperty(AgTileButton, "styles", (0, _lit.css)(_templateObject5()));
+_defineProperty(AgTileButton, "styles", (0, _lit.css)(_templateObject6()));
 
-customElements.define('ag-tile-button', AgTileButton);
-},{"lit":"../node_modules/lit/index.js"}],"components/ag-tile-grid.js":[function(require,module,exports) {
+customElements.define("ag-tile-button", AgTileButton);
+},{"lit":"../node_modules/lit/index.js","../Router":"Router.js"}],"components/ag-tile-grid.js":[function(require,module,exports) {
 "use strict";
 
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: grid;\n      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));\n      gap: 2rem;\n      justify-items: center;\n      margin: 2rem 0;\n      padding: 0 1rem;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n  :host {\n    display: block; /* makes margin auto actually work */\n  }\n\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n    gap: 2.5rem;\n    justify-items: center;\n    padding: 2rem;\n    max-width: 1200px;\n    margin: 0 auto;\n    box-sizing: border-box;\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16482,7 +16501,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["<slot></slot>"]);
+  const data = _taggedTemplateLiteral(["<div class=\"grid\"><slot></slot></div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16504,7 +16523,7 @@ class AgTileGrid extends _lit.LitElement {
 
 _defineProperty(AgTileGrid, "styles", (0, _lit.css)(_templateObject2()));
 
-customElements.define('ag-tile-grid', AgTileGrid);
+customElements.define("ag-tile-grid", AgTileGrid);
 },{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -16630,7 +16649,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51682" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55540" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

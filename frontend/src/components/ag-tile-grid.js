@@ -1,20 +1,27 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from "lit";
 
 class AgTileGrid extends LitElement {
   static styles = css`
-    :host {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 2rem;
-      justify-items: center;
-      margin: 2rem 0;
-      padding: 0 1rem;
-    }
-  `;
+  :host {
+    display: block; /* makes margin auto actually work */
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2.5rem;
+    justify-items: center;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+`;
+
 
   render() {
-    return html`<slot></slot>`;
+    return html`<div class="grid"><slot></slot></div>`;
   }
 }
 
-customElements.define('ag-tile-grid', AgTileGrid);
+customElements.define("ag-tile-grid", AgTileGrid);

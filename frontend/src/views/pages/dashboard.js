@@ -29,26 +29,26 @@ class DashboardView extends BaseSplitView {
       <ag-tile-grid>
         <ag-tile-button
           label="My Horses"
-          icon="🐴"
-          @click=${() => Utils.gotoRoute("/horses")}
+          iconImage="/images/icons/horse-solid.svg"
+          route="/horses"
         ></ag-tile-button>
 
         <ag-tile-button
           label="Request Services"
-          icon="🔔"
-          @click=${() => Utils.gotoRoute("/requests")}
+          iconImage="/images/icons/bell-solid.svg"
+          route="/requests"
         ></ag-tile-button>
 
         <ag-tile-button
           label="My Profile"
-          icon="👤"
-          @click=${() => Utils.gotoRoute("/profile")}
+          iconImage="/images/icons/user-solid.svg"
+          route="/profile"
         ></ag-tile-button>
 
         <ag-tile-button
           label="Calendar"
-          icon="📅"
-          @click=${() => Utils.gotoRoute("/calendar")}
+          iconImage="/images/icons/calendar-days-solid.svg"
+          route="/calendar"
         ></ag-tile-button>
       </ag-tile-grid>
 
