@@ -17,12 +17,13 @@ class AgTileButton extends LitElement {
       border-radius: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       color: white;
-      font-family: "Quicksand", sans-serif;
+      font-family: 'Quicksand', sans-serif;
       text-align: center;
       padding: 1rem;
       box-sizing: border-box;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
+      margin: 1rem; /* ⬅️ add spacing here */
     }
 
     :host(:hover) {

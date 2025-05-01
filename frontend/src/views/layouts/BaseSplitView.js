@@ -34,7 +34,7 @@ export default class BaseSplitView extends BaseView {
         <div
           slot="start"
           class="sidebar-panel"
-          style=" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;"
+          style="height: 100hv; background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;"
         >
           <ag-app-sidebar .user=${Auth.currentUser}></ag-app-sidebar>
         </div>

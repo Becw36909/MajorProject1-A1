@@ -14289,7 +14289,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <!-- Sidebar -->\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n\n        <!-- Right panel: Topbar + Main Content -->\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 100vh;\" disabled position-in-pixels=\"100\">\n\n                    <!-- Topbar image -->\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n\n            <!-- Main Content Panel -->\n            <div\n              slot=\"end\"\n              style=\"overflow-y: auto; padding: 2rem; height: 100%; box-sizing: border-box;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <!-- Sidebar -->\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\"height: 100hv; background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n\n        <!-- Right panel: Topbar + Main Content -->\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 100vh;\" disabled position-in-pixels=\"100\">\n\n                    <!-- Topbar image -->\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n\n            <!-- Main Content Panel -->\n            <div\n              slot=\"end\"\n              style=\"overflow-y: auto; padding: 2rem; height: 100%; box-sizing: border-box;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14445,7 +14445,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n  \n      <!-- Tile buttons row -->\n      <div class=\"tile-row\">\n        <ag-tile-button\n          label=\"My Horses\"\n          icon=\"\uD83D\uDC34\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"Request Services\"\n          icon=\"\uD83D\uDD14\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"My Profile\"\n          icon=\"\uD83D\uDC64\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"Calendar\"\n          icon=\"\uD83D\uDCC5\"\n          @click=", "\n        ></ag-tile-button>\n      </div>\n  \n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td><td>16:30</td><td>Bella</td><td>Training Session</td><td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td><td>8:30</td><td>Max</td><td>Lesson</td><td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td><td>9:00</td><td>Bella</td><td>Training Session</td><td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          icon=\"\uD83D\uDC34\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          icon=\"\uD83D\uDD14\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          icon=\"\uD83D\uDC64\"\n          @click=", "\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          icon=\"\uD83D\uDCC5\"\n          @click=", "\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td>\n              <td>16:30</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td>\n              <td>8:30</td>\n              <td>Max</td>\n              <td>Lesson</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td>\n              <td>9:00</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14477,7 +14477,7 @@ class DashboardView extends _BaseSplitView.default {
   }
 
   renderContent() {
-    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => _Utils.default.gotoRoute('/horses'), () => _Utils.default.gotoRoute('/requests'), () => _Utils.default.gotoRoute('/profile'), () => _Utils.default.gotoRoute('/calendar'));
+    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => _Utils.default.gotoRoute("/horses"), () => _Utils.default.gotoRoute("/requests"), () => _Utils.default.gotoRoute("/profile"), () => _Utils.default.gotoRoute("/calendar"));
   }
 
   renderMobileContent() {
@@ -16378,7 +16378,7 @@ customElements.define("ag-topbar", AgTopbar);
 var _lit = require("lit");
 
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 160px;\n      height: 160px;\n      background-color: #D2691E;\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 160px;\n      height: 160px;\n      background-color: #D2691E;\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: 'Quicksand', sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n      margin: 1rem; /* \u2B05\uFE0F add spacing here */\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -16466,6 +16466,45 @@ _defineProperty(AgTileButton, "properties", {
 _defineProperty(AgTileButton, "styles", (0, _lit.css)(_templateObject5()));
 
 customElements.define('ag-tile-button', AgTileButton);
+},{"lit":"../node_modules/lit/index.js"}],"components/ag-tile-grid.js":[function(require,module,exports) {
+"use strict";
+
+var _lit = require("lit");
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: grid;\n      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));\n      gap: 2rem;\n      justify-items: center;\n      margin: 2rem 0;\n      padding: 0 1rem;\n    }\n  "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["<slot></slot>"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class AgTileGrid extends _lit.LitElement {
+  render() {
+    return (0, _lit.html)(_templateObject());
+  }
+
+}
+
+_defineProperty(AgTileGrid, "styles", (0, _lit.css)(_templateObject2()));
+
+customElements.define('ag-tile-grid', AgTileGrid);
 },{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -16551,6 +16590,8 @@ require("./components/ag-topbar");
 
 require("./components/ag-tile-button");
 
+require("./components/ag-tile-grid");
+
 require("./scss/master.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -16561,7 +16602,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
