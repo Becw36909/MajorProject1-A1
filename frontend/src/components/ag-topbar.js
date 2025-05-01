@@ -6,7 +6,7 @@ class AgTopbar extends LitElement {
   static styles = css`
     .topbar {
       width: 100%;
-      height: 300px;
+      height: 100px;
       background-image: url("/images/IMG_0745.JPG");
       background-size: cover;
       background-position: center;

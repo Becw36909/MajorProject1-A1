@@ -22,12 +22,15 @@ export default class BaseSplitView extends BaseView {
       return;
     }
 
+    const topbarHeight = 300;
+
     const template = html`
       <sl-split-panel
         position-in-pixels="275"
         style=" --min: 200px; --max: 300px;"
         disabled
       >
+        <!-- Sidebar -->
         <div
           slot="start"
           class="sidebar-panel"
@@ -35,14 +38,20 @@ export default class BaseSplitView extends BaseView {
         >
           <ag-app-sidebar .user=${Auth.currentUser}></ag-app-sidebar>
         </div>
+
+        <!-- Right panel: Topbar + Main Content -->
         <div slot="end">
-          <sl-split-panel vertical style="height: 200px;" disabled>
+          <sl-split-panel vertical style="height: 100vh;" disabled position-in-pixels="100">
+
+                    <!-- Topbar image -->
             <div slot="start" style="height: 100px; overflow: hidden;">
               <ag-topbar></ag-topbar>
             </div>
+
+            <!-- Main Content Panel -->
             <div
               slot="end"
-              style="height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;"
+              style="overflow-y: auto; padding: 2rem; height: 100%; box-sizing: border-box;"
             >
               ${this.renderContent()}
             </div>

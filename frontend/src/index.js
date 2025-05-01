@@ -2,8 +2,11 @@ import App from './App.js'
 
 // components (custom web components)
 import './components/ag-app-header'
-import './components/ag-app-sidebar.js'
-import './components/ag-topbar.js'
+import './components/ag-app-sidebar'
+import './components/ag-topbar'
+import './components/ag-tile-button'
+
+
 
 // styles
 import './scss/master.scss'

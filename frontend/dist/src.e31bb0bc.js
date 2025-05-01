@@ -14219,57 +14219,7 @@ class GuideView {
 var _default = new GuideView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../UserAPI":"UserAPI.js","../../Toast":"Toast.js"}],"views/pages/adminDashboard.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _App = _interopRequireDefault(require("./../../App"));
-
-var _litHtml = require("lit-html");
-
-var _Router = require("./../../Router");
-
-var _Auth = _interopRequireDefault(require("./../../Auth"));
-
-var _Utils = _interopRequireDefault(require("./../../Utils"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"dashboard-layout\">\n        <ag-app-sidebar></ag-app-sidebar>\n\n        <div class=\"dashboard-content\">\n          <ag-topbar></ag-topbar>\n\n          <div class=\"page-content\">\n            <h1>Welcome, ", "!</h1>\n\n            <h3>Quick Links:</h3>\n            <div class=\"dashboard-buttons\">\n              <sl-button @click=", ">View Profile</sl-button>\n              <sl-button @click=", ">Manage Horses</sl-button>\n              <sl-button @click=", ">Manage Requests</sl-button>\n              <sl-button @click=", ">View Calendar</sl-button>\n            </div>\n          </div>\n        </div>\n      </div>\n    "]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-class AdminDashboardView {
-  init() {
-    document.title = "Admin Dashboard";
-    this.render();
-
-    _Utils.default.pageIntroAnim();
-  }
-
-  render() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => (0, _Router.gotoRoute)("/profile"), () => (0, _Router.gotoRoute)("/horses"), () => (0, _Router.gotoRoute)("/requests"), () => (0, _Router.gotoRoute)("/calendar"));
-    (0, _litHtml.render)(template, _App.default.rootEl);
-  }
-
-}
-
-var _default = new AdminDashboardView();
-
-exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/layouts/BaseView.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../UserAPI":"UserAPI.js","../../Toast":"Toast.js"}],"views/layouts/BaseView.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14339,7 +14289,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 200px;\" disabled>\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n            <div\n              slot=\"end\"\n              style=\"height: calc(100vh - 200px); overflow-y: auto; padding: 2rem;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <!-- Sidebar -->\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\" background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n\n        <!-- Right panel: Topbar + Main Content -->\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 100vh;\" disabled position-in-pixels=\"100\">\n\n                    <!-- Topbar image -->\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n\n            <!-- Main Content Panel -->\n            <div\n              slot=\"end\"\n              style=\"overflow-y: auto; padding: 2rem; height: 100%; box-sizing: border-box;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14372,6 +14322,7 @@ class BaseSplitView extends _BaseView.default {
       return;
     }
 
+    const topbarHeight = 300;
     const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, this.renderContent());
     (0, _litHtml.render)(template, _App.default.rootEl);
   } // These methods must be implemented by subclasses:
@@ -14388,7 +14339,7 @@ class BaseSplitView extends _BaseView.default {
 }
 
 exports.default = BaseSplitView;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Auth":"Auth.js","./BaseView":"views/layouts/BaseView.js"}],"views/pages/dashboard.js":[function(require,module,exports) {
+},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Auth":"Auth.js","./BaseView":"views/layouts/BaseView.js"}],"views/pages/adminDashboard.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14409,7 +14360,7 @@ var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"))
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This is the mobile version of your Dashboard.</p>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This is the mobile version of your admin Dashboard.</p>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14419,7 +14370,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This will be your Dashboard page content.</p>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This will be your admin Dashboard page content.</p>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14452,6 +14403,81 @@ class DashboardView extends _BaseSplitView.default {
 
   renderContent() {
     return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName);
+  }
+
+  renderMobileContent() {
+    return (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser.firstName);
+  }
+
+}
+
+var _default = new DashboardView();
+
+exports.default = _default;
+},{"./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js","../layouts/BaseSplitView":"views/layouts/BaseSplitView.js"}],"views/pages/dashboard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _litHtml = require("lit-html");
+
+var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This is the mobile version of your Dashboard.</p>\n    "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n  \n      <!-- Tile buttons row -->\n      <div class=\"tile-row\">\n        <ag-tile-button\n          label=\"My Horses\"\n          icon=\"\uD83D\uDC34\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"Request Services\"\n          icon=\"\uD83D\uDD14\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"My Profile\"\n          icon=\"\uD83D\uDC64\"\n          @click=", "\n        ></ag-tile-button>\n  \n        <ag-tile-button\n          label=\"Calendar\"\n          icon=\"\uD83D\uDCC5\"\n          @click=", "\n        ></ag-tile-button>\n      </div>\n  \n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td><td>16:30</td><td>Bella</td><td>Training Session</td><td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td><td>8:30</td><td>Max</td><td>Lesson</td><td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td><td>9:00</td><td>Bella</td><td>Training Session</td><td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class DashboardView extends _BaseSplitView.default {
+  constructor() {
+    super();
+  }
+
+  init() {
+    const toastMessage = localStorage.getItem("toastMessage");
+
+    if (toastMessage) {
+      _Toast.default.show(toastMessage);
+
+      localStorage.removeItem("toastMessage");
+    }
+
+    document.title = "Dashboard | AgistEase";
+    this.render();
+
+    _Utils.default.pageIntroAnim();
+  }
+
+  renderContent() {
+    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, () => _Utils.default.gotoRoute('/horses'), () => _Utils.default.gotoRoute('/requests'), () => _Utils.default.gotoRoute('/profile'), () => _Utils.default.gotoRoute('/calendar'));
   }
 
   renderMobileContent() {
@@ -16276,7 +16302,7 @@ var _Auth = _interopRequireDefault(require("../Auth"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 300px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n        .logo-wrap a {\n      text-decoration: none;\n    }\n      \n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 100px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n        .logo-wrap a {\n      text-decoration: none;\n    }\n      \n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -16346,7 +16372,101 @@ _defineProperty(AgTopbar, "properties", {
 });
 
 customElements.define("ag-topbar", AgTopbar);
-},{"lit":"../node_modules/lit/index.js","../Router":"Router.js","../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"lit":"../node_modules/lit/index.js","../Router":"Router.js","../Auth":"Auth.js"}],"components/ag-tile-button.js":[function(require,module,exports) {
+"use strict";
+
+var _lit = require("lit");
+
+function _templateObject5() {
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 160px;\n      height: 160px;\n      background-color: #D2691E;\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["<slot></slot>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["<div class=\"icon\">", "</div>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["<img class=\"circle-image\" src=\"", "\" alt=\"Tile image\" />"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      ", "\n\n      <div class=\"label\">", "</div>\n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class AgTileButton extends _lit.LitElement {
+  constructor() {
+    super();
+    this.label = '';
+    this.image = '';
+    this.icon = '';
+    this.clickable = true;
+  }
+
+  render() {
+    return (0, _lit.html)(_templateObject(), this.image ? (0, _lit.html)(_templateObject2(), this.image) : this.icon ? (0, _lit.html)(_templateObject3(), this.icon) : (0, _lit.html)(_templateObject4()), this.label);
+  }
+
+}
+
+_defineProperty(AgTileButton, "properties", {
+  label: {
+    type: String
+  },
+  image: {
+    type: String
+  },
+  // Optional: circular image in center
+  icon: {
+    type: String
+  },
+  // Optional: emoji/character
+  clickable: {
+    type: Boolean
+  }
+});
+
+_defineProperty(AgTileButton, "styles", (0, _lit.css)(_templateObject5()));
+
+customElements.define('ag-tile-button', AgTileButton);
+},{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -16425,9 +16545,11 @@ var _App = _interopRequireDefault(require("./App.js"));
 
 require("./components/ag-app-header");
 
-require("./components/ag-app-sidebar.js");
+require("./components/ag-app-sidebar");
 
-require("./components/ag-topbar.js");
+require("./components/ag-topbar");
+
+require("./components/ag-tile-button");
 
 require("./scss/master.scss");
 
@@ -16439,7 +16561,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar.js":"components/ag-app-sidebar.js","./components/ag-topbar.js":"components/ag-topbar.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

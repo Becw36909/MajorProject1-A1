@@ -1,41 +1,39 @@
-import App from "./../../App";
-import { html, render } from "lit-html";
-import { gotoRoute, anchorRoute } from "./../../Router";
-import Auth from "./../../Auth";
 import Utils from "./../../Utils";
+import Auth from "./../../Auth";
+import Toast from "../../Toast";
+import { html } from "lit-html";
+import BaseSplitView from "../layouts/BaseSplitView";
 
-class AdminDashboardView {
+class DashboardView extends BaseSplitView {
+  constructor() {
+    super();
+  }
+
   init() {
-    document.title = "Admin Dashboard";
+    const toastMessage = localStorage.getItem("toastMessage");
+    if (toastMessage) {
+      Toast.show(toastMessage);
+      localStorage.removeItem("toastMessage");
+    }
+
+    document.title = "Dashboard | AgistEase";
     this.render();
     Utils.pageIntroAnim();
   }
 
-  render() {
-    const template = html`
-      <div class="dashboard-layout">
-        <ag-app-sidebar></ag-app-sidebar>
-
-        <div class="dashboard-content">
-          <ag-topbar></ag-topbar>
-
-          <div class="page-content">
-            <h1>Welcome, ${Auth.currentUser.firstName}!</h1>
-
-            <h3>Quick Links:</h3>
-            <div class="dashboard-buttons">
-              <sl-button @click=${() => gotoRoute("/profile")}>View Profile</sl-button>
-              <sl-button @click=${() => gotoRoute("/horses")}>Manage Horses</sl-button>
-              <sl-button @click=${() => gotoRoute("/requests")}>Manage Requests</sl-button>
-              <sl-button @click=${() => gotoRoute("/calendar")}>View Calendar</sl-button>
-            </div>
-          </div>
-        </div>
-      </div>
+  renderContent() {
+    return html`
+      <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+      <p>This will be your admin Dashboard page content.</p>
     `;
+  }
 
-    render(template, App.rootEl);
+  renderMobileContent() {
+    return html`
+      <h1>Welcome, ${Auth.currentUser.firstName}</h1>
+      <p>This is the mobile version of your admin Dashboard.</p>
+    `;
   }
 }
 
-export default new AdminDashboardView();
+export default new DashboardView();
