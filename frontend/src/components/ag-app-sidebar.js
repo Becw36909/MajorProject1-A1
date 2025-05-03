@@ -324,7 +324,6 @@ customElements.define(
               ? html`
                   <a href="/dashboard" @click=${anchorRoute}>Admin Dashboard</a>
                   <a href="/horses" @click=${anchorRoute}>Manage Horses</a>
-
                   <a href="/viewRequests" @click=${anchorRoute}
                     >Service Requests</a
                   >

@@ -74,6 +74,43 @@ class AgTileButton extends LitElement {
       font-size: 1.1rem;
       font-weight: 500;
     }
+
+@media (max-width: 768px) {
+  :host {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .tile-content {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.2rem;
+    margin-left: 1.5rem; /* Push tile content slightly to the right */
+  }
+
+  .icon-image,
+  .circle-image {
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .label {
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.2;
+  }
+}
+
+    }
   `;
 
   constructor() {

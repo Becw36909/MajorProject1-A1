@@ -9,20 +9,21 @@ export default class BaseSplitView extends BaseView {
   }
 
   render() {
+    const content = this.renderContent();
+
     if (this.isMobile) {
       const template = html`
         <div class="mobile-topbar">
           <ag-topbar .user=${Auth.currentUser}></ag-topbar>
         </div>
         <div class="mobile-content" style="padding: 1.5rem;">
-          ${this.renderMobileContent()}
+          ${content}
         </div>
       `;
       render(template, App.rootEl);
       return;
     }
 
-    const topbarHeight = 300;
 
     const template = html`
       <sl-split-panel
@@ -67,7 +68,4 @@ export default class BaseSplitView extends BaseView {
     return html`<p>[Implement renderContent()]</p>`;
   }
 
-  renderMobileContent() {
-    return html`<p>[Implement renderMobileContent()]</p>`;
-  }
 }

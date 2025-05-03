@@ -14268,16 +14268,6 @@ var _BaseView = _interopRequireDefault(require("./BaseView"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject4() {
-  const data = _taggedTemplateLiteral(["<p>[Implement renderMobileContent()]</p>"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject3() {
   const data = _taggedTemplateLiteral(["<p>[Implement renderContent()]</p>"]);
 
@@ -14316,13 +14306,14 @@ class BaseSplitView extends _BaseView.default {
   }
 
   render() {
+    const content = this.renderContent();
+
     if (this.isMobile) {
-      const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, this.renderMobileContent());
+      const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, content);
       (0, _litHtml.render)(template, _App.default.rootEl);
       return;
     }
 
-    const topbarHeight = 300;
     const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, this.renderContent());
     (0, _litHtml.render)(template, _App.default.rootEl);
   } // These methods must be implemented by subclasses:
@@ -14330,10 +14321,6 @@ class BaseSplitView extends _BaseView.default {
 
   renderContent() {
     return (0, _litHtml.html)(_templateObject3());
-  }
-
-  renderMobileContent() {
-    return (0, _litHtml.html)(_templateObject4());
   }
 
 }
@@ -14434,16 +14421,6 @@ var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"))
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "</h1>\n      <p>This is the mobile version of your Dashboard.</p>\n    "]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject() {
   const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>Date:</th>\n              <th>Time:</th>\n              <th>Horse:</th>\n              <th>Service:</th>\n              <th>Notes:</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>10 Apr</td>\n              <td>16:30</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>12 Apr</td>\n              <td>8:30</td>\n              <td>Max</td>\n              <td>Lesson</td>\n              <td></td>\n            </tr>\n            <tr>\n              <td>28 Apr</td>\n              <td>9:00</td>\n              <td>Bella</td>\n              <td>Training Session</td>\n              <td>Showjumping over 90cm course</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    "]);
 
@@ -14478,10 +14455,6 @@ class DashboardView extends _BaseSplitView.default {
 
   renderContent() {
     return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName);
-  }
-
-  renderMobileContent() {
-    return (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser.firstName);
   }
 
 }
@@ -16210,7 +16183,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n                  <a href=\"/dashboard\" @click=", ">Admin Dashboard</a>\n                  <a href=\"/horses\" @click=", ">Manage Horses</a>\n\n                  <a href=\"/viewRequests\" @click=", "\n                    >Service Requests</a\n                  >\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
+  const data = _taggedTemplateLiteral(["\n                  <a href=\"/dashboard\" @click=", ">Admin Dashboard</a>\n                  <a href=\"/horses\" @click=", ">Manage Horses</a>\n                  <a href=\"/viewRequests\" @click=", "\n                    >Service Requests</a\n                  >\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -16380,7 +16353,7 @@ var _lit = require("lit");
 var _Router = require("../Router");
 
 function _templateObject6() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 180px;\n      height: 180px;\n      background-color: #d2691e;\n      border: 10px solid #5A3E2B-; /* Border color */\n\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .icon-image {\n      width: 48px;\n      height: 48px;\n      margin-bottom: 0.8rem;\n      object-fit: contain;\n      filter: brightness(0) invert(1); /* Optional: make white if needed */\n    }\n\n    .icon-image,\n    .icon,\n    .circle-image {\n      margin-bottom: 0.4rem; /* was 0.8rem */\n    }\n\n    .tile-content {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: center;\n      height: 100%;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 180px;\n      height: 180px;\n      background-color: #d2691e;\n      border: 10px solid #5A3E2B-; /* Border color */\n\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .icon-image {\n      width: 48px;\n      height: 48px;\n      margin-bottom: 0.8rem;\n      object-fit: contain;\n      filter: brightness(0) invert(1); /* Optional: make white if needed */\n    }\n\n    .icon-image,\n    .icon,\n    .circle-image {\n      margin-bottom: 0.4rem; /* was 0.8rem */\n    }\n\n    .tile-content {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: center;\n      height: 100%;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n\n@media (max-width: 768px) {\n  :host {\n    width: 100%;\n    height: auto;\n    border-radius: 10px;\n    padding: 1rem 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: flex-start;\n    gap: 1rem;\n  }\n\n  .tile-content {\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n    gap: 1.2rem;\n    margin-left: 1.5rem; /* Push tile content slightly to the right */\n  }\n\n  .icon-image,\n  .circle-image {\n    width: 42px;\n    height: 42px;\n    margin: 0;\n    flex-shrink: 0;\n  }\n\n  .label {\n    font-size: 1rem;\n    text-align: left;\n    line-height: 1.2;\n  }\n}\n\n    }\n  "]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -16491,7 +16464,7 @@ customElements.define("ag-tile-button", AgTileButton);
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n  :host {\n    display: block; /* makes margin auto actually work */\n  }\n\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n    gap: 2.5rem;\n    justify-items: center;\n    padding: 2rem;\n    max-width: 1200px;\n    margin: 0 auto;\n    box-sizing: border-box;\n  }\n"]);
+  const data = _taggedTemplateLiteral(["\n  :host {\n    display: block; /* makes margin auto actually work */\n  }\n\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n    gap: 2.5rem;\n    justify-items: center;\n    padding: 2rem;\n    max-width: 1200px;\n    margin: 0 auto;\n    box-sizing: border-box;\n  }\n\n  @media (max-width: 768px) {\n  .grid {\n    grid-template-columns: 1fr; /* one tile per row */\n    justify-items: stretch; /* stretch tiles to full width */\n    gap: 1rem;\n    padding: 1rem;\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;

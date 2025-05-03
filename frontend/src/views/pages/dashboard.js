@@ -93,12 +93,7 @@ class DashboardView extends BaseSplitView {
     `;
   }
 
-  renderMobileContent() {
-    return html`
-      <h1>Welcome, ${Auth.currentUser.firstName}</h1>
-      <p>This is the mobile version of your Dashboard.</p>
-    `;
-  }
+
 }
 
 export default new DashboardView();

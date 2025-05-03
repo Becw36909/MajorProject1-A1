@@ -16,6 +16,14 @@ class AgTileGrid extends LitElement {
     margin: 0 auto;
     box-sizing: border-box;
   }
+
+  @media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* one tile per row */
+    justify-items: stretch; /* stretch tiles to full width */
+    gap: 1rem;
+    padding: 1rem;
+  }
 `;
 
 
