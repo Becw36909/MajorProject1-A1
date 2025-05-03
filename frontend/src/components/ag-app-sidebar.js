@@ -42,26 +42,25 @@ customElements.define(
     render() {
       return html`
         <style>
-:host {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 280px;
-  height: 100vh;
-  background-color: var(--app-sidebar-bg);
-  box-sizing: border-box;
-  padding: 2rem 1rem;
-  overflow: hidden;
-}
+          :host {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--app-sidebar-bg);
+            box-sizing: border-box;
+            padding: 2rem 1rem;
+            overflow: hidden;
+            transition: width 0.3s ease;
+          }
 
-.sidebar-main {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-
+          .sidebar-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+          }
 
           .logo {
             text-align: center;
@@ -183,152 +182,179 @@ customElements.define(
             padding-top: 2.8rem;
           }
 
+          @media (max-width: 1024px) {
+            :host {
+              width: 200px;
+            }
+
+            .logo-text {
+              font-size: 1.8rem;
+            }
+
+            .sidebar-links a {
+              font-size: 1.2rem;
+              padding-left: 0.8rem;
+            }
+
+            sl-button::part(base) {
+              font-size: 1rem;
+            }
+
+            .avatar {
+              width: 80px;
+              height: 80px;
+            }
+
+            .avatar-initials {
+              font-size: 2rem;
+            }
+          }
+
           @media (max-height: 900px) {
-  .sidebar-links {
-    gap: 1rem;
-  }
-}
-  @media (max-height: 850px) {
-  .logo img {
-    width: 80px;
-  }
+            .sidebar-links {
+              gap: 1rem;
+            }
+          }
 
-  .logo-text {
-    font-size: 2.2rem;
-  }
+          @media (max-height: 850px) {
+            .logo img {
+              width: 80px;
+            }
 
-  .avatar {
-    width: 90px;
-    height: 90px;
-  }
+            .logo-text {
+              font-size: 2.2rem;
+            }
 
-  .avatar-initials {
-    font-size: 2rem;
-  }
+            .avatar {
+              width: 90px;
+              height: 90px;
+            }
 
-  .sidebar-links {
-    gap: 0.9rem;
-  }
+            .avatar-initials {
+              font-size: 2rem;
+            }
 
-  .sidebar-links a {
-    font-size: 1rem;
-  }
+            .sidebar-links {
+              gap: 0.9rem;
+            }
 
-  .sidebar-footer {
-    font-size: 0.85rem;
-    padding-top: 2rem;
-  }
+            .sidebar-links a {
+              font-size: 1rem;
+            }
 
-  sl-button::part(base) {
-    font-size: 0.9rem;
-    padding: 0.4rem 1rem;
-  }
-}
+            .sidebar-footer {
+              font-size: 0.85rem;
+              padding-top: 2rem;
+            }
 
-@media (max-height: 790px) {
-.logo img {
-    width: 60px;
-  }
+            sl-button::part(base) {
+              font-size: 0.9rem;
+              padding: 0.4rem 1rem;
+            }
+          }
 
-  .logo-text {
-    font-size: 1.8rem;
-  }
+          @media (max-height: 790px) {
+            .logo img {
+              width: 60px;
+            }
 
-  .avatar {
-    width: 70px;
-    height: 70px;
-  }
+            .logo-text {
+              font-size: 1.8rem;
+            }
 
-  .avatar-initials {
-    font-size: 1.6rem;
-  }
+            .avatar {
+              width: 70px;
+              height: 70px;
+            }
 
-  .sidebar-links a {
-    font-size: 0.9rem;
-    padding-left: 1rem;
-  }
+            .avatar-initials {
+              font-size: 1.6rem;
+            }
 
-  .sidebar-footer {
-    padding-top: 1.5rem;
-  }
+            .sidebar-links a {
+              font-size: 0.9rem;
+              padding-left: 1rem;
+            }
 
-  sl-button::part(base) {
-    font-size: 0.85rem;
-  }
-}
-          
+            .sidebar-footer {
+              padding-top: 1.5rem;
+            }
+
+            sl-button::part(base) {
+              font-size: 0.85rem;
+            }
+          }
         </style>
 
         <div class="sidebar-main">
-  <!-- logo -->
-        <div class="logo">
-          <a href="/" @click=${anchorRoute}>
-            <img src="/images/horse-head.svg" alt="AgistEase Logo" />
-            <div class="logo-text">AgistEase</div></a
-          >
-        </div>
+          <!-- logo -->
+          <div class="logo">
+            <a href="/" @click=${anchorRoute}>
+              <img src="/images/horse-head.svg" alt="AgistEase Logo" />
+              <div class="logo-text">AgistEase</div></a
+            >
+          </div>
 
           <!-- profile -->
 
-        <div class="profile">
-          <a href="/profile" @click=${anchorRoute}>
-            ${this.user && this.user.profileImage
-              ? html`
-                  <div
-                    class="avatar"
-                    style="background-image: url('${App.apiBase}/images/${this
-                      .user.profileImage}'); background-size: cover;"
-                  ></div>
-                `
-              : html`
-                  <div class="avatar avatar-initials">
-                    ${this.user?.firstName
-                      ? this.user.firstName[0].toUpperCase()
-                      : "U"}
-                  </div>
-                `}
-          </a>
-        </div>
+          <div class="profile">
+            <a href="/profile" @click=${anchorRoute}>
+              ${this.user && this.user.profileImage
+                ? html`
+                    <div
+                      class="avatar"
+                      style="background-image: url('${App.apiBase}/images/${this
+                        .user.profileImage}'); background-size: cover;"
+                    ></div>
+                  `
+                : html`
+                    <div class="avatar avatar-initials">
+                      ${this.user?.firstName
+                        ? this.user.firstName[0].toUpperCase()
+                        : "U"}
+                    </div>
+                  `}
+            </a>
+          </div>
 
           <!-- links -->
 
-        <nav class="sidebar-links">
-          ${this.user?.accessLevel === "admin"
-            ? html`
-                <a href="/dashboard" @click=${anchorRoute}>Admin Dashboard</a>
-                <a href="/horses" @click=${anchorRoute}>Manage Horses</a>
+          <nav class="sidebar-links">
+            ${this.user?.accessLevel === "admin"
+              ? html`
+                  <a href="/dashboard" @click=${anchorRoute}>Admin Dashboard</a>
+                  <a href="/horses" @click=${anchorRoute}>Manage Horses</a>
 
-                <a href="/viewRequests" @click=${anchorRoute}
-                  >Service Requests</a
-                >
-                <a href="/profile" @click=${anchorRoute}>My Profile</a>
-                <a href="/calendar" @click=${anchorRoute}>Calendar</a>
-              `
-            : html`
-                <a href="/" @click=${anchorRoute}>Home/Dashboard</a>
-                <a href="/dashboard" @click=${anchorRoute}>Dashboard</a>
-                <a href="/horses" @click=${anchorRoute}>My Horses</a>
-                <a href="/requests" @click=${anchorRoute}>Request Services</a>
-                <a href="/profile" @click=${anchorRoute}>My Profile</a>
-                <a href="/calendar" @click=${anchorRoute}>Calendar</a>
-              `}
-        </nav>
+                  <a href="/viewRequests" @click=${anchorRoute}
+                    >Service Requests</a
+                  >
+                  <a href="/profile" @click=${anchorRoute}>My Profile</a>
+                  <a href="/calendar" @click=${anchorRoute}>Calendar</a>
+                `
+              : html`
+                  <a href="/" @click=${anchorRoute}>Home/Dashboard</a>
+                  <a href="/dashboard" @click=${anchorRoute}>Dashboard</a>
+                  <a href="/horses" @click=${anchorRoute}>My Horses</a>
+                  <a href="/requests" @click=${anchorRoute}>Request Services</a>
+                  <a href="/profile" @click=${anchorRoute}>My Profile</a>
+                  <a href="/calendar" @click=${anchorRoute}>Calendar</a>
+                `}
+          </nav>
 
           <!-- sign-out -->
 
-        <div class="sign-out-btn">
-          <a href="#" @click=${() => Auth.signOut()}
-            ><sl-button size="medium" pill>Sign Out</sl-button></a
-          >
+          <div class="sign-out-btn">
+            <a href="#" @click=${() => Auth.signOut()}
+              ><sl-button size="medium" pill>Sign Out</sl-button></a
+            >
+          </div>
+
+          <!-- footer -->
+
+          <div class="sidebar-footer">
+            <span>AgistEase v${App.version}</span>
+          </div>
         </div>
-
-        <!-- footer -->
-
-        <div class="sidebar-footer">
-          <span>AgistEase v${App.version}</span>
-        </div>
-                </div>
-
       `;
     }
   }
