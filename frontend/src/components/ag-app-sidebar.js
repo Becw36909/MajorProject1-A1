@@ -62,6 +62,7 @@ customElements.define(
 }
 
 
+
           .logo {
             text-align: center;
             margin-bottom: 2rem;
@@ -130,7 +131,7 @@ customElements.define(
           .sidebar-links a {
             color: #f7f1df;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             padding-left: 1.2rem;
             font-weight: 400;
             transition: 0.2s;
@@ -160,7 +161,7 @@ customElements.define(
             color: #f7f1df;
             font-family: "Quicksand", sans-serif;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.2rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 3px solid #f7f1df;
           }
@@ -187,10 +188,72 @@ customElements.define(
     gap: 1rem;
   }
 }
+  @media (max-height: 850px) {
+  .logo img {
+    width: 80px;
+  }
+
+  .logo-text {
+    font-size: 2.2rem;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .avatar-initials {
+    font-size: 2rem;
+  }
+
+  .sidebar-links {
+    gap: 0.9rem;
+  }
+
+  .sidebar-links a {
+    font-size: 1rem;
+  }
+
+  .sidebar-footer {
+    font-size: 0.85rem;
+    padding-top: 2rem;
+  }
+
+  sl-button::part(base) {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+}
 
 @media (max-height: 790px) {
-  .sidebar-links {
-    gap: 0.8rem;
+.logo img {
+    width: 60px;
+  }
+
+  .logo-text {
+    font-size: 1.8rem;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .avatar-initials {
+    font-size: 1.6rem;
+  }
+
+  .sidebar-links a {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+  }
+
+  .sidebar-footer {
+    padding-top: 1.5rem;
+  }
+
+  sl-button::part(base) {
+    font-size: 0.85rem;
   }
 }
           
