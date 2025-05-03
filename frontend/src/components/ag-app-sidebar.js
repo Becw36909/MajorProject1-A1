@@ -192,7 +192,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 1.2rem;
+              font-size: 1.5rem;
               padding-left: 0.8rem;
             }
 
@@ -239,7 +239,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 1rem;
+              font-size: 1.2rem;
             }
 
             .sidebar-footer {
@@ -272,7 +272,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 0.9rem;
+              font-size: 1rem;
               padding-left: 1rem;
             }
 
