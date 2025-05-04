@@ -109,7 +109,7 @@ a {
 }
 
 .signinup-logo {
-  width: 200px;
+  width: 400px;
   margin-bottom: 1em;
 }
 
@@ -130,5 +130,10 @@ a {
   .signinup-box {
     width: 90%;
     max-width: none;
+  }
+
+  .signinup-logo {
+    width: 300px;
+    margin-bottom: 1em;
   }
 }

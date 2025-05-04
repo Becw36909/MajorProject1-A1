@@ -3,6 +3,8 @@ import Auth from "./../../Auth";
 import Toast from "../../Toast";
 import { html } from "lit-html";
 import BaseSplitView from "../layouts/BaseSplitView";
+import { sampleCalendarEvents } from "../../data/sampleCalendarEvents";
+
 
 class DashboardView extends BaseSplitView {
   constructor() {
@@ -53,42 +55,8 @@ class DashboardView extends BaseSplitView {
       </ag-tile-grid>
 
       <!-- Placeholder calendar section -->
-      <div class="calendar-preview">
-        <h2>Upcoming calendar events</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Date:</th>
-              <th>Time:</th>
-              <th>Horse:</th>
-              <th>Service:</th>
-              <th>Notes:</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>10 Apr</td>
-              <td>16:30</td>
-              <td>Bella</td>
-              <td>Training Session</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>12 Apr</td>
-              <td>8:30</td>
-              <td>Max</td>
-              <td>Lesson</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>28 Apr</td>
-              <td>9:00</td>
-              <td>Bella</td>
-              <td>Training Session</td>
-              <td>Showjumping over 90cm course</td>
-            </tr>
-          </tbody>
-        </table>
+        <ag-calendar-preview .events=${sampleCalendarEvents}></ag-calendar-preview>
+
       </div>
     `;
   }

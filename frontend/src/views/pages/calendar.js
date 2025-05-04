@@ -3,13 +3,15 @@ import {html, render } from 'lit-html'
 import {gotoRoute, anchorRoute } from './../../Router'
 import Auth from './../../Auth'
 import Utils from './../../Utils'
+import BaseSplitView from "../layouts/BaseSplitView";
+
 
 class CalendarView {
   init(){    
     console.log('calendarView.init')
     document.title = 'Calendar'    
     this.render()    
-    Utils.pageIntroAnim()   // is this necessary??  
+    Utils.pageIntroAnim()   
   }
 
   render(){

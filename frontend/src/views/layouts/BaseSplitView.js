@@ -13,13 +13,16 @@ export default class BaseSplitView extends BaseView {
 
     if (this.isMobile) {
       const template = html`
-        <div class="mobile-topbar">
-          <ag-topbar .user=${Auth.currentUser}></ag-topbar>
-        </div>
-        <div class="mobile-content" style="padding: 1.5rem;">
-          ${content}
+        <div class="mobile-view" style="display: flex; flex-direction: column; height: 100vh;">
+          <div class="mobile-topbar" style="flex: 0 0 auto;">
+            <ag-topbar .user=${Auth.currentUser}></ag-topbar>
+          </div>
+          <div class="mobile-content" style="flex: 1 1 auto; overflow-y: auto; padding: 1.5rem; box-sizing: border-box;">
+            ${content}
+          </div>
         </div>
       `;
+    
       render(template, App.rootEl);
       return;
     }

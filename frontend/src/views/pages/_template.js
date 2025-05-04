@@ -9,22 +9,32 @@ class TemplateView extends BaseSplitView {
   }
 
   init() {
-    document.title = "Template";
+    document.title = "Template | AgistEase";
     this.render();
     Utils.pageIntroAnim();
   }
 
   renderContent() {
     return html`
-      <h1>Template View</h1>
-      <p>This is the full-width content area for large screens.</p>
-    `;
-  }
+      <h1>Hello, ${Auth.currentUser.firstName}!</h1>
 
-  renderMobileContent() {
-    return html`
-      <h1>Template View</h1>
-      <p>This is the mobile version of the template view.</p>
+      <ag-tile-grid>
+        <ag-tile-button
+          label="Example Tile"
+          iconImage="/images/icons/horse-solid.svg"
+          route="/example"
+        ></ag-tile-button>
+        <ag-tile-button
+          label="Another Action"
+          iconImage="/images/icons/bell-solid.svg"
+          route="/another"
+        ></ag-tile-button>
+      </ag-tile-grid>
+
+      <div class="template-preview">
+        <h2>Placeholder Section</h2>
+        <p>This area can be used to prototype further sections or embed test content.</p>
+      </div>
     `;
   }
 }
