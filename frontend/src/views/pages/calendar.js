@@ -6,28 +6,25 @@ import Utils from './../../Utils'
 import BaseSplitView from "../layouts/BaseSplitView";
 
 
-class CalendarView {
-  init(){    
-    console.log('calendarView.init')
-    document.title = 'Calendar'    
-    this.render()    
-    Utils.pageIntroAnim()   
+class CalendarView extends BaseSplitView {
+   constructor() {
+     super();
+   }
+ 
+   init() {
+     document.title = "Calendar | AgistEase";
+     this.render();
+     Utils.pageIntroAnim();
+   }
+ 
+   renderContent() {
+    return html`
+      <h1>My Calendar</h1>
+      <ag-calendar-full></ag-calendar-full>
+    `;
   }
-
-  render(){
-    const template = html`
-      
-      <div class="page-content">
-        <h1 class="anim-in">this is the calendar view</h1>
-
-        <h3>Button example:</h3>
-        <sl-button class="anim-in" @click=${() => gotoRoute('/')}>back to home</sl-button>
-
-      </div>
-     
-    `
-    render(template, App.rootEl)
-  }
-}
+  
+ }
+ 
 
 export default new CalendarView()

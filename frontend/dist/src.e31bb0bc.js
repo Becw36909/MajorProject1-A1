@@ -14231,7 +14231,7 @@ var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"))
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the calendar view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <h1>My Calendar</h1>\n      <ag-calendar-full></ag-calendar-full>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14242,18 +14242,20 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class CalendarView {
+class CalendarView extends _BaseSplitView.default {
+  constructor() {
+    super();
+  }
+
   init() {
-    console.log('calendarView.init');
-    document.title = 'Calendar';
+    document.title = "Calendar | AgistEase";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
-  render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
-    (0, _litHtml.render)(template, _App.default.rootEl);
+  renderContent() {
+    return (0, _litHtml.html)(_templateObject());
   }
 
 }
@@ -16654,6 +16656,103 @@ _defineProperty(AgCalendarPreview, "properties", {
 _defineProperty(AgCalendarPreview, "styles", (0, _lit.css)(_templateObject7()));
 
 customElements.define("ag-calendar-preview", AgCalendarPreview);
+},{"lit":"../node_modules/lit/index.js"}],"components/ag-calendar-full.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AgCalendarFull = void 0;
+
+var _lit = require("lit");
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      background-color: #f8f1df;\n      padding: 2rem;\n      border-radius: 1.5rem;\n      overflow-x: auto;\n    }\n\n    #calendar {\n      max-width: 100%;\n    }\n\n    .fc-toolbar-title {\n      font-size: 1.5rem;\n      color: #5a3e2b;\n    }\n\n    .fc-button {\n      background-color: #628c2a !important;\n      border: none !important;\n      color: white !important;\n      padding: 0.3rem 1rem;\n      border-radius: 1rem;\n      font-weight: bold;\n      text-transform: uppercase;\n      cursor: pointer !important;\n    }\n\n    .fc-button:hover {\n      background-color: #4a6d21 !important;\n    }\n\n    .fc-button:disabled {\n      opacity: 0.5 !important;\n      cursor: not-allowed !important;\n    }\n\n    .fc-event {\n      background-color: #628c2a !important;\n      color: #fff !important;\n      font-weight: bold;\n      padding: 0.2rem 0.4rem;\n      border-radius: 0.3rem;\n    }\n\n    .fc-daygrid-day-frame,\n    .fc-timegrid-slot,\n    .fc-list-event {\n      cursor: pointer;\n    }\n\n    .fc-daygrid-day:hover {\n      background-color: #f1e8cf;\n    }\n  "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["<div id=\"calendar\"></div>"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class AgCalendarFull extends _lit.LitElement {
+  constructor() {
+    super();
+    this.calendar = null;
+  }
+
+  firstUpdated() {
+    const calendarEl = this.renderRoot.querySelector('#calendar'); // If calendar already exists, destroy before re-render
+
+    if (this.calendar) {
+      this.calendar.destroy();
+    } // Load FullCalendar script
+
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js';
+
+    script.onload = () => {
+      const {
+        Calendar
+      } = window.FullCalendar;
+      this.calendar = new Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        selectable: true,
+        events: [{
+          title: '7am Training',
+          date: '2025-06-15',
+          color: '#D2691E'
+        }, {
+          title: '4pm Lesson',
+          date: '2025-06-10',
+          color: '#628c2a'
+        }, {
+          title: '10am Lesson',
+          date: '2025-06-26',
+          color: '#628c2a'
+        }],
+        dateClick: info => {
+          alert("Clicked on date: ".concat(info.dateStr));
+        }
+      });
+      this.calendar.render();
+    };
+
+    document.head.appendChild(script);
+  }
+
+  render() {
+    return (0, _lit.html)(_templateObject());
+  }
+
+}
+
+exports.AgCalendarFull = AgCalendarFull;
+
+_defineProperty(AgCalendarFull, "styles", (0, _lit.css)(_templateObject2()));
+
+customElements.define('ag-calendar-full', AgCalendarFull);
 },{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -16743,6 +16842,8 @@ require("./components/ag-tile-grid");
 
 require("./components/ag-calendar-preview");
 
+require("./components/ag-calendar-full");
+
 require("./scss/master.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -16753,7 +16854,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./components/ag-calendar-preview":"components/ag-calendar-preview.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./components/ag-calendar-preview":"components/ag-calendar-preview.js","./components/ag-calendar-full":"components/ag-calendar-full.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -16781,7 +16882,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63583" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53640" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
