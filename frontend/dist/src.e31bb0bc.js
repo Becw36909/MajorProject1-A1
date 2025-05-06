@@ -13637,8 +13637,18 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["<p>No horses yet.</p>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n        <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\"></sl-avatar>\n        "]);
+  const data = _taggedTemplateLiteral(["\n                      <button class=\"horse-button\">\n                        <img\n                          class=\"horse-icon\"\n                          src=\"", "/images/", "\"\n                          alt=\"", "\"\n                        />\n                        ", "\n                      </button>\n                    "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -13648,7 +13658,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n          <sl-avatar style=\"--size: 200px; margin-bottom: 1em;\" image=", "></sl-avatar>\n        "]);
+  const data = _taggedTemplateLiteral(["\n                  ", "\n                "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -13658,7 +13668,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header title=\"Profile\" user=\"", "\"></ag-app-header>\n      <div class=\"page-content calign\">        \n        ", "\n        <h2>", " ", "</h2>\n        <p>", "</p>\n        \n        <p>Updated: ", "</p>\n\n        <sl-button @click=", ">Edit Profile</sl-button>\n      </div>      \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <div class=\"profile-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"profile-column profile-info\">\n            <h2>My Profile</h2>\n            <p>\n              <strong>Name:</strong><br />", " ", "\n            </p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n            <sl-button @click=", "\n              >Update Profile</sl-button\n            >\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"profile-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            >\n            </sl-avatar>\n          </div>\n\n          <!-- Right Column: My Horses -->\n          <div class=\"profile-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n            ", "\n\n            <button\n              class=\"horse-button add-horse\"\n              @click=", "\n            >\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13671,23 +13681,24 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class ProfileView {
   init() {
-    const toastMessage = localStorage.getItem('toastMessage');
+    const toastMessage = localStorage.getItem("toastMessage");
 
     if (toastMessage) {
       _Toast.default.show(toastMessage);
 
-      localStorage.removeItem('toastMessage');
+      localStorage.removeItem("toastMessage");
     }
 
-    console.log('ProfileView.init');
-    document.title = 'Profile';
+    console.log("ProfileView.init");
+    document.title = "My Profile | AgistEase";
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), JSON.stringify(_Auth.default.currentUser), _Auth.default.currentUser && _Auth.default.currentUser.profileImage ? (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser && _Auth.default.currentUser.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(_Auth.default.currentUser.profileImage) : '') : (0, _litHtml.html)(_templateObject3()), _Auth.default.currentUser.firstName, _Auth.default.currentUser.lastName, _Auth.default.currentUser.email, (0, _moment.default)(_Auth.default.currentUser.updatedAt).format('MMMM Do YYYY, @ h:mm a'), () => (0, _Router.gotoRoute)('/editProfile'));
+    const user = _Auth.default.currentUser;
+    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phone, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || "No bio available.", user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : "", user.horses && user.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), user.horses.map(horse => (0, _litHtml.html)(_templateObject3(), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)("/addHorse"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -16821,7 +16832,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49200" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52990" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
