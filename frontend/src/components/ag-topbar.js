@@ -67,10 +67,9 @@ class AgTopbar extends LitElement {
       gap: 0.5rem;
     }
 
-        .logo-wrap a {
+    .logo-wrap a {
       text-decoration: none;
     }
-      
 
     .logo-icon {
       height: 50px;

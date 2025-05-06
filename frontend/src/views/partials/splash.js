@@ -4,7 +4,7 @@ const splash = html`
 
   <div class="app-splash">
     <div class="inner">
-      <img class="app-logo" src="/images/logo.svg" />
+      <img class="agistease-logo" src="/images/agistease-logo.svg" />
       <sl-spinner style="font-size: 2em;"></sl-spinner>
     </div>
   </div>

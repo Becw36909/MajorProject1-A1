@@ -2,12 +2,8 @@ import Utils from "./../../Utils";
 import Auth from "./../../Auth";
 import Toast from "../../Toast";
 import { html } from "lit-html";
-import BaseSplitView from "../layouts/BaseSplitView";
 
-class DashboardView extends BaseSplitView {
-  constructor() {
-    super();
-  }
+class DashboardView{
 
   init() {
     const toastMessage = localStorage.getItem("toastMessage");

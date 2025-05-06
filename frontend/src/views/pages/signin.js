@@ -19,13 +19,11 @@ class SignInView {
     const email = document.querySelector("#email")?.value.trim();
     const password = document.querySelector("#password")?.value.trim();
 
-    // Client-side validation
     if (!email || !password) {
       Toast.show("Please enter both email and password", "error");
       return;
     }
 
-    // Optional: basic email pattern check
     const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
     if (!emailPattern.test(email)) {
       Toast.show("Please enter a valid email address", "error");
@@ -42,29 +40,22 @@ class SignInView {
 
   render() {
     const template = html`
-      <div class="page-content page-centered">
-        <div class="signinup-box">
-          <img class="signinup-logo" src="/images/agistease-logo.svg" />
-          <form class="form-signin dark-theme" id="signin-form">
-            <sl-input
-              name="email"
-              id="email"
-              label="Email"
-              type="email"
-              required
-            ></sl-input>
-            <sl-input
-              name="password"
-              id="password"
-              label="Password"
-              type="password"
-              required
-            ></sl-input>
-            <sl-button type="submit" variant="primary">Sign In</sl-button>
+      <div class="page-content page-centered signin-page">
+        <div class="signin-box">
+          <img src="/images/agistease-logo.svg" alt="AgistEase Logo" class="signin-logo" />
+          
+          <form class="form-signin" id="signin-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            
+            <button type="submit" class="btn-primary">Sign in</button>
           </form>
-          <p>
-            Don’t have an account?
-            <a href="/signup" @click=${anchorRoute}>Sign Up</a>
+
+          <p class="signup-cta">
+            Need an account? Sign up <a href="/signup" @click=${anchorRoute}>HERE</a>
           </p>
         </div>
       </div>

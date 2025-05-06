@@ -1924,7 +1924,7 @@ exports.default = void 0;
 var _litHtml = require("lit-html");
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n\n  <div class=\"app-splash\">\n    <div class=\"inner\">\n      <img class=\"app-logo\" src=\"/images/logo.svg\" />\n      <sl-spinner style=\"font-size: 2em;\"></sl-spinner>\n    </div>\n  </div>\n"]);
+  const data = _taggedTemplateLiteral(["\n\n  <div class=\"app-splash\">\n    <div class=\"inner\">\n      <img class=\"agistease-logo\" src=\"/images/agistease-logo.svg\" />\n      <sl-spinner style=\"font-size: 2em;\"></sl-spinner>\n    </div>\n  </div>\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7787,7 +7787,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/agistease-logo.svg\" />\n          <form class=\"form-signin dark-theme\" id=\"signin-form\">\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-button type=\"submit\" variant=\"primary\">Sign In</sl-button>\n          </form>\n          <p>\n            Don\u2019t have an account?\n            <a href=\"/signup\" @click=", ">Sign Up</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered signin-page\">\n        <div class=\"signin-box\">\n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n          \n          <form class=\"form-signin\" id=\"signin-form\">\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n            \n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n            \n            <button type=\"submit\" class=\"btn-primary\">Sign in</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Need an account? Sign up <a href=\"/signup\" @click=", ">HERE</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7812,14 +7812,13 @@ class SignInView {
 
     e.preventDefault();
     const email = (_document$querySelect = document.querySelector("#email")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.value.trim();
-    const password = (_document$querySelect2 = document.querySelector("#password")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.value.trim(); // Client-side validation
+    const password = (_document$querySelect2 = document.querySelector("#password")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.value.trim();
 
     if (!email || !password) {
       _Toast.default.show("Please enter both email and password", "error");
 
       return;
-    } // Optional: basic email pattern check
-
+    }
 
     const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
 
@@ -14101,114 +14100,7 @@ class RequestsView {
 var _default = new RequestsView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/layouts/BaseView.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-class BaseView {
-  constructor() {
-    this.isMobile = window.innerWidth <= 768;
-
-    this._onResize = () => {
-      const nowMobile = window.innerWidth <= 768;
-
-      if (nowMobile !== this.isMobile) {
-        this.isMobile = nowMobile;
-        this.render();
-      }
-    };
-
-    window.addEventListener("resize", this._onResize);
-  }
-
-  destroy() {
-    window.removeEventListener("resize", this._onResize);
-  }
-
-}
-
-exports.default = BaseView;
-},{}],"views/layouts/BaseSplitView.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _App = _interopRequireDefault(require("../../App"));
-
-var _litHtml = require("lit-html");
-
-var _Auth = _interopRequireDefault(require("../../Auth"));
-
-var _BaseView = _interopRequireDefault(require("./BaseView"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _templateObject3() {
-  const data = _taggedTemplateLiteral(["<p>[Implement renderContent()]</p>"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <sl-split-panel\n        position-in-pixels=\"275\"\n        style=\" --min: 200px; --max: 300px;\"\n        disabled\n      >\n        <!-- Sidebar -->\n        <div\n          slot=\"start\"\n          class=\"sidebar-panel\"\n          style=\"height: 100hv; background: var(--app-sidebar-bg); display: flex; align-items: center; justify-content: center;  overflow: hidden;\"\n        >\n          <ag-app-sidebar .user=", "></ag-app-sidebar>\n        </div>\n\n        <!-- Right panel: Topbar + Main Content -->\n        <div slot=\"end\">\n          <sl-split-panel vertical style=\"height: 100vh;\" disabled position-in-pixels=\"100\">\n\n                    <!-- Topbar image -->\n            <div slot=\"start\" style=\"height: 100px; overflow: hidden;\">\n              <ag-topbar></ag-topbar>\n            </div>\n\n            <!-- Main Content Panel -->\n            <div\n              slot=\"end\"\n              style=\"overflow-y: auto; padding: 2rem; height: 100%; box-sizing: border-box;\"\n            >\n              ", "\n            </div>\n          </sl-split-panel>\n        </div>\n      </sl-split-panel>\n    "]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n        <div class=\"mobile-view\" style=\"display: flex; flex-direction: column; height: 100vh;\">\n          <div class=\"mobile-topbar\" style=\"flex: 0 0 auto;\">\n            <ag-topbar .user=", "></ag-topbar>\n          </div>\n          <div class=\"mobile-content\" style=\"flex: 1 1 auto; overflow-y: auto; padding: 1.5rem; box-sizing: border-box;\">\n            ", "\n          </div>\n        </div>\n      "]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-class BaseSplitView extends _BaseView.default {
-  constructor() {
-    super();
-  }
-
-  render() {
-    const content = this.renderContent();
-
-    if (this.isMobile) {
-      const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser, content);
-      (0, _litHtml.render)(template, _App.default.rootEl);
-      return;
-    }
-
-    const template = (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser, this.renderContent());
-    (0, _litHtml.render)(template, _App.default.rootEl);
-  } // These methods must be implemented by subclasses:
-
-
-  renderContent() {
-    return (0, _litHtml.html)(_templateObject3());
-  }
-
-}
-
-exports.default = BaseSplitView;
-},{"../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Auth":"Auth.js","./BaseView":"views/layouts/BaseView.js"}],"views/pages/calendar.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/calendar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14220,18 +14112,12 @@ var _App = _interopRequireDefault(require("./../../App"));
 
 var _litHtml = require("lit-html");
 
-var _Router = require("./../../Router");
-
-var _Auth = _interopRequireDefault(require("./../../Auth"));
-
 var _Utils = _interopRequireDefault(require("./../../Utils"));
-
-var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <h1>My Calendar</h1>\n      <ag-calendar-full></ag-calendar-full>\n    "]);
+  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n      <h1>My Calendar</h1>\n      <ag-calendar-full></ag-calendar-full>\n                  </ag-app-layout>\n\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14242,11 +14128,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class CalendarView extends _BaseSplitView.default {
-  constructor() {
-    super();
-  }
-
+class CalendarView {
   init() {
     document.title = "Calendar | AgistEase";
     this.render();
@@ -14254,8 +14136,9 @@ class CalendarView extends _BaseSplitView.default {
     _Utils.default.pageIntroAnim();
   }
 
-  renderContent() {
-    return (0, _litHtml.html)(_templateObject());
+  render() {
+    const template = (0, _litHtml.html)(_templateObject());
+    (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
 }
@@ -14263,7 +14146,7 @@ class CalendarView extends _BaseSplitView.default {
 var _default = new CalendarView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../layouts/BaseSplitView":"views/layouts/BaseSplitView.js"}],"views/pages/guide.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Utils":"Utils.js"}],"views/pages/guide.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14345,8 +14228,6 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 
 var _litHtml = require("lit-html");
 
-var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
@@ -14371,11 +14252,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class DashboardView extends _BaseSplitView.default {
-  constructor() {
-    super();
-  }
-
+class DashboardView {
   init() {
     const toastMessage = localStorage.getItem("toastMessage");
 
@@ -14404,7 +14281,7 @@ class DashboardView extends _BaseSplitView.default {
 var _default = new DashboardView();
 
 exports.default = _default;
-},{"./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js","../layouts/BaseSplitView":"views/layouts/BaseSplitView.js"}],"data/sampleCalendarEvents.js":[function(require,module,exports) {
+},{"./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js"}],"data/sampleCalendarEvents.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14439,6 +14316,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _App = _interopRequireDefault(require("./../../App"));
+
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
 var _Auth = _interopRequireDefault(require("./../../Auth"));
@@ -14447,14 +14326,12 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 
 var _litHtml = require("lit-html");
 
-var _BaseSplitView = _interopRequireDefault(require("../layouts/BaseSplitView"));
-
 var _sampleCalendarEvents = require("../../data/sampleCalendarEvents");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n        <ag-calendar-preview .events=", "></ag-calendar-preview>\n\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <ag-calendar-preview\n        .events=", "\n      ></ag-calendar-preview>\n            </ag-app-layout>\n\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14465,11 +14342,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class DashboardView extends _BaseSplitView.default {
-  constructor() {
-    super();
-  }
-
+class DashboardView {
   init() {
     const toastMessage = localStorage.getItem("toastMessage");
 
@@ -14485,8 +14358,9 @@ class DashboardView extends _BaseSplitView.default {
     _Utils.default.pageIntroAnim();
   }
 
-  renderContent() {
-    return (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, _sampleCalendarEvents.sampleCalendarEvents);
+  render() {
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, _sampleCalendarEvents.sampleCalendarEvents);
+    (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
 }
@@ -14494,7 +14368,7 @@ class DashboardView extends _BaseSplitView.default {
 var _default = new DashboardView();
 
 exports.default = _default;
-},{"./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js","../layouts/BaseSplitView":"views/layouts/BaseSplitView.js","../../data/sampleCalendarEvents":"data/sampleCalendarEvents.js"}],"views/pages/viewRequests.js":[function(require,module,exports) {
+},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","../../Toast":"Toast.js","lit-html":"../node_modules/lit-html/lit-html.js","../../data/sampleCalendarEvents":"data/sampleCalendarEvents.js"}],"views/pages/viewRequests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16307,7 +16181,7 @@ var _Auth = _interopRequireDefault(require("../Auth"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 100px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n        .logo-wrap a {\n      text-decoration: none;\n    }\n      \n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    .topbar {\n      width: 100%;\n      height: 100px;\n      background-image: url(\"/images/IMG_0745.JPG\");\n      background-size: cover;\n      background-position: center;\n      background-repeat: no-repeat;\n      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);\n    }\n\n    .mobile-bar {\n      display: none;\n      width: 100%;\n      height: 80px;\n      background-color: var(--app-sidebar-bg, #1e1e1e);\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 0 1rem;\n      box-sizing: border-box;\n    }\n\n    .logo-text {\n      font-family: \"Playfair Display\", serif;\n      font-size: 2rem;\n      color: #e8c872;\n      font-weight: 600;\n    }\n\n    .hamburger {\n      background: none;\n      border: none;\n      font-size: 2rem;\n      color: #f7f1df;\n      cursor: pointer;\n    }\n\n    .nav-links {\n      display: none;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 1rem;\n      background-color: #2e2e2e;\n    }\n\n    .nav-links.show {\n      display: flex;\n    }\n\n    .nav-links a {\n      color: #e8c872;\n      text-decoration: none;\n      font-size: 1.1rem;\n      margin-bottom: 0.8rem;\n      font-family: \"Quicksand\", sans-serif;\n    }\n\n    .logo-wrap {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n\n    .logo-wrap a {\n      text-decoration: none;\n    }\n\n    .logo-icon {\n      height: 50px;\n      width: auto;\n    }\n\n    @media (max-width: 768px) {\n      .topbar {\n        display: none;\n      }\n\n      .mobile-bar {\n        display: flex;\n      }\n    }\n\n    @media (min-width: 769px) {\n      .mobile-bar,\n      .nav-links {\n        display: none !important;\n      }\n    }\n  "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -16753,7 +16627,57 @@ exports.AgCalendarFull = AgCalendarFull;
 _defineProperty(AgCalendarFull, "styles", (0, _lit.css)(_templateObject2()));
 
 customElements.define('ag-calendar-full', AgCalendarFull);
-},{"lit":"../node_modules/lit/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"lit":"../node_modules/lit/index.js"}],"components/ag-app-layout.js":[function(require,module,exports) {
+"use strict";
+
+var _lit = require("lit");
+
+var _Auth = _interopRequireDefault(require("../Auth"));
+
+var _class, _temp;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["\n :host {\n      display: block;\n      height: 100vh;\n    }\n\n    .layout {\n      display: flex;\n      height: 100%;\n      overflow: hidden;\n    }\n\n    ag-app-sidebar {\n      flex-shrink: 0;\n      width: 250px;\n    }\n\n    .main-content {\n      flex-grow: 1;\n      display: flex;\n      flex-direction: column;\n      overflow: hidden;\n    }\n\n    .topbar-wrap {\n      flex-shrink: 0;\n    }\n\n    .view-wrap {\n      flex-grow: 1;\n      overflow-y: auto;\n      padding: 2rem;\n      background-color: var(--body-bg, #faf3e0);\n    }\n\n    @media (max-width: 768px) {\n      .layout {\n        flex-direction: column;\n      }\n\n      ag-app-sidebar {\n        display: none;\n      }\n\n      .main-content {\n        width: 100%;\n      }\n\n      .view-wrap {\n        padding: 1.5rem;\n      }\n    }\n    "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <div class=\"layout\">\n        <ag-app-sidebar .user=", "></ag-app-sidebar>\n        <div class=\"main-content\">\n          <div class=\"topbar-wrap\">\n            <ag-topbar></ag-topbar>\n          </div>\n          <div class=\"view-wrap\">\n            <slot></slot>\n          </div>\n        </div>\n      </div>\n      "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+customElements.define('ag-app-layout', (_temp = _class = class AgAppLayout extends _lit.LitElement {
+  constructor() {
+    super();
+    this.user = _Auth.default.currentUser;
+  }
+
+  render() {
+    return (0, _lit.html)(_templateObject(), this.user);
+  }
+
+}, _defineProperty(_class, "properties", {
+  user: {
+    type: Object
+  }
+}), _defineProperty(_class, "styles", (0, _lit.css)(_templateObject2())), _temp));
+},{"lit":"../node_modules/lit/index.js","../Auth":"Auth.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -16844,6 +16768,8 @@ require("./components/ag-calendar-preview");
 
 require("./components/ag-calendar-full");
 
+require("./components/ag-app-layout");
+
 require("./scss/master.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -16854,7 +16780,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', () => {
   _App.default.init();
 });
-},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./components/ag-calendar-preview":"components/ag-calendar-preview.js","./components/ag-calendar-full":"components/ag-calendar-full.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./components/ag-calendar-preview":"components/ag-calendar-preview.js","./components/ag-calendar-full":"components/ag-calendar-full.js","./components/ag-app-layout":"components/ag-app-layout.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -16882,7 +16808,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53640" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63307" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

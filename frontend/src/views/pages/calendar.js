@@ -1,27 +1,27 @@
 import App from './../../App'
 import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute } from './../../Router'
-import Auth from './../../Auth'
 import Utils from './../../Utils'
-import BaseSplitView from "../layouts/BaseSplitView";
 
 
-class CalendarView extends BaseSplitView {
-   constructor() {
-     super();
-   }
+class CalendarView  {
+
  
    init() {
-     document.title = "Calendar | AgistEase";
+    document.title = "Calendar | AgistEase";
      this.render();
      Utils.pageIntroAnim();
    }
  
-   renderContent() {
-    return html`
+   render() {
+    const template = html`
+          <ag-app-layout>
       <h1>My Calendar</h1>
       <ag-calendar-full></ag-calendar-full>
+                  </ag-app-layout>
+
     `;
+        render(template, App.rootEl);
+    
   }
   
  }

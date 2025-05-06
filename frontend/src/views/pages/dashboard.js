@@ -1,16 +1,12 @@
+import App from "./../../App";
+
 import Utils from "./../../Utils";
 import Auth from "./../../Auth";
 import Toast from "../../Toast";
-import { html } from "lit-html";
-import BaseSplitView from "../layouts/BaseSplitView";
+import { html, render } from "lit-html";
 import { sampleCalendarEvents } from "../../data/sampleCalendarEvents";
 
-
-class DashboardView extends BaseSplitView {
-  constructor() {
-    super();
-  }
-
+class DashboardView {
   init() {
     const toastMessage = localStorage.getItem("toastMessage");
     if (toastMessage) {
@@ -23,8 +19,10 @@ class DashboardView extends BaseSplitView {
     Utils.pageIntroAnim();
   }
 
-  renderContent() {
-    return html`
+  render() {
+    const template = html`
+          <ag-app-layout>
+
       <h1>Welcome, ${Auth.currentUser.firstName}!</h1>
 
       <!-- Tile buttons row -->
@@ -55,13 +53,14 @@ class DashboardView extends BaseSplitView {
       </ag-tile-grid>
 
       <!-- Placeholder calendar section -->
-        <ag-calendar-preview .events=${sampleCalendarEvents}></ag-calendar-preview>
+      <ag-calendar-preview
+        .events=${sampleCalendarEvents}
+      ></ag-calendar-preview>
+            </ag-app-layout>
 
-      </div>
     `;
+    render(template, App.rootEl);
   }
-
-
 }
 
 export default new DashboardView();

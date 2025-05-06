@@ -1,12 +1,8 @@
 import Utils from "./../../Utils";
 import Auth from "./../../Auth";
-import BaseSplitView from "../layouts/BaseSplitView";
 import { html } from "lit-html";
 
-class TemplateView extends BaseSplitView {
-  constructor() {
-    super();
-  }
+class TemplateView  {
 
   init() {
     document.title = "Template | AgistEase";
@@ -14,8 +10,9 @@ class TemplateView extends BaseSplitView {
     Utils.pageIntroAnim();
   }
 
-  renderContent() {
-    return html`
+  render() {
+    const template = html`
+          <ag-app-layout>
       <h1>Hello, ${Auth.currentUser.firstName}!</h1>
 
       <ag-tile-grid>
@@ -35,7 +32,11 @@ class TemplateView extends BaseSplitView {
         <h2>Placeholder Section</h2>
         <p>This area can be used to prototype further sections or embed test content.</p>
       </div>
+                  </ag-app-layout>
+
     `;
+        render(template, App.rootEl);
+    
   }
 }
 
