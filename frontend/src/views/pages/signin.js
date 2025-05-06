@@ -40,8 +40,9 @@ class SignInView {
 
   render() {
     const template = html`
-      <div class="page-content page-centered signin-page">
+      <div class="signin-page">
         <div class="signin-box">
+        
           <img src="/images/agistease-logo.svg" alt="AgistEase Logo" class="signin-logo" />
           
           <form class="form-signin" id="signin-form">

@@ -8,17 +8,18 @@
   --ag-logo-font-family: 'Playfair Display', serif;
   --body-bg: #f7f1df;
   
+  // SASS variables
+$green: #6b8e23;
+$orange: #D2691E;
+$brown: #5A3E2B;
 
   // colors  
   $brand-color: #6b8e23;
   --brand-color: #{$brand-color};
   --link-color: --brand-color;
-  $green: #6b8e23;
-  --green: #($green);
-  $brown: #5A3E2B;
-  --brown: #($brown);
-  $orange: #D2691E;
-  --orange:#($orange);
+  --green: #{$green};
+  --brown: #{$brown};
+  --orange:#{$orange};
 
   
   // app header

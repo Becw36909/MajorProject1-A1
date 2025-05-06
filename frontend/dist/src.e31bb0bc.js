@@ -7787,7 +7787,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered signin-page\">\n        <div class=\"signin-box\">\n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n          \n          <form class=\"form-signin\" id=\"signin-form\">\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n            \n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n            \n            <button type=\"submit\" class=\"btn-primary\">Sign in</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Need an account? Sign up <a href=\"/signup\" @click=", ">HERE</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"signin-page\">\n        <div class=\"signin-box\">\n        \n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n          \n          <form class=\"form-signin\" id=\"signin-form\">\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n            \n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n            \n            <button type=\"submit\" class=\"btn-primary\">Sign in</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Need an account? Sign up <a href=\"/signup\" @click=", ">HERE</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7874,7 +7874,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content page-centered\">\n        <div class=\"signinup-box\">\n          <img class=\"signinup-logo\" src=\"/images/agistease-logo.svg\" />\n          <form class=\"form-signup dark-theme\" id=\"signup-form\">\n            <sl-input\n              name=\"firstName\"\n              id=\"firstName\"\n              label=\"First Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"lastName\"\n              id=\"lastName\"\n              label=\"Last Name\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"email\"\n              id=\"email\"\n              label=\"Email\"\n              type=\"email\"\n              required\n            ></sl-input>\n            <sl-input\n              name=\"password\"\n              id=\"password\"\n              label=\"Password\"\n              type=\"password\"\n              required\n            ></sl-input>\n            <sl-radio-group name=\"accessLevel\" label=\"I am a:\" required>\n              <sl-radio value=\"user\">Horse Owner</sl-radio>\n              <sl-radio value=\"admin\">Stable Manager</sl-radio>\n            </sl-radio-group>\n            <sl-button type=\"submit\" variant=\"primary\">Sign Up</sl-button>\n          </form>\n          <p>\n            Already registered?\n            <a href=\"/signin\" @click=", ">Sign In</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n           <div class=\"signin-page\">\n        <div class=\"signin-box\">\n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n\n          <form class=\"form-signin\" id=\"signup-form\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" id=\"firstName\" name=\"firstName\" required />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" id=\"lastName\" name=\"lastName\" required />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n\n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n\n            <fieldset>\n              <legend>I am a:</legend>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"user\" required />\n                Horse Owner\n              </label>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"admin\" required />\n                Stable Manager\n              </label>\n            </fieldset>\n\n            <button type=\"submit\" class=\"btn-primary\">Sign Up</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Already registered? <a href=\"/signin\" @click=", ">Sign in</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16541,7 +16541,7 @@ exports.AgCalendarFull = void 0;
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      background-color: #f8f1df;\n      padding: 2rem;\n      border-radius: 1.5rem;\n      overflow-x: auto;\n    }\n\n    #calendar {\n      max-width: 100%;\n    }\n\n    .fc-toolbar-title {\n      font-size: 1.5rem;\n      color: #5a3e2b;\n    }\n\n    .fc-button {\n      background-color: #628c2a !important;\n      border: none !important;\n      color: white !important;\n      padding: 0.3rem 1rem;\n      border-radius: 1rem;\n      font-weight: bold;\n      text-transform: uppercase;\n      cursor: pointer !important;\n    }\n\n    .fc-button:hover {\n      background-color: #4a6d21 !important;\n    }\n\n    .fc-button:disabled {\n      opacity: 0.5 !important;\n      cursor: not-allowed !important;\n    }\n\n    .fc-event {\n      background-color: #628c2a !important;\n      color: #fff !important;\n      font-weight: bold;\n      padding: 0.2rem 0.4rem;\n      border-radius: 0.3rem;\n    }\n\n    .fc-daygrid-day-frame,\n    .fc-timegrid-slot,\n    .fc-list-event {\n      cursor: pointer;\n    }\n\n    .fc-daygrid-day:hover {\n      background-color: #f1e8cf;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      background-color: #f8f1df;\n      padding: 2rem;\n      border-radius: 1.5rem;\n      overflow-x: auto;\n    }\n\n    #calendar {\n      max-width: 100%;\n    }\n\n        .fc {\n      width: 100%;\n    }\n\n    .fc-toolbar-title {\n      font-size: 1.5rem;\n      color: #5a3e2b;\n    }\n\n    .fc-button {\n      background-color: #628c2a !important;\n      border: none !important;\n      color: white !important;\n      padding: 0.3rem 1rem;\n      border-radius: 1rem;\n      font-weight: bold;\n      text-transform: uppercase;\n      cursor: pointer !important;\n    }\n\n    .fc-button:hover {\n      background-color: #4a6d21 !important;\n    }\n\n    .fc-button:disabled {\n      opacity: 0.5 !important;\n      cursor: not-allowed !important;\n    }\n\n    .fc-event {\n      background-color: #628c2a !important;\n      color: #fff !important;\n      font-weight: bold;\n      padding: 0.2rem 0.4rem;\n      border-radius: 0.3rem;\n    }\n\n    .fc-daygrid-day-frame,\n    .fc-timegrid-slot,\n    .fc-list-event {\n      cursor: pointer;\n    }\n\n    .fc-daygrid-day:hover {\n      background-color: #f1e8cf;\n    }\n  "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16568,6 +16568,7 @@ class AgCalendarFull extends _lit.LitElement {
   constructor() {
     super();
     this.calendar = null;
+    this.handleResize = this.handleResize.bind(this);
   }
 
   firstUpdated() {
@@ -16611,9 +16612,21 @@ class AgCalendarFull extends _lit.LitElement {
         }
       });
       this.calendar.render();
+      window.addEventListener('resize', this.handleResize);
     };
 
     document.head.appendChild(script);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    if (this.calendar) {
+      this.calendar.updateSize();
+    }
   }
 
   render() {
@@ -16808,7 +16821,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63307" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49200" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

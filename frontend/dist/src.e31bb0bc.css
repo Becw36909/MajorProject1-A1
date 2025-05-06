@@ -9,9 +9,9 @@
   --body-bg: #f7f1df;
   --brand-color: #6b8e23;
   --link-color: --brand-color;
-  --green: #($green);
-  --brown: #($brown);
-  --orange:#($orange);
+  --green: #6b8e23;
+  --brown: #5A3E2B;
+  --orange:#D2691E;
   --app-header-height: 60px;
   --app-header-txt-color: #f7f1df;
   --app-header-title-font-size: 1.6em;
@@ -177,7 +177,7 @@ a {
   text-align: left;
 }
 .signin-page form.form-signin input {
-  border: 2px solid var(--brand-color);
+  border: 3px solid var(--brand-color);
   border-radius: 20px;
   padding: 0.75rem;
   font-size: 1rem;
@@ -189,17 +189,62 @@ a {
   border-radius: 20px;
   padding: 0.6rem 2rem;
   font-size: 1rem;
-  border: 2px solid var(--brown);
+  border: 3px solid var(--brown);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
-.signin-page .signup-cta {
-  margin-top: 2rem;
-  font-size: 1rem;
+.signin-page .form-signin button {
+  width: 30%;
+  align-self: flex-end;
+  cursor: pointer;
+  background-color: var(--green);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.signin-page .form-signin button:hover {
+  background-color: var(--orange);
+  transform: scale(1.05);
 }
 .signin-page .signup-cta a {
   color: var(--orange);
   font-weight: bold;
-  text-decoration: underline;
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.signin-page .signup-cta a:hover {
+  color: var(--green);
+  transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .signin-page .signin-box {
+    width: 90%;
+    padding: 1.5rem;
+  }
+  .signin-page .form-signin input,
+.signin-page .form-signin button {
+    font-size: 1rem;
+  }
+  .signin-page .signin-logo {
+    max-width: 400px;
+  }
+}
+@media (max-width: 480px) {
+  .signin-page .signin-box {
+    padding: 1rem;
+  }
+  .signin-page .form-signin label {
+    font-size: 0.9rem;
+  }
+  .signin-page .form-signin input,
+.signin-page .form-signin button {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+  .signin-page .signup-cta {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .signin-page .signin-logo {
+    max-width: 250px;
+  }
 }
 
 sl-dialog::part(title) {
@@ -251,7 +296,7 @@ sl-split-panel::part(divider) {
 
 .dashboard-main {
   padding: 2rem;
-  background: #f7f1df;
+  background: var(--body-bg);
   min-height: 100%;
 }
 

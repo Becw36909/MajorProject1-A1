@@ -27,7 +27,7 @@
     }
 
     input {
-      border: 2px solid var(--brand-color);
+      border: 3px solid var(--brand-color);
       border-radius: 20px;
       padding: 0.75rem;
       font-size: 1rem;
@@ -40,19 +40,82 @@
       border-radius: 20px;
       padding: 0.6rem 2rem;
       font-size: 1rem;
-      border: 2px solid var(--brown);
+      border: 3px solid var(--brown);
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
   }
 
-  .signup-cta {
-    margin-top: 2rem;
-    font-size: 1rem;
-
-    a {
-      color: var(--orange);
-      font-weight: bold;
-      text-decoration: underline;
+  .form-signin button {
+    width: 30%;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: var(--green);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  
+    &:hover {
+      background-color: var(--orange);
+      transform: scale(1.05);
     }
   }
+  
+
+  .signup-cta a {
+    color: var(--orange);;
+    font-weight: bold;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+  
+    &:hover {
+      color: var(--green); 
+      transform: scale(1.05);
+    }
+  }
+  
+
+
+// Responsive tweaks for sign in page
+@media (max-width: 768px) {
+  .signin-box {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .form-signin input,
+  .form-signin button {
+    font-size: 1rem;
+  }
+
+  .signin-logo {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-box {
+    padding: 1rem;
+  }
+
+  .form-signin label {
+    font-size: 0.9rem;
+  }
+
+  .form-signin input,
+  .form-signin button {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+
+  .signup-cta {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .signin-logo {
+    max-width: 250px;
+  }
+}
+
+
+
+  
 }

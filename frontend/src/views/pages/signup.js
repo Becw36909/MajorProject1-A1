@@ -57,45 +57,40 @@ class SignUpView {
 
   render() {
     const template = html`
-      <div class="page-content page-centered">
-        <div class="signinup-box">
-          <img class="signinup-logo" src="/images/agistease-logo.svg" />
-          <form class="form-signup dark-theme" id="signup-form">
-            <sl-input
-              name="firstName"
-              id="firstName"
-              label="First Name"
-              required
-            ></sl-input>
-            <sl-input
-              name="lastName"
-              id="lastName"
-              label="Last Name"
-              required
-            ></sl-input>
-            <sl-input
-              name="email"
-              id="email"
-              label="Email"
-              type="email"
-              required
-            ></sl-input>
-            <sl-input
-              name="password"
-              id="password"
-              label="Password"
-              type="password"
-              required
-            ></sl-input>
-            <sl-radio-group name="accessLevel" label="I am a:" required>
-              <sl-radio value="user">Horse Owner</sl-radio>
-              <sl-radio value="admin">Stable Manager</sl-radio>
-            </sl-radio-group>
-            <sl-button type="submit" variant="primary">Sign Up</sl-button>
+           <div class="signin-page">
+        <div class="signin-box">
+          <img src="/images/agistease-logo.svg" alt="AgistEase Logo" class="signin-logo" />
+
+          <form class="form-signin" id="signup-form">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required />
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <fieldset>
+              <legend>I am a:</legend>
+              <label>
+                <input type="radio" name="accessLevel" value="user" required />
+                Horse Owner
+              </label>
+              <label>
+                <input type="radio" name="accessLevel" value="admin" required />
+                Stable Manager
+              </label>
+            </fieldset>
+
+            <button type="submit" class="btn-primary">Sign Up</button>
           </form>
-          <p>
-            Already registered?
-            <a href="/signin" @click=${anchorRoute}>Sign In</a>
+
+          <p class="signup-cta">
+            Already registered? <a href="/signin" @click=${anchorRoute}>Sign in</a>
           </p>
         </div>
       </div>

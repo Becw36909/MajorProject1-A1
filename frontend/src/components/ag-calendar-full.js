@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
+
 export class AgCalendarFull extends LitElement {
   static styles = css`
     :host {
@@ -12,6 +13,10 @@ export class AgCalendarFull extends LitElement {
 
     #calendar {
       max-width: 100%;
+    }
+
+        .fc {
+      width: 100%;
     }
 
     .fc-toolbar-title {
@@ -61,7 +66,7 @@ export class AgCalendarFull extends LitElement {
   constructor() {
     super();
     this.calendar = null;
-  }
+    this.handleResize = this.handleResize.bind(this);  }
 
   firstUpdated() {
     const calendarEl = this.renderRoot.querySelector('#calendar');
@@ -96,9 +101,22 @@ export class AgCalendarFull extends LitElement {
       });
 
       this.calendar.render();
+      window.addEventListener('resize', this.handleResize);
+
     };
 
     document.head.appendChild(script);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    if (this.calendar) {
+      this.calendar.updateSize();
+    }
   }
 
   render() {
