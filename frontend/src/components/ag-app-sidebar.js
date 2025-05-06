@@ -192,7 +192,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 1.5rem;
+              font-size: 1.8rem;
               padding-left: 0.8rem;
             }
 
@@ -212,7 +212,7 @@ customElements.define(
 
           @media (max-height: 900px) {
             .sidebar-links {
-              gap: 1rem;
+              gap: 1.5rem;
             }
           }
 
@@ -239,7 +239,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 1.2rem;
+              font-size: 1.5rem;
             }
 
             .sidebar-footer {
@@ -272,7 +272,7 @@ customElements.define(
             }
 
             .sidebar-links a {
-              font-size: 1rem;
+              font-size: 1.5rem;
               padding-left: 1rem;
             }
 

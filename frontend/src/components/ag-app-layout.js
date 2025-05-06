@@ -1,65 +1,76 @@
-import { LitElement, html, css } from 'lit';
-import Auth from '../Auth';
+import { LitElement, html, css } from "lit";
+import Auth from "../Auth";
 
 customElements.define(
-  'ag-app-layout',
+  "ag-app-layout",
   class AgAppLayout extends LitElement {
     static properties = {
       user: { type: Object },
     };
 
     static styles = css`
- :host {
-      display: block;
-      height: 100vh;
-    }
+      :host {
+        display: block;
+        height: 100vh;
+      }
 
-    .layout {
-      display: flex;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    ag-app-sidebar {
-      flex-shrink: 0;
-      width: 250px;
-    }
-
-    .main-content {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .topbar-wrap {
-      flex-shrink: 0;
-    }
-
-    .view-wrap {
-      flex-grow: 1;
-      overflow-y: auto;
-      padding: 2rem;
-      background-color: var(--body-bg, #faf3e0);
-    }
-
-    @media (max-width: 768px) {
       .layout {
-        flex-direction: column;
+        display: flex;
+        height: 100%;
+        overflow: hidden;
       }
 
       ag-app-sidebar {
-        display: none;
+        flex-shrink: 0;
+        width: 250px;
       }
 
       .main-content {
-        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .topbar-wrap {
+        flex-shrink: 0;
       }
 
       .view-wrap {
-        padding: 1.5rem;
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+        background-color: var(--body-bg, #faf3e0);
       }
-    }
+
+      @media (min-width: 1440px) {
+        ag-app-sidebar {
+          width: 320px;
+        }
+      }
+      @media (min-width: 1100px) {
+        ag-app-sidebar {
+          width: 300px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .layout {
+          flex-direction: column;
+        }
+
+        ag-app-sidebar {
+          display: none;
+        }
+
+        .main-content {
+          width: 100%;
+        }
+
+        .view-wrap {
+          padding: 1.5rem;
+        }
+      }
     `;
 
     constructor() {
@@ -69,17 +80,17 @@ customElements.define(
 
     render() {
       return html`
-      <div class="layout">
-        <ag-app-sidebar .user=${this.user}></ag-app-sidebar>
-        <div class="main-content">
-          <div class="topbar-wrap">
-            <ag-topbar></ag-topbar>
-          </div>
-          <div class="view-wrap">
-            <slot></slot>
+        <div class="layout">
+          <ag-app-sidebar .user=${this.user}></ag-app-sidebar>
+          <div class="main-content">
+            <div class="topbar-wrap">
+              <ag-topbar></ag-topbar>
+            </div>
+            <div class="view-wrap">
+              <slot></slot>
+            </div>
           </div>
         </div>
-      </div>
       `;
     }
   }
