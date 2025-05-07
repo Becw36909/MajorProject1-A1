@@ -1,15 +1,12 @@
 import App from './../../App'
+import Utils from "./../../Utils";
+import Auth from "./../../Auth";
 import {html, render } from 'lit-html'
-import {gotoRoute, anchorRoute} from './../../Router'
-import Auth from './../../Auth'
-import Utils from './../../Utils'
-import moment from 'moment'
-import Toast from "../../Toast";
 
-class TemplateView  {
+class AddHorseView  {
 
   init() {
-    document.title = "Template | AgistEase";
+    document.title = "Add Horse | AgistEase";
     this.render();
     Utils.pageIntroAnim();
   }
@@ -17,7 +14,7 @@ class TemplateView  {
   render() {
     const template = html`
           <ag-app-layout>
-      <h1>Hello, ${Auth.currentUser.firstName}!</h1>
+      <h1>ADD HORSE!</h1>
 
       <ag-tile-grid>
         <ag-tile-button
@@ -44,4 +41,4 @@ class TemplateView  {
   }
 }
 
-export default new TemplateView();
+export default new AddHorseView();

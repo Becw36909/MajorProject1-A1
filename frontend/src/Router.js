@@ -12,6 +12,8 @@ import guideView from './views/pages/guide'
 import adminDashboardView from './views/pages/adminDashboard'
 import dashboardView from './views/pages/dashboard'
 import viewRequestsView from './views/pages/viewRequests'
+import addHorseView from './views/pages/addHorse'
+
 
 // define routes
 const routes = {
@@ -28,6 +30,8 @@ const routes = {
 	'/adminDashboard': adminDashboardView, 
 	'/dashboard': dashboardView,
 	'/viewRequests': viewRequestsView,
+	'/addHorse': addHorseView,
+
 
 	
 }

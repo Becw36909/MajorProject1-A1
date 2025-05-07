@@ -13648,7 +13648,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n                      <button class=\"horse-button\">\n                        <img\n                          class=\"horse-icon\"\n                          src=\"", "/images/", "\"\n                          alt=\"", "\"\n                        />\n                        ", "\n                      </button>\n                    "]);
+  const data = _taggedTemplateLiteral(["\n                      <button class=\"horse-button\" @click=", ">\n                        <img\n                          class=\"horse-icon\"\n                          src=\"", "/images/", "\"\n                          alt=\"", "\"\n                        />\n                        ", "\n                      </button>\n                    "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -13668,7 +13668,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <div class=\"profile-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"profile-column profile-info\">\n            <h2>My Profile</h2>\n            <p>\n              <strong>Name:</strong><br />", " ", "\n            </p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n            <sl-button @click=", "\n              >Update Profile</sl-button\n            >\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"profile-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            >\n            </sl-avatar>\n          </div>\n\n          <!-- Right Column: My Horses -->\n          <div class=\"profile-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n            ", "\n\n            <button\n              class=\"horse-button add-horse\"\n              @click=", "\n            >\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h2>My Profile</h2>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong>Name:</strong><br />", " ", "</p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n            ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13681,16 +13681,16 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class ProfileView {
   init() {
-    const toastMessage = localStorage.getItem("toastMessage");
+    const toastMessage = localStorage.getItem('toastMessage');
 
     if (toastMessage) {
       _Toast.default.show(toastMessage);
 
-      localStorage.removeItem("toastMessage");
+      localStorage.removeItem('toastMessage');
     }
 
-    console.log("ProfileView.init");
-    document.title = "My Profile | AgistEase";
+    console.log('ProfileView.init');
+    document.title = 'My Profile | AgistEase';
     this.render();
 
     _Utils.default.pageIntroAnim();
@@ -13698,7 +13698,7 @@ class ProfileView {
 
   render() {
     const user = _Auth.default.currentUser;
-    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phone, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || "No bio available.", user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : "", user.horses && user.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), user.horses.map(horse => (0, _litHtml.html)(_templateObject3(), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)("/addHorse"));
+    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phoneNumber, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || 'No bio available.', user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : '', user.horses && user.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), user.horses.map(horse => (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)("/horse/".concat(horse._id)), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)('/addHorse'));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14430,7 +14430,55 @@ class viewRequestsView {
 var _default = new viewRequestsView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"Router.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/addHorse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _litHtml = require("lit-html");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n      <h1>ADD HORSE!</h1>\n\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"Example Tile\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/example\"\n        ></ag-tile-button>\n        <ag-tile-button\n          label=\"Another Action\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/another\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <div class=\"template-preview\">\n        <h2>Placeholder Section</h2>\n        <p>This area can be used to prototype further sections or embed test content.</p>\n      </div>\n                  </ag-app-layout>\n\n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class AddHorseView {
+  init() {
+    document.title = "Add Horse | AgistEase";
+    this.render();
+
+    _Utils.default.pageIntroAnim();
+  }
+
+  render() {
+    const template = (0, _litHtml.html)(_templateObject());
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new AddHorseView();
+
+exports.default = _default;
+},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14466,6 +14514,8 @@ var _dashboard = _interopRequireDefault(require("./views/pages/dashboard"));
 
 var _viewRequests = _interopRequireDefault(require("./views/pages/viewRequests"));
 
+var _addHorse = _interopRequireDefault(require("./views/pages/addHorse"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import views
@@ -14483,7 +14533,8 @@ const routes = {
   '/guide': _guide.default,
   '/adminDashboard': _adminDashboard.default,
   '/dashboard': _dashboard.default,
-  '/viewRequests': _viewRequests.default
+  '/viewRequests': _viewRequests.default,
+  '/addHorse': _addHorse.default
 };
 
 class Router {
@@ -14537,7 +14588,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16832,7 +16883,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52990" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58249" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

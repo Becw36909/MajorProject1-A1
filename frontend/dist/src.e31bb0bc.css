@@ -305,26 +305,40 @@ sl-split-panel::part(divider) {
   background: #f7f1df;
 }
 
-.profile-container {
+.three-col-container {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   padding: 2rem;
 }
 
-.profile-column {
+.three-col-column {
   flex: 1;
   min-width: 250px;
 }
 
-.profile-info sl-button {
-  margin-top: 1rem;
+.three-col-column p,
+.three-col-column strong {
+  font-size: 1.2rem;
 }
 
-.profile-horses {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.custom-button {
+  background-color: var(--green);
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.custom-button:hover {
+  background-color: var(--orange);
+  transform: scale(1.02);
 }
 
 .horse-button {
@@ -334,17 +348,28 @@ sl-split-panel::part(divider) {
   background: var(--green);
   color: white;
   font-weight: bold;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 2rem;
   border: none;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
+  font-size: 1.2rem;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .horse-button:hover {
+  background-color: #5c7a1e;
   transform: scale(1.02);
-  background: #4a5f19;
+}
+
+.add-horse {
+  background: var(--green);
+}
+
+.add-horse:hover {
+  background-color: var(--orange);
 }
 
 .horse-icon {
@@ -354,12 +379,28 @@ sl-split-panel::part(divider) {
   object-fit: cover;
 }
 
-.add-horse {
-  background: var(--brown);
-}
+@media (max-width: 850px) {
+  .three-col-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-.add-horse:hover {
-  background: #493223;
+  .three-col-column {
+    width: 100%;
+  }
+
+  .three-col-column p {
+    text-align: center;
+  }
+
+  .profile-horses {
+    align-items: center;
+  }
+
+  .horse-button {
+    margin: 0.5rem auto;
+  }
 }
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */
