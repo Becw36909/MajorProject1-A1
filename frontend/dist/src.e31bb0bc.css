@@ -53,6 +53,14 @@ a {
   color: var(--link-color);
 }
 
+input,
+select,
+textarea,
+button,
+label {
+  font-family: "Quicksand", sans-serif;
+}
+
 .app-splash {
   position: fixed;
   background: #fff;
@@ -308,7 +316,7 @@ sl-split-panel::part(divider) {
 .three-col-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
   padding: 2rem;
 }
 
@@ -320,6 +328,81 @@ sl-split-panel::part(divider) {
 .three-col-column p,
 .three-col-column strong {
   font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.three-col-container.form-content input,
+.three-col-container.form-content textarea,
+.three-col-container.form-content select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  border: 2.5px solid var(--green);
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+}
+
+.three-col-container.form-content textarea {
+  border-radius: 1rem;
+}
+
+.three-col-container.form-content label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-content button.custom-button {
+  background: var(--green);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-content button.custom-button:hover {
+  background: var(--orange);
+  transform: scale(1.05);
+}
+
+.avatar-column {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Specifically for file input */
+input[type=file] {
+  background-color: #fff !important;
+  border: 2.5px solid var(--green) !important;
+  padding: 0.6rem !important;
+  border-radius: 2rem !important;
+  font-family: "Quicksand", sans-serif !important;
+  color: var(--brown) !important;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+input[type=file]::file-selector-button {
+  background-color: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: var(--orange);
 }
 
 .custom-button {
@@ -400,6 +483,10 @@ sl-split-panel::part(divider) {
 
   .horse-button {
     margin: 0.5rem auto;
+  }
+
+  .three-col-container.form-content label {
+    text-align: left;
   }
 }
 

@@ -27,6 +27,15 @@ a {
   color: var(--link-color);
 }
 
+input,
+select,
+textarea,
+button,
+label {
+  font-family: 'Quicksand', sans-serif;
+}
+
+
 
 // app splash screen -------
 .app-splash {

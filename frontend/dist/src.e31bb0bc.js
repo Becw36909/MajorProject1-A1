@@ -13668,7 +13668,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h2>My Profile</h2>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong>Name:</strong><br />", " ", "</p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n            ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong>Name:</strong><br />", " ", "</p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n            ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13822,28 +13822,8 @@ var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject4() {
-  const data = _taggedTemplateLiteral([""]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  const data = _taggedTemplateLiteral(["<img\n                  src=\"", "/images/", "\"\n                  width=\"60\"\n                />"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Profile\"\n        user=\"", "\"\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h2>Edit Profile</h2>\n        <form id=\"edit-profile-form\" class=\"page-form\">\n          <div class=\"input-group\">\n            <label for=\"firstName\">First Name</label>\n            <input\n              type=\"text\"\n              name=\"firstName\"\n              id=\"firstName\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"lastName\">Last Name</label>\n            <input\n              type=\"text\"\n              name=\"lastName\"\n              id=\"lastName\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"email\">Email</label>\n            <input\n              type=\"email\"\n              name=\"email\"\n              id=\"email\"\n              value=\"", "\"\n              required\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"phoneNumber\">Phone Number</label>\n            <input\n              type=\"tel\"\n              name=\"phoneNumber\"\n              id=\"phoneNumber\"\n              value=\"", "\"\n            />\n          </div>\n          <div class=\"input-group\">\n            <label for=\"bio\">Bio</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">\n", "</textarea\n            >\n          </div>\n          <div class=\"input-group\">\n            <label>Profile Image</label><br />\n            ", "\n            <input type=\"file\" name=\"profileImage\" />\n          </div>\n          <button type=\"submit\" class=\"submit-btn\">Update Profile</button>\n        </form>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n <ag-app-layout>\n        <h1>Update Profile</h1>\n<form id=\"edit-profile-form\" class=\"three-col-container form-content app-form-style\">\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" .value=", " />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" .value=", " />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" name=\"email\" id=\"email\" .value=", " />\n\n            <label for=\"phoneNumber\">Phone Number:</label>\n            <input type=\"tel\" name=\"phoneNumber\" id=\"phoneNumber\" .value=", " />\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"profileImage\">Photo Upload:</label>\n            <input type=\"file\" name=\"profileImage\" id=\"profileImage\" />\n\n            <label for=\"bio\">Notes:</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">", "</textarea>\n\n            <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n          </div>\n\n          <!-- Column 3 -->\n<div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              style=\"--size: 250px; margin-top: 2rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n        </form>\n      </ag-app-layout>\n\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -13916,7 +13896,7 @@ class EditProfileView {
       return;
     }
 
-    const template = (0, _litHtml.html)(_templateObject2(), JSON.stringify(_Auth.default.currentUser), this.user.firstName, this.user.lastName, this.user.email, this.user.phoneNumber || "", this.user.bio || "", this.user.profileImage ? (0, _litHtml.html)(_templateObject3(), _App.default.apiBase, this.user.profileImage) : (0, _litHtml.html)(_templateObject4()));
+    const template = (0, _litHtml.html)(_templateObject2(), this.user.firstName, this.user.lastName, this.user.email, this.user.phoneNumber, this.user.bio || "", this.user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(this.user.profileImage) : "");
     (0, _litHtml.render)(template, _App.default.rootEl);
     document.querySelector("#edit-profile-form").addEventListener("submit", this.updateProfileSubmitHandler.bind(this));
   }
@@ -16216,10 +16196,21 @@ customElements.define("ag-app-sidebar", class AgAppSidebar extends _lit.LitEleme
 
   activateCurrentLink() {
     const currentPath = window.location.pathname;
-    const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a");
+    const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a"); // Map of canonical route paths to their aliases
+
+    const routeAliases = {
+      "/profile": ["/editProfile"] // can add more groups like:
+      // "/horses": ["/addHorse", "/editHorse"]
+
+    };
     navLinks.forEach(link => {
-      if (link.pathname === currentPath) {
+      const linkPath = link.pathname;
+      const aliases = routeAliases[linkPath] || [];
+
+      if (linkPath === currentPath || aliases.includes(currentPath)) {
         link.classList.add("active");
+      } else {
+        link.classList.remove("active");
       }
     });
   }

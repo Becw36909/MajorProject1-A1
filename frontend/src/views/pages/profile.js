@@ -24,7 +24,7 @@ class ProfileView {
     const user = Auth.currentUser;
     const template = html`
    <ag-app-layout>
-               <h2>My Profile</h2>
+               <h1>My Profile</h1>
 
         <div class="three-col-container">
           <!-- Left Column: User Info -->

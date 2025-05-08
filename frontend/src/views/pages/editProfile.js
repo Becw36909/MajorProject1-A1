@@ -59,72 +59,45 @@ class EditProfileView {
     }
 
     const template = html`
-      <ag-app-header
-        title="Profile"
-        user="${JSON.stringify(Auth.currentUser)}"
-      ></ag-app-header>
+ <ag-app-layout>
+        <h1>Update Profile</h1>
+<form id="edit-profile-form" class="three-col-container form-content app-form-style">
+          <!-- Column 1 -->
+          <div class="three-col-column">
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" id="firstName" .value=${this.user.firstName} />
 
-      <div class="page-content">
-        <h2>Edit Profile</h2>
-        <form id="edit-profile-form" class="page-form">
-          <div class="input-group">
-            <label for="firstName">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              value="${this.user.firstName}"
-              required
-            />
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" id="lastName" .value=${this.user.lastName} />
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" .value=${this.user.email} />
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" .value=${this.user.phoneNumber} />
           </div>
-          <div class="input-group">
-            <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value="${this.user.lastName}"
-              required
-            />
+
+          <!-- Column 2 -->
+          <div class="three-col-column">
+            <label for="profileImage">Photo Upload:</label>
+            <input type="file" name="profileImage" id="profileImage" />
+
+            <label for="bio">Notes:</label>
+            <textarea name="bio" id="bio" rows="4">${this.user.bio || ""}</textarea>
+
+            <button type="submit" class="custom-button">Update Profile</button>
           </div>
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value="${this.user.email}"
-              required
-            />
+
+          <!-- Column 3 -->
+<div class="three-col-column avatar-column">
+            <sl-avatar
+              style="--size: 250px; margin-top: 2rem;"
+              image="${this.user.profileImage ? `${App.apiBase}/images/${this.user.profileImage}` : ""}"
+            ></sl-avatar>
           </div>
-          <div class="input-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input
-              type="tel"
-              name="phoneNumber"
-              id="phoneNumber"
-              value="${this.user.phoneNumber || ""}"
-            />
-          </div>
-          <div class="input-group">
-            <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" rows="4">
-${this.user.bio || ""}</textarea
-            >
-          </div>
-          <div class="input-group">
-            <label>Profile Image</label><br />
-            ${this.user.profileImage
-              ? html`<img
-                  src="${App.apiBase}/images/${this.user.profileImage}"
-                  width="60"
-                />`
-              : html``}
-            <input type="file" name="profileImage" />
-          </div>
-          <button type="submit" class="submit-btn">Update Profile</button>
         </form>
-      </div>
+      </ag-app-layout>
+
     `;
     render(template, App.rootEl);
     document

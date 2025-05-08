@@ -31,13 +31,26 @@ customElements.define(
     activateCurrentLink() {
       const currentPath = window.location.pathname;
       const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a");
-
+    
+      // Map of canonical route paths to their aliases
+      const routeAliases = {
+        "/profile": ["/editProfile"],
+        // can add more groups like:
+        // "/horses": ["/addHorse", "/editHorse"]
+      };
+    
       navLinks.forEach((link) => {
-        if (link.pathname === currentPath) {
+        const linkPath = link.pathname;
+        const aliases = routeAliases[linkPath] || [];
+    
+        if (linkPath === currentPath || aliases.includes(currentPath)) {
           link.classList.add("active");
+        } else {
+          link.classList.remove("active");
         }
       });
     }
+    
 
     render() {
       return html`
