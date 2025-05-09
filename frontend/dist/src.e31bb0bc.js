@@ -13613,7 +13613,52 @@ var global = arguments[3];
 
 })));
 
-},{}],"views/pages/profile.js":[function(require,module,exports) {
+},{}],"HorseAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App"));
+
+var _Auth = _interopRequireDefault(require("./Auth"));
+
+var _Toast = _interopRequireDefault(require("./Toast"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class HorseAPI {
+  // this needs to be updated to take the user id??
+  async getHorses() {
+    // fetch the json data
+    const response = await fetch("".concat(_App.default.apiBase, "/horse"), {
+      headers: {
+        "Authorization": "Bearer ".concat(localStorage.accessToken)
+      }
+    }); // if response not ok
+
+    if (!response.ok) {
+      // console log error
+      const err = await response.json();
+      if (err) console.log(err); // throw error (exit this function)      
+
+      throw new Error('Problem getting horses');
+    } // convert response payload into json - store as data
+
+
+    const data = await response.json(); // return data
+
+    return data;
+  }
+
+}
+
+var _default = new HorseAPI();
+
+exports.default = _default;
+},{"./App":"App.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"views/pages/profile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13634,6 +13679,8 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 var _moment = _interopRequireDefault(require("moment"));
 
 var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _HorseAPI = _interopRequireDefault(require("./../../HorseAPI.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13680,7 +13727,11 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 class ProfileView {
-  init() {
+  constructor() {
+    this.horses = [];
+  }
+
+  async init() {
     const toastMessage = localStorage.getItem('toastMessage');
 
     if (toastMessage) {
@@ -13691,6 +13742,17 @@ class ProfileView {
 
     console.log('ProfileView.init');
     document.title = 'My Profile | AgistEase';
+
+    try {
+      const horses = await _HorseAPI.default.getHorses();
+      const userId = _Auth.default.currentUser._id;
+      this.horses = horses.filter(horse => horse.ownerID === userId);
+    } catch (err) {
+      console.error(err);
+
+      _Toast.default.show('Failed to load horses', 'error');
+    }
+
     this.render();
 
     _Utils.default.pageIntroAnim();
@@ -13707,7 +13769,7 @@ class ProfileView {
 var _default = new ProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js"}],"UserAPI.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js","./../../HorseAPI.js":"HorseAPI.js"}],"UserAPI.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13906,52 +13968,7 @@ class EditProfileView {
 var _default = new EditProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"HorseAPI.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _App = _interopRequireDefault(require("./App"));
-
-var _Auth = _interopRequireDefault(require("./Auth"));
-
-var _Toast = _interopRequireDefault(require("./Toast"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-class HorseAPI {
-  // this needs to be updated to take the user id??
-  async getHorses() {
-    // fetch the json data
-    const response = await fetch("".concat(_App.default.apiBase, "/horse"), {
-      headers: {
-        "Authorization": "Bearer ".concat(localStorage.accessToken)
-      }
-    }); // if response not ok
-
-    if (!response.ok) {
-      // console log error
-      const err = await response.json();
-      if (err) console.log(err); // throw error (exit this function)      
-
-      throw new Error('Problem getting horses');
-    } // convert response payload into json - store as data
-
-
-    const data = await response.json(); // return data
-
-    return data;
-  }
-
-}
-
-var _default = new HorseAPI();
-
-exports.default = _default;
-},{"./App":"App.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"views/pages/horses.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../UserAPI":"UserAPI.js","../../Toast":"Toast.js","moment":"../node_modules/moment/moment.js"}],"views/pages/horses.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14426,10 +14443,14 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _litHtml = require("lit-html");
 
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _Router = require("./../../Router");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n      <h1>ADD HORSE!</h1>\n\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"Example Tile\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/example\"\n        ></ag-tile-button>\n        <ag-tile-button\n          label=\"Another Action\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/another\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <div class=\"template-preview\">\n        <h2>Placeholder Section</h2>\n        <p>This area can be used to prototype further sections or embed test content.</p>\n      </div>\n                  </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Add New Horse</h1>\n        <form\n          id=\"add-horse-form\"\n          class=\"three-col-container form-content app-form-style\"\n          enctype=\"multipart/form-data\"\n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"name\">Horse Name:</label>\n            <input type=\"text\" name=\"name\" id=\"name\" required />\n\n            <label for=\"age\">DOB:</label>\n            <input type=\"text\" name=\"age\" id=\"age\" placeholder=\"DD/MM/YYYY\" />\n\n            <label for=\"height\">Height:</label>\n            <input type=\"text\" name=\"height\" id=\"height\" />\n\n            <label for=\"colour\">Colour/Markings:</label>\n            <input type=\"text\" name=\"colour\" id=\"colour\" />\n\n            <label for=\"breed\">Breed:</label>\n            <input type=\"text\" name=\"breed\" id=\"breed\" />\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"microchipNumber\">Microchip Number:</label>\n            <input type=\"text\" name=\"microchipNumber\" id=\"microchipNumber\" />\n\n              <label for=\"sex\">Sex:</label>\n  <select name=\"sex\" id=\"sex\" required>\n    <option value=\"\">-- Select --</option>\n    <option value=\"Mare\">Mare</option>\n    <option value=\"Gelding\">Gelding</option>\n    <option value=\"Stallion\">Stallion</option>\n  </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea name=\"notes\" id=\"notes\" rows=\"4\"></textarea>\n\n            <label for=\"image\">Photo Upload:</label>\n            <input\n              type=\"file\"\n              name=\"image\"\n              id=\"image\"\n              accept=\"image/*\"\n              @change=", "\n            />\n\n            <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n          \n<sl-avatar\n  id=\"image-preview\"\n  style=\"--size: 250px; margin-top: 2rem;\"\n  alt=\"Horse Preview\"\n></sl-avatar>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14448,9 +14469,75 @@ class AddHorseView {
     _Utils.default.pageIntroAnim();
   }
 
+  handleImagePreview(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById("image-preview");
+
+    if (file && preview) {
+      preview.image = URL.createObjectURL(file);
+    }
+  }
+
+  async addHorseSubmitHandler(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData();
+
+    if (!form.name.value.trim()) {
+      _Toast.default.show("Please enter the horse's name", "error");
+
+      return;
+    }
+
+    formData.append("name", form.name.value);
+    formData.append("age", form.age.value);
+    formData.append("height", form.height.value);
+    formData.append("microchipNumber", form.microchipNumber.value);
+    formData.append("colour", form.colour.value);
+    formData.append("breed", form.breed.value);
+    formData.append("notes", form.notes.value);
+    formData.append("sex", form.sex.value);
+    formData.append("ownerID", _Auth.default.currentUser._id);
+
+    if (form.image.files.length > 0) {
+      formData.append("image", form.image.files[0]);
+    }
+
+    try {
+      const res = await fetch("".concat(_App.default.apiBase, "/horse"), {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) {
+        let errMessage = "Error adding horse";
+
+        try {
+          const err = await res.json();
+          errMessage = err.message || errMessage;
+        } catch (jsonErr) {
+          console.warn("Non-JSON error response", jsonErr);
+        }
+
+        _Toast.default.show(errMessage, "error");
+
+        return;
+      }
+
+      _Toast.default.show("Horse added successfully");
+
+      (0, _Router.gotoRoute)("/horses");
+    } catch (err) {
+      _Toast.default.show("Something went wrong", "error");
+
+      console.error("Horse submit error:", err);
+    }
+  }
+
   render() {
-    const template = (0, _litHtml.html)(_templateObject());
+    const template = (0, _litHtml.html)(_templateObject(), this.handleImagePreview);
     (0, _litHtml.render)(template, _App.default.rootEl);
+    document.querySelector("#add-horse-form").addEventListener("submit", this.addHorseSubmitHandler.bind(this));
   }
 
 }
@@ -14458,7 +14545,7 @@ class AddHorseView {
 var _default = new AddHorseView();
 
 exports.default = _default;
-},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js"}],"Router.js":[function(require,module,exports) {
+},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Toast":"Toast.js","./../../Router":"Router.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16199,7 +16286,8 @@ customElements.define("ag-app-sidebar", class AgAppSidebar extends _lit.LitEleme
     const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a"); // Map of canonical route paths to their aliases
 
     const routeAliases = {
-      "/profile": ["/editProfile"] // can add more groups like:
+      "/profile": ["/editProfile"],
+      "/horses": ["/addHorse"] // can add more groups like:
       // "/horses": ["/addHorse", "/editHorse"]
 
     };
@@ -16874,7 +16962,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58249" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54963" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

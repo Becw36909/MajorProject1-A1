@@ -6,6 +6,11 @@ const { authenticateToken } = require("../Utils");
 
 // POST - Add new horse
 router.post("/", (req, res) => {
+  const { name, ownerID } = req.body;
+
+  if (!name || !ownerID) {
+    return res.status(400).json({ message: "Name and ownerID are required" });
+  }
   const newHorse = new Horse(req.body);
   newHorse
     .save()

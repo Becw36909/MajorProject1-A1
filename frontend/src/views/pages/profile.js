@@ -5,10 +5,18 @@ import Auth from './../../Auth'
 import Utils from './../../Utils'
 import moment from 'moment'
 import Toast from "../../Toast";
+import HorseAPI from './../../HorseAPI.js';
+
 
 
 class ProfileView {
-  init(){
+
+  constructor() {
+    this.horses = [];
+  }
+
+
+  async init(){
     const toastMessage = localStorage.getItem('toastMessage');
     if (toastMessage) {
       Toast.show(toastMessage);
@@ -16,6 +24,16 @@ class ProfileView {
     }
     console.log('ProfileView.init')
     document.title = 'My Profile | AgistEase';
+
+    try {
+      const horses = await HorseAPI.getHorses()
+      const userId = Auth.currentUser._id
+      this.horses = horses.filter(horse => horse.ownerID === userId)
+    } catch (err) {
+      console.error(err)
+      Toast.show('Failed to load horses', 'error')
+    }
+    
     this.render()    
     Utils.pageIntroAnim()
   }

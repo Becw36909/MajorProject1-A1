@@ -8,14 +8,15 @@ const horseSchema = new mongoose.Schema({
   age: String,
   height: String,
   sex: String,
-  microchip: String,
+  microchipNumber: String,
+  colour: String,
   ownerID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true, // Ensure each horse belongs to a user
   },
   notes: String,
-  profileImage: String, // store filename
+  image: String, // store filename
 });
 
 // export

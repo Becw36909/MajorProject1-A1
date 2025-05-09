@@ -35,6 +35,8 @@ customElements.define(
       // Map of canonical route paths to their aliases
       const routeAliases = {
         "/profile": ["/editProfile"],
+        "/horses": ["/addHorse"],
+
         // can add more groups like:
         // "/horses": ["/addHorse", "/editHorse"]
       };
