@@ -416,6 +416,13 @@ select {
   cursor: pointer;
 }
 
+.profile-horses {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
 .custom-button {
   background-color: var(--green);
   color: white;
@@ -438,11 +445,11 @@ select {
 .horse-button {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   background: var(--green);
   color: white;
   font-weight: bold;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 2rem;
   border: none;
   cursor: pointer;
@@ -450,6 +457,7 @@ select {
   transition: all 0.2s ease-in-out;
   font-size: 1.2rem;
   width: 100%;
+  min-height: 64px;
   justify-content: flex-start;
 }
 
@@ -467,8 +475,8 @@ select {
 }
 
 .horse-icon {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }

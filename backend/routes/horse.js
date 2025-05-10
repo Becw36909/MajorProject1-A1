@@ -2,22 +2,66 @@
 const express = require("express");
 const router = express.Router();
 const Horse = require("../models/Horse");
-const { authenticateToken } = require("../Utils");
+const Utils = require("../Utils")
+const User = require("./../models/User");
+const path = require('path')
+
+// POST - Add new horse
+// router.post("/", (req, res) => {
+//   const { name, ownerID } = req.body;
+
+//   if (!name || !ownerID) {
+//     return res.status(400).json({ message: "Name and ownerID are required" });
+//   }
+//   const newHorse = new Horse(req.body);
+//   newHorse
+//     .save()
+//     .then((horse) => res.json(horse))
+//     .catch((err) =>
+//       res.status(500).json({ message: "problem adding horse", error: err })
+//     );
+// });
 
 // POST - Add new horse
 router.post("/", (req, res) => {
-  const { name, ownerID } = req.body;
-
-  if (!name || !ownerID) {
-    return res.status(400).json({ message: "Name and ownerID are required" });
+  if (!req.body && !req.files) {
+    return res.status(400).json({ message: "No data provided." });
   }
-  const newHorse = new Horse(req.body);
-  newHorse
-    .save()
-    .then((horse) => res.json(horse))
-    .catch((err) =>
-      res.status(500).json({ message: "problem adding horse", error: err })
-    );
+
+  const requiredFields = ["name", "ownerID"];
+  for (let field of requiredFields) {
+    if (!req.body[field]) {
+      return res.status(400).json({ message: `${field} is required.` });
+    }
+  }
+
+  let horseData = req.body;
+
+  // If there's an image file, upload it
+  if (req.files && req.files.image) {
+    Utils.uploadFile(req.files.image, path.join(__dirname, "../public/images"), (filename) => {
+      horseData.image = filename;
+
+      const newHorse = new Horse(horseData);
+      newHorse
+        .save()
+        .then((horse) => res.status(201).json(horse))
+        .catch((err) => {
+          console.log("error adding horse", err);
+          res.status(500).json({ message: "problem adding horse", error: err });
+        });
+    });
+  } else {
+    // no image to upload
+    const newHorse = new Horse(horseData);
+    newHorse
+      .save()
+      .then((horse) => res.status(201).json(horse))
+      .catch((err) => {
+        console.log("error adding horse", err);
+        res.status(500).json({ message: "problem adding horse", error: err });
+      });
+  }
 });
 
 // GET - Get all horses

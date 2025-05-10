@@ -19,7 +19,7 @@ class AddHorseView  {
     const file = e.target.files[0];
     const preview = document.getElementById("image-preview");
     if (file && preview) {
-      preview.image = URL.createObjectURL(file);
+      preview.setAttribute('image', URL.createObjectURL(file));
     }
   }
   
@@ -83,7 +83,7 @@ class AddHorseView  {
         <form
           id="add-horse-form"
           class="three-col-container form-content app-form-style"
-          enctype="multipart/form-data"
+          
         >
           <!-- Column 1 -->
           <div class="three-col-column">

@@ -33,7 +33,7 @@ class ProfileView {
       console.error(err)
       Toast.show('Failed to load horses', 'error')
     }
-    
+
     this.render()    
     Utils.pageIntroAnim()
   }
@@ -72,9 +72,9 @@ class ProfileView {
           <div class="three-col-column profile-horses">
             <p><strong>My Horses:</strong></p>
 
-            ${user.horses && user.horses.length > 0
+   ${this.horses.length > 0
               ? html`
-                  ${user.horses.map(
+                  ${this.horses.map(
                     (horse) => html`
                       <button class="horse-button" @click=${() => gotoRoute(`/horse/${horse._id}`)}>
                         <img
