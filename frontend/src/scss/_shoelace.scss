@@ -1,7 +1,7 @@
 // Shoelace
 
 // sl-dialog
-sl-dialog::part(title){
+sl-dialog::part(title) {
   font-weight: 500;
   font-size: 1.6em;
 }
@@ -14,9 +14,41 @@ sl-split-panel::part(divider) {
 
 }
 
+sl-dialog::part(panel) {
+  border-radius: 25px !important; // rounded corners
+  border: 4px solid var(--brown);
+
+}
+
+/* Style YES button */
+sl-button[variant="primary"]::part(base) {
+  background-color: var(--green); // warm orange or your custom color
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+sl-button[variant="primary"]::part(base):hover {
+  background-color: var(--orange);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Style CANCEL button */
+sl-button[variant="neutral"]::part(base) {
+  background-color: var(--body-bg);
+  color: #444;
+  border: 1px solid var(--body-bg);
+  font-weight: 500;
+}
+
+sl-button[variant="neutral"]::part(base):hover {
+  background-color: #eae4cb;
+}
+
+
 
 // RESPONSIVE - MOBILE -------------------
-@media all and (max-width: 768px){ 
+@media all and (max-width: 768px) {
 
   sl-dialog::part(panel) {
     width: 100%;

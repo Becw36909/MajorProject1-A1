@@ -35,7 +35,8 @@ customElements.define(
       // Map of canonical route paths to their aliases
       const routeAliases = {
         "/profile": ["/editProfile"],
-        "/horses": ["/addHorse"],
+        "/horses": ["/addHorse", "/horse/"],
+
 
         // can add more groups like:
         // "/horses": ["/addHorse", "/editHorse"]
@@ -44,8 +45,12 @@ customElements.define(
       navLinks.forEach((link) => {
         const linkPath = link.pathname;
         const aliases = routeAliases[linkPath] || [];
-    
-        if (linkPath === currentPath || aliases.includes(currentPath)) {
+
+        const isAliasMatch = aliases.some(alias =>
+          currentPath.startsWith(alias)
+        );
+
+        if (linkPath === currentPath || isAliasMatch) {
           link.classList.add("active");
         } else {
           link.classList.remove("active");

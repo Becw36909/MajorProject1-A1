@@ -75,6 +75,7 @@
 
 // Responsive tweaks for sign in page
 @media (max-width: 768px) {
+
   .signin-box {
     width: 90%;
     padding: 1.5rem;
@@ -85,9 +86,16 @@
     font-size: 1rem;
   }
 
+  .form-signin .btn-primary {
+    display: block;
+    margin: 2rem auto 0 auto;
+    width: fit-content; // optional — lets the button size to its content
+  }
   .signin-logo {
     max-width: 400px;
   }
+
+  
 }
 
 @media (max-width: 480px) {

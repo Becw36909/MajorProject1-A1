@@ -101,6 +101,12 @@ class AddHorseView  {
 
             <label for="breed">Breed:</label>
             <input type="text" name="breed" id="breed" />
+
+            <!-- Desktop placement (column 1) -->
+<div class="form-submit-container desktop-only">
+            <button type="submit" class="custom-button">Add Horse</button>
+            </div>
+
           </div>
 
           <!-- Column 2 -->
@@ -128,7 +134,7 @@ class AddHorseView  {
               @change=${this.handleImagePreview}
             />
 
-            <button type="submit" class="custom-button">Add Horse</button>
+            
           </div>
 
           <!-- Column 3 -->
@@ -140,6 +146,10 @@ class AddHorseView  {
   alt="Horse Preview"
 ></sl-avatar>
           </div>
+                    <!-- Mobile placement (bottom of the form or another column) -->
+<div class="form-submit-container mobile-only">
+  <button type="submit" class="custom-button">Add Horse</button>
+</div>
         </form>
       </ag-app-layout>
     `;

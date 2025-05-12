@@ -7736,7 +7736,7 @@ var _litHtml = require("lit-html");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["    \n      <div class=\"calign\">\n        <h1>Opps!</h1>\n        <p>Sorry, we couldn't find that.</p>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["    \n      <div class=\"calign\">\n        <h1>Oopps!</h1>\n        <p>Sorry, we couldn't find that.</p>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13623,10 +13623,6 @@ exports.default = void 0;
 
 var _App = _interopRequireDefault(require("./App"));
 
-var _Auth = _interopRequireDefault(require("./Auth"));
-
-var _Toast = _interopRequireDefault(require("./Toast"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class HorseAPI {
@@ -13653,12 +13649,16 @@ class HorseAPI {
     return data;
   }
 
+  async getHorse(id) {
+    return await fetch("".concat(_App.default.apiBase, "/horse/").concat(id)).then(res => res.json());
+  }
+
 }
 
 var _default = new HorseAPI();
 
 exports.default = _default;
-},{"./App":"App.js","./Auth":"Auth.js","./Toast":"Toast.js"}],"views/pages/profile.js":[function(require,module,exports) {
+},{"./App":"App.js"}],"views/pages/profile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13670,7 +13670,7 @@ var _App = _interopRequireDefault(require("./../../App"));
 
 var _litHtml = require("lit-html");
 
-var _Router = require("./../../Router");
+var _Router = _interopRequireWildcard(require("./../../Router"));
 
 var _Auth = _interopRequireDefault(require("./../../Auth"));
 
@@ -13680,7 +13680,11 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _Toast = _interopRequireDefault(require("../../Toast"));
 
-var _HorseAPI = _interopRequireDefault(require("./../../HorseAPI.js"));
+var _HorseAPI = _interopRequireDefault(require("./../../HorseAPI"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13715,7 +13719,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong>Name:</strong><br />", " ", "</p>\n            <p><strong>Email:</strong><br />", "</p>\n            <p><strong>Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong>Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong>My Horses:</strong></p>\n\n   ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong class=\"emphasis\">Name:</strong><br />", " ", "</p>\n            <p><strong class=\"emphasis\">Email:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong class=\"emphasis\">Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong class=\"emphasis\">My Horses:</strong></p>\n\n   ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13760,7 +13764,7 @@ class ProfileView {
 
   render() {
     const user = _Auth.default.currentUser;
-    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phoneNumber, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || 'No bio available.', user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : '', this.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), this.horses.map(horse => (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)("/horse/".concat(horse._id)), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)('/addHorse'));
+    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phoneNumber, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || 'No bio available.', user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : '', this.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), this.horses.map(horse => (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)(_Router.default.getHorseRoute(horse._id)), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)('/addHorse'));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -13769,7 +13773,7 @@ class ProfileView {
 var _default = new ProfileView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js","./../../HorseAPI.js":"HorseAPI.js"}],"UserAPI.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js","./../../HorseAPI":"HorseAPI.js"}],"UserAPI.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13885,7 +13889,7 @@ var _moment = _interopRequireDefault(require("moment"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n <ag-app-layout>\n        <h1>Update Profile</h1>\n<form id=\"edit-profile-form\" class=\"three-col-container form-content app-form-style\">\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" .value=", " />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" .value=", " />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" name=\"email\" id=\"email\" .value=", " />\n\n            <label for=\"phoneNumber\">Phone Number:</label>\n            <input type=\"tel\" name=\"phoneNumber\" id=\"phoneNumber\" .value=", " />\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"profileImage\">Photo Upload:</label>\n            <input type=\"file\" name=\"profileImage\" id=\"profileImage\" />\n\n            <label for=\"bio\">Notes:</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">", "</textarea>\n\n            <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n          </div>\n\n          <!-- Column 3 -->\n<div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              style=\"--size: 250px; margin-top: 2rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n        </form>\n      </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n <ag-app-layout>\n        <h1>Update Profile</h1>\n<form id=\"edit-profile-form\" class=\"three-col-container form-content app-form-style\">\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" .value=", " />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" .value=", " />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" name=\"email\" id=\"email\" .value=", " />\n\n            <label for=\"phoneNumber\">Phone Number:</label>\n            <input type=\"tel\" name=\"phoneNumber\" id=\"phoneNumber\" .value=", " />\n                      \n            <!-- Desktop placement (column 1) -->\n<div class=\"form-submit-container desktop-only\">\n            <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n</div>\n\n            </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"profileImage\">Photo Upload:</label>\n            <input type=\"file\" name=\"profileImage\" id=\"profileImage\" />\n\n            <label for=\"bio\">Notes:</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">", "</textarea>\n\n\n\n\n          </div>\n\n          <!-- Column 3 -->\n<div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              style=\"--size: 250px; margin-top: 2rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n          <!-- Mobile placement (bottom of the form or another column) -->\n<div class=\"form-submit-container mobile-only\">\n  <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n</div>\n\n        </form>\n      </ag-app-layout>\n\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14450,7 +14454,7 @@ var _Router = require("./../../Router");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Add New Horse</h1>\n        <form\n          id=\"add-horse-form\"\n          class=\"three-col-container form-content app-form-style\"\n          \n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"name\">Horse Name:</label>\n            <input type=\"text\" name=\"name\" id=\"name\" required />\n\n            <label for=\"age\">DOB:</label>\n            <input type=\"text\" name=\"age\" id=\"age\" placeholder=\"DD/MM/YYYY\" />\n\n            <label for=\"height\">Height:</label>\n            <input type=\"text\" name=\"height\" id=\"height\" />\n\n            <label for=\"colour\">Colour/Markings:</label>\n            <input type=\"text\" name=\"colour\" id=\"colour\" />\n\n            <label for=\"breed\">Breed:</label>\n            <input type=\"text\" name=\"breed\" id=\"breed\" />\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"microchipNumber\">Microchip Number:</label>\n            <input type=\"text\" name=\"microchipNumber\" id=\"microchipNumber\" />\n\n              <label for=\"sex\">Sex:</label>\n  <select name=\"sex\" id=\"sex\" required>\n    <option value=\"\">-- Select --</option>\n    <option value=\"Mare\">Mare</option>\n    <option value=\"Gelding\">Gelding</option>\n    <option value=\"Stallion\">Stallion</option>\n  </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea name=\"notes\" id=\"notes\" rows=\"4\"></textarea>\n\n            <label for=\"image\">Photo Upload:</label>\n            <input\n              type=\"file\"\n              name=\"image\"\n              id=\"image\"\n              accept=\"image/*\"\n              @change=", "\n            />\n\n            <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n          \n<sl-avatar\n  id=\"image-preview\"\n  style=\"--size: 250px; margin-top: 2rem;\"\n  alt=\"Horse Preview\"\n></sl-avatar>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Add New Horse</h1>\n        <form\n          id=\"add-horse-form\"\n          class=\"three-col-container form-content app-form-style\"\n          \n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"name\">Horse Name:</label>\n            <input type=\"text\" name=\"name\" id=\"name\" required />\n\n            <label for=\"age\">DOB:</label>\n            <input type=\"text\" name=\"age\" id=\"age\" placeholder=\"DD/MM/YYYY\" />\n\n            <label for=\"height\">Height:</label>\n            <input type=\"text\" name=\"height\" id=\"height\" />\n\n            <label for=\"colour\">Colour/Markings:</label>\n            <input type=\"text\" name=\"colour\" id=\"colour\" />\n\n            <label for=\"breed\">Breed:</label>\n            <input type=\"text\" name=\"breed\" id=\"breed\" />\n\n            <!-- Desktop placement (column 1) -->\n<div class=\"form-submit-container desktop-only\">\n            <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n            </div>\n\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"microchipNumber\">Microchip Number:</label>\n            <input type=\"text\" name=\"microchipNumber\" id=\"microchipNumber\" />\n\n              <label for=\"sex\">Sex:</label>\n  <select name=\"sex\" id=\"sex\" required>\n    <option value=\"\">-- Select --</option>\n    <option value=\"Mare\">Mare</option>\n    <option value=\"Gelding\">Gelding</option>\n    <option value=\"Stallion\">Stallion</option>\n  </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea name=\"notes\" id=\"notes\" rows=\"4\"></textarea>\n\n            <label for=\"image\">Photo Upload:</label>\n            <input\n              type=\"file\"\n              name=\"image\"\n              id=\"image\"\n              accept=\"image/*\"\n              @change=", "\n            />\n\n            \n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n          \n<sl-avatar\n  id=\"image-preview\"\n  style=\"--size: 250px; margin-top: 2rem;\"\n  alt=\"Horse Preview\"\n></sl-avatar>\n          </div>\n                    <!-- Mobile placement (bottom of the form or another column) -->\n<div class=\"form-submit-container mobile-only\">\n  <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n</div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14545,7 +14549,165 @@ class AddHorseView {
 var _default = new AddHorseView();
 
 exports.default = _default;
-},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Toast":"Toast.js","./../../Router":"Router.js"}],"Router.js":[function(require,module,exports) {
+},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Toast":"Toast.js","./../../Router":"Router.js"}],"ServiceRequestsAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ServiceRequestAPI {
+  async getServiceRequestsByHorse(horseId) {
+    const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests/horse/").concat(horseId));
+    return await res.json();
+  }
+
+}
+
+var _default = new ServiceRequestAPI();
+
+exports.default = _default;
+},{"./App.js":"App.js"}],"views/pages/horse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./../../App"));
+
+var _litHtml = require("lit-html");
+
+var _Router = require("./../../Router");
+
+var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _Utils = _interopRequireDefault(require("./../../Utils"));
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _ServiceRequestsAPI = _interopRequireDefault(require("./../../ServiceRequestsAPI"));
+
+var _HorseAPI = _interopRequireDefault(require("./../../HorseAPI"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["<p>No additional services found.</p>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n                <div class=\"service-request\">\n                  <strong>", "</strong><br />\n                  ", "</p>\n                  <small>", "</small>\n                </div>\n              "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["", ""]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>", "</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Column 1: Basic info -->\n          <div class=\"three-col-column horse-info\">\n            <p><strong class=\"emphasis\">Breed:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Age:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Height:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Sex:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Colour:</strong><br />", "</p>\n          </div>\n\n          <!-- Column 2: Notes + Additional Services -->\n          <div class=\"three-col-column horse-notes\">\n                      <p><strong class=\"emphasis\">Microchip #:</strong><br />", "</p>\n\n            <p><strong class=\"emphasis\">Notes:</strong>\n            <br />", "</p>\n\n                        <p><strong class=\"emphasis\">Additional Services:</strong><br />\n            ", "\n\n          </div>\n\n          <!-- Column 3: Image -->\n          <div class=\"three-col-column horse-services\">\n          <p class=\"horse-avatar\">\n          <sl-avatar\n              style=\"--size: 300px;\"\n              image=\"", "\"\n            ></sl-avatar> </p>\n                      <p>\n                      <sl-tooltip content=\"Delete this Horse\">\n                        <sl-icon-button name=\"trash\" style=\"font-size: 2rem; label=\"Delete Horse\" @click=", "></sl-icon-button>\n                            </sl-tooltip></p>\n                            </div>\n                            </div>\n\n                <!-- Delete Confirmation Modal -->\n        <sl-dialog id=\"delete-horse-modal\" label=\"Confirm Delete\" class=\"dialog-overview\">\n          <p>Are you sure you want to delete this horse and all associated service requests?</p>\n          <sl-button slot=\"footer\" variant=\"primary\" @click=", ">Yes, delete</sl-button>\n          <sl-button slot=\"footer\" variant=\"neutral\" @click=", ">Cancel</sl-button>\n        </sl-dialog>\n      </ag-app-layout>\n\n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+class HorseView {
+  constructor() {
+    this.horse = null;
+    this.serviceRequests = [];
+    this.deleteHorse = this.deleteHorse.bind(this); // ensure correct `this` binding
+  }
+
+  async init() {
+    console.log("HorseView.init called");
+    document.title = "View Horse | AgistEase";
+    const horseId = window.location.pathname.split("/").pop(); // crude but effective
+
+    this.horseId = horseId;
+
+    try {
+      this.horse = await _HorseAPI.default.getHorse(horseId);
+      this.serviceRequests = await _ServiceRequestsAPI.default.getServiceRequestsByHorse(horseId);
+    } catch (err) {
+      console.error(err);
+
+      _Toast.default.show("Failed to load horse or services", "error");
+    }
+
+    this.render();
+
+    _Utils.default.pageIntroAnim();
+  }
+
+  async deleteHorse() {
+    try {
+      await fetch("".concat(_App.default.apiBase, "/horse/").concat(this.horseId), {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.accessToken)
+        }
+      });
+      await fetch("".concat(_App.default.apiBase, "/serviceRequests/horse/").concat(this.horseId), {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.accessToken)
+        }
+      });
+
+      _Toast.default.show("Horse deleted successfully");
+
+      (0, _Router.gotoRoute)("/horses");
+    } catch (err) {
+      console.error(err);
+
+      _Toast.default.show("Error deleting horse or services", "error");
+    }
+  }
+
+  render() {
+    const horse = this.horse;
+    const services = this.serviceRequests;
+    const template = (0, _litHtml.html)(_templateObject(), horse.name, horse.breed || "—", horse.age || "—", horse.height || "—", horse.sex || "—", horse.colour || "—", horse.microchipNumber || "—", horse.notes || "No notes available.", services.length > 0 ? (0, _litHtml.html)(_templateObject2(), services.map(service => (0, _litHtml.html)(_templateObject3(), service.serviceType, service.notes || "", (0, _moment.default)(service.date).format("DD MMM YYYY")))) : (0, _litHtml.html)(_templateObject4()), horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : "", () => document.getElementById("delete-horse-modal").show(), () => this.deleteHorse(), () => document.getElementById("delete-horse-modal").hide());
+    (0, _litHtml.render)(template, _App.default.rootEl);
+  }
+
+}
+
+var _default = new HorseView();
+
+exports.default = _default;
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","moment":"../node_modules/moment/moment.js","../../Toast":"Toast.js","./../../ServiceRequestsAPI":"ServiceRequestsAPI.js","./../../HorseAPI":"HorseAPI.js"}],"Router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14583,6 +14745,8 @@ var _viewRequests = _interopRequireDefault(require("./views/pages/viewRequests")
 
 var _addHorse = _interopRequireDefault(require("./views/pages/addHorse"));
 
+var _horse = _interopRequireDefault(require("./views/pages/horse"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import views
@@ -14601,7 +14765,8 @@ const routes = {
   '/adminDashboard': _adminDashboard.default,
   '/dashboard': _dashboard.default,
   '/viewRequests': _viewRequests.default,
-  '/addHorse': _addHorse.default
+  '/addHorse': _addHorse.default,
+  '/horse': _horse.default
 };
 
 class Router {
@@ -14616,18 +14781,34 @@ class Router {
     window.addEventListener('popstate', () => {
       this.route(window.location.pathname);
     });
-  }
+  } // route(fullPathname){
+  // 	// extract path without params
+  // 	const pathname = fullPathname.split('?')[0]
+  // 	const route = this.routes[pathname]
+  // 	if(route){
+  // 		// if route exists, run init() of the view
+  // 		this.routes[window.location.pathname].init()
+  // 	}else{			
+  // 		// show 404 view instead
+  // 		this.routes['404'].init()			
+  // 	}
+  // }
+
 
   route(fullPathname) {
-    // extract path without params
-    const pathname = fullPathname.split('?')[0];
+    const pathname = fullPathname.split('?')[0]; // manual dynamic route support
+
+    if (pathname.startsWith('/horse/')) {
+      this.routes['/horse'].init();
+      return;
+    } // exact route match
+
+
     const route = this.routes[pathname];
 
     if (route) {
-      // if route exists, run init() of the view
-      this.routes[window.location.pathname].init();
+      route.init();
     } else {
-      // show 404 view instead
       this.routes['404'].init();
     }
   }
@@ -14635,6 +14816,11 @@ class Router {
   gotoRoute(pathname) {
     window.history.pushState({}, pathname, window.location.origin + pathname);
     this.route(pathname);
+  } // helper for dynamic horse route
+
+
+  getHorseRoute(horseId) {
+    return "/horse/".concat(horseId);
   }
 
 } // create appRouter instance and export
@@ -14655,7 +14841,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js","./views/pages/horse":"views/pages/horse.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16287,15 +16473,16 @@ customElements.define("ag-app-sidebar", class AgAppSidebar extends _lit.LitEleme
 
     const routeAliases = {
       "/profile": ["/editProfile"],
-      "/horses": ["/addHorse"] // can add more groups like:
+      "/horses": ["/addHorse", "/horse/"] // can add more groups like:
       // "/horses": ["/addHorse", "/editHorse"]
 
     };
     navLinks.forEach(link => {
       const linkPath = link.pathname;
       const aliases = routeAliases[linkPath] || [];
+      const isAliasMatch = aliases.some(alias => currentPath.startsWith(alias));
 
-      if (linkPath === currentPath || aliases.includes(currentPath)) {
+      if (linkPath === currentPath || isAliasMatch) {
         link.classList.add("active");
       } else {
         link.classList.remove("active");
@@ -16962,7 +17149,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51263" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64578" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,7 +5,8 @@ import Auth from './../../Auth'
 import Utils from './../../Utils'
 import moment from 'moment'
 import Toast from "../../Toast";
-import HorseAPI from './../../HorseAPI.js';
+import HorseAPI from './../../HorseAPI';
+import Router from './../../Router' 
 
 
 
@@ -47,9 +48,9 @@ class ProfileView {
         <div class="three-col-container">
           <!-- Left Column: User Info -->
           <div class="three-col-column profile-info">
-            <p><strong>Name:</strong><br />${user.firstName} ${user.lastName}</p>
-            <p><strong>Email:</strong><br />${user.email}</p>
-            <p><strong>Phone Number:</strong><br />${user.phoneNumber}</p>
+            <p><strong class="emphasis">Name:</strong><br />${user.firstName} ${user.lastName}</p>
+            <p><strong class="emphasis">Email:</strong><br />${user.email}</p>
+            <p><strong class="emphasis">Phone Number:</strong><br />${user.phoneNumber}</p>
 <button class="custom-button" @click=${() => gotoRoute("/editProfile")}>
   Update Profile
 </button>
@@ -58,7 +59,7 @@ class ProfileView {
 
           <!-- Middle Column: Notes + Avatar -->
           <div class="three-col-column profile-notes">
-            <p><strong>Notes:</strong></p>
+            <p><strong class="emphasis">Notes:</strong></p>
             <p>${user.bio || 'No bio available.'}</p>
             <sl-avatar
               style="--size: 180px; margin-top: 1.5rem;"
@@ -70,13 +71,14 @@ class ProfileView {
 
            <!-- Right Column -->
           <div class="three-col-column profile-horses">
-            <p><strong>My Horses:</strong></p>
+            <p><strong class="emphasis">My Horses:</strong></p>
 
    ${this.horses.length > 0
               ? html`
                   ${this.horses.map(
+                  
                     (horse) => html`
-                      <button class="horse-button" @click=${() => gotoRoute(`/horse/${horse._id}`)}>
+                      <button class="horse-button" @click=${() => gotoRoute(Router.getHorseRoute(horse._id))}>
                         <img
                           class="horse-icon"
                           src="${App.apiBase}/images/${horse.image}"

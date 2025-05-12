@@ -1,6 +1,5 @@
 import App from './App'
-import Auth from './Auth'
-import Toast from './Toast'
+
 
 class HorseAPI {
 
@@ -27,6 +26,11 @@ class HorseAPI {
     // return data
     return data
   }
+
+  async getHorse(id) {
+    return await fetch(`${App.apiBase}/horse/${id}`).then(res => res.json());
+  }
+  
 }
 
 export default new HorseAPI()

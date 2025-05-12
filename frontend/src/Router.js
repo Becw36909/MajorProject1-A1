@@ -13,6 +13,8 @@ import adminDashboardView from './views/pages/adminDashboard'
 import dashboardView from './views/pages/dashboard'
 import viewRequestsView from './views/pages/viewRequests'
 import addHorseView from './views/pages/addHorse'
+import horseView from './views/pages/horse'
+
 
 
 // define routes
@@ -31,8 +33,7 @@ const routes = {
 	'/dashboard': dashboardView,
 	'/viewRequests': viewRequestsView,
 	'/addHorse': addHorseView,
-
-
+	'/horse': horseView,
 	
 }
 
@@ -51,24 +52,47 @@ class Router {
 		})
 	}
 	
-	route(fullPathname){
-		// extract path without params
-		const pathname = fullPathname.split('?')[0]
-		const route = this.routes[pathname]
+	// route(fullPathname){
+	// 	// extract path without params
+	// 	const pathname = fullPathname.split('?')[0]
+	// 	const route = this.routes[pathname]
 		
-		if(route){
-			// if route exists, run init() of the view
-			this.routes[window.location.pathname].init()
-		}else{			
-			// show 404 view instead
-			this.routes['404'].init()			
+	// 	if(route){
+	// 		// if route exists, run init() of the view
+	// 		this.routes[window.location.pathname].init()
+	// 	}else{			
+	// 		// show 404 view instead
+	// 		this.routes['404'].init()			
+	// 	}
+	// }
+
+	route(fullPathname) {
+		const pathname = fullPathname.split('?')[0]
+	
+		// manual dynamic route support
+		if (pathname.startsWith('/horse/')) {
+		  this.routes['/horse'].init()
+		  return
 		}
-	}
+	
+		// exact route match
+		const route = this.routes[pathname]
+		if (route) {
+		  route.init()
+		} else {
+		  this.routes['404'].init()
+		}
+	  }
 
 	gotoRoute(pathname){
 		window.history.pushState({}, pathname, window.location.origin + pathname);
 		this.route(pathname)
 	}	
+
+	  // helper for dynamic horse route
+	  getHorseRoute(horseId) {
+		return `/horse/${horseId}`
+	  }
 }
 
 // create appRouter instance and export

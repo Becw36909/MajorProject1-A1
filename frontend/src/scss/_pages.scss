@@ -1,5 +1,13 @@
 // === 3-COLUMN LAYOUT ===
 
+.emphasis {
+  font-weight: 700 !important;
+
+  color: #1a1a1a;
+  letter-spacing: 0.4px;
+}
+
+
 .three-col-container {
     display: flex;
     flex-wrap: wrap;
@@ -27,7 +35,7 @@
     font-size: 1.2rem;
     border: 2.5px solid var(--green);
     border-radius: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
   }
 
   .three-col-container.form-content textarea {
@@ -41,6 +49,11 @@
     margin-bottom: 0.5rem;
     display: block;
   }
+
+  /* Desktop – default placement */
+.move-button-down {
+  order: 1; // normal order
+}
   
   .form-content button.custom-button {
     background: var(--green);
@@ -172,10 +185,41 @@ select {
     border-radius: 50%;
     object-fit: cover;
   }
+
+  .form-submit-container.mobile-only {
+    display: none;
+  }
+
+  sl-icon-button {
+    float: right;
+  }
   
+
+  @media (max-width: 1270px) {
+
+    .horse-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
   
+  }
+  @media (max-width: 950px) {
+    .form-submit-container.desktop-only {
+      display: none;
+    }
+  
+    .form-submit-container.mobile-only {
+      width: 100%;               // ensure container stretches across screen
+      display: flex;
+      justify-content: center;   // center horizontally
+    }
+    
+  }
+
   // Responsive: Stack columns and center content
-  @media (max-width: 850px) {
+  @media (max-width: 925px) {
     .three-col-container {
       flex-direction: column;
       align-items: center;

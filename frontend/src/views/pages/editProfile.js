@@ -75,7 +75,13 @@ class EditProfileView {
 
             <label for="phoneNumber">Phone Number:</label>
             <input type="tel" name="phoneNumber" id="phoneNumber" .value=${this.user.phoneNumber} />
-          </div>
+                      
+            <!-- Desktop placement (column 1) -->
+<div class="form-submit-container desktop-only">
+            <button type="submit" class="custom-button">Update Profile</button>
+</div>
+
+            </div>
 
           <!-- Column 2 -->
           <div class="three-col-column">
@@ -85,7 +91,9 @@ class EditProfileView {
             <label for="bio">Notes:</label>
             <textarea name="bio" id="bio" rows="4">${this.user.bio || ""}</textarea>
 
-            <button type="submit" class="custom-button">Update Profile</button>
+
+
+
           </div>
 
           <!-- Column 3 -->
@@ -95,6 +103,12 @@ class EditProfileView {
               image="${this.user.profileImage ? `${App.apiBase}/images/${this.user.profileImage}` : ""}"
             ></sl-avatar>
           </div>
+
+          <!-- Mobile placement (bottom of the form or another column) -->
+<div class="form-submit-container mobile-only">
+  <button type="submit" class="custom-button">Update Profile</button>
+</div>
+
         </form>
       </ag-app-layout>
 
