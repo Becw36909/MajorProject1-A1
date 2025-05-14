@@ -9,76 +9,76 @@
 
 
 .three-col-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
-    padding: 2rem;
-  }
-  
-  .three-col-column {
-    flex: 1;
-    min-width: 250px;
-  }
-  
-  
-  .three-col-column p,
-  .three-col-column strong {
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
-  
-  .three-col-container.form-content input,
-  .three-col-container.form-content textarea,
-  .three-col-container.form-content select {
-    width: 100%;
-    padding: 0.6rem 1rem;
-    font-size: 1.2rem;
-    border: 2.5px solid var(--green);
-    border-radius: 2rem;
-    margin-bottom: 0.2rem;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 2rem;
+}
 
-  .three-col-container.form-content textarea {
-    border-radius: 1rem;
-  }
-  
-  .three-col-container.form-content label {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
+.three-col-column {
+  flex: 1;
+  min-width: 250px;
+}
 
-  /* Desktop – default placement */
+
+.three-col-column p,
+.three-col-column strong {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.three-col-container.form-content input,
+.three-col-container.form-content textarea,
+.three-col-container.form-content select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  border: 2.5px solid var(--green);
+  border-radius: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.three-col-container.form-content textarea {
+  border-radius: 1rem;
+}
+
+.three-col-container.form-content label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Desktop – default placement */
 .move-button-down {
   order: 1; // normal order
 }
-  
-  .form-content button.custom-button {
-    background: var(--green);
-    color: white;
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 2rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .form-content button.custom-button:hover {
-    background: var(--orange);
-    transform: scale(1.05);
-  }
 
-  .avatar-column {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  
-  
+.form-content button.custom-button {
+  background: var(--green);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-content button.custom-button:hover {
+  background: var(--orange);
+  transform: scale(1.05);
+}
+
+.avatar-column {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
 /* Specifically for file input */
 input[type="file"] {
   background-color: #fff !important;
@@ -110,7 +110,7 @@ input[type="file"]::file-selector-button:hover {
 select {
   appearance: none;
   -webkit-appearance: none; // for Safari
-  -moz-appearance: none;    // for Firefox
+  -moz-appearance: none; // for Firefox
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%200l4%204%204-4%22%20stroke%3D%22%235A3E2B%22%20stroke-width%3D%222%22%20fill%3D%22none%22/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -126,129 +126,209 @@ select {
 }
 
 
+// Specific styles for horse buttons 
+.custom-button {
+  background-color: var(--green);
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
 
-  
-  // Specific styles for horse buttons 
-  .custom-button {
-    background-color: var(--green);
-    color: white;
-    font-weight: bold;
-    padding: 0.75rem 1.25rem;
-    border: none;
-    border-radius: 2rem;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-    transition: all 0.2s ease-in-out;
-    font-size: 1.2rem;
-    margin-top: 2rem;
+.custom-button:hover {
+  background-color: var(--orange);
+  transform: scale(1.02);
+}
+
+.horse-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--green);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2rem;
+  width: 100%;
+  min-height: 64px; // gives consistent height
+
+  justify-content: flex-start; // image + text align nicely
+}
+
+.horse-button:hover {
+  background-color: darken(#6b8e23, 5%);
+  transform: scale(1.02);
+}
+
+.add-horse {
+  background: var(--green);
+}
+
+.add-horse:hover {
+  background-color: var(--orange);
+}
+
+.horse-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.form-submit-container.mobile-only {
+  display: none;
+}
+
+sl-icon-button {
+  float: right;
+}
+
+.card-basic::part(base) {
+  padding: 0rem; // reduce default padding
+  border-color: 5px solid var(--green);
+  border-radius: 8px;
+}
+
+.service-request {
+  margin-bottom: 0.5rem; // spacing between cards
+}
+
+
+/* Convert 3-column layout into a 2-column layout visually */
+.two-column-layout {
+  grid-template-columns: 1fr 2fr !important; // override 3-col
+  padding: 1.5rem;
+}
+
+/* Align both columns to the top */
+.two-column-layout .three-col-column {
+  align-self: start; /* Makes sure both columns start from the top */
+}
+
+/* Add column padding only when inside the 2-column layout form */
+.two-column-layout .three-col-column {
+  padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem; // tighter padding for mobile
   }
-  
-  .custom-button:hover {
-    background-color: var(--orange);
-    transform: scale(1.02);
+}
+
+.two-column-layout .three-col-column select,
+.two-column-layout .three-col-column label {
+  margin-top: 0;
+}
+
+
+/* Hide third column (avatar) */
+.hide-column {
+  display: none;
+}
+
+/* Style the green info box */
+.service-info-box {
+  background-color: #6b8e23;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  margin-bottom: 0rem;
+
+  h3 {
+    color: #fff;
+    margin-top: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
   }
-  
-  .horse-button {
+
+  ul {
+    padding-left: 1.2rem;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      font-size: 1.2rem;
+
+    }
+  }
+}
+
+
+
+@media (max-width: 1270px) {
+
+  .horse-avatar {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1rem;
-    background: var(--green);
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 1.25rem;
-    border-radius: 2rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.2s ease-in-out;
-    font-size: 1.2rem;
-    width: 100%;
-    min-height: 64px; // gives consistent height
-
-    justify-content: flex-start; // image + text align nicely
-  }
-  
-  .horse-button:hover {
-    background-color: darken(#6b8e23, 5%);
-    transform: scale(1.02);
-  }
-  
-  .add-horse {
-    background: var(--green);
-  }
-  
-  .add-horse:hover {
-    background-color: var(--orange);
-  }
-  
-  .horse-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
+    text-align: center;
   }
 
-  .form-submit-container.mobile-only {
+}
+
+@media (max-width: 950px) {
+  .form-submit-container.desktop-only {
     display: none;
   }
 
-  sl-icon-button {
-    float: right;
+  .form-submit-container.mobile-only {
+    width: 100%; // ensure container stretches across screen
+    display: flex;
+    justify-content: center; // center horizontally
+  }
+
+}
+
+// Responsive: Stack columns and center content
+@media (max-width: 925px) {
+  .three-col-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .three-col-column {
+    width: 100%;
+  }
+
+  .three-col-column p {
+    text-align: center;
+  }
+
+  .profile-horses {
+    align-items: center;
+  }
+
+  .horse-button {
+    margin: 0.5rem auto; // center horizontally with vertical spacing
+  }
+
+  .three-col-container.form-content label {
+    text-align: left;
+  }
+
+  .two-column-layout .three-col-column {
+    margin-bottom: 0rem;
+  }
+
+  .two-column-layout .three-col-column:last-of-type {
+    margin-bottom: 0; /* no extra space under last column */
+  }
+
+  .service-info-box {
+    margin-bottom: 0rem; /* reduce spacing below green box */
   }
 
 
-  @media (max-width: 1270px) {
-
-    .horse-avatar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-  
-  }
-  @media (max-width: 950px) {
-    .form-submit-container.desktop-only {
-      display: none;
-    }
-  
-    .form-submit-container.mobile-only {
-      width: 100%;               // ensure container stretches across screen
-      display: flex;
-      justify-content: center;   // center horizontally
-    }
-    
-  }
-
-  // Responsive: Stack columns and center content
-  @media (max-width: 925px) {
-    .three-col-container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .three-col-column {
-      width: 100%;
-    }
-  
-    .three-col-column p {
-      text-align: center;
-    }
-
-    .profile-horses {
-        align-items: center;
-      }
-    
-      .horse-button {
-        margin: 0.5rem auto; // center horizontally with vertical spacing
-      }
-
-      .three-col-container.form-content label {
-        text-align: left;
-      }
-
-
-    
-  }
-  
+}

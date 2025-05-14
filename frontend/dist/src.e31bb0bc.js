@@ -7554,7 +7554,7 @@ class Auth {
         // new user - redirect to the guide page
         (0, _Router.gotoRoute)('/guide');
       } else {
-        (0, _Router.gotoRoute)('/');
+        (0, _Router.gotoRoute)('/dashboard');
       }
 
       return data;
@@ -14071,7 +14071,48 @@ class HorsesView {
 var _default = new HorsesView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../HorseAPI":"HorseAPI.js","../../Toast":"Toast.js"}],"views/pages/requests.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../HorseAPI":"HorseAPI.js","../../Toast":"Toast.js"}],"ServiceRequestsAPI.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _App = _interopRequireDefault(require("./App.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ServiceRequestAPI {
+  async getServiceRequestsByHorse(horseId) {
+    const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests/horse/").concat(horseId));
+    return await res.json();
+  }
+
+  async createServiceRequest(data) {
+    const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(localStorage.accessToken)
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message);
+    }
+
+    return await res.json();
+  }
+
+}
+
+var _default = new ServiceRequestAPI();
+
+exports.default = _default;
+},{"./App.js":"App.js"}],"views/pages/serviceRequests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14089,10 +14130,24 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _Toast = _interopRequireDefault(require("../../Toast"));
+
+var _ServiceRequestsAPI = _interopRequireDefault(require("./../../ServiceRequestsAPI"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["<option value=\"", "\">", "</option>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the request services view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Request a Service</h1>\n  \n        <form class=\"three-col-container form-content app-form-style two-column-layout\" @submit=", ">\n          <!-- Column 1: Info Box -->\n          <div class=\"three-col-column\">\n            <div class=\"service-info-box\">\n              <h3>Base Services Included</h3>\n              <ul>\n                <li>Private paddock</li>\n                <li>Hard feeds per day (1x am/pm)</li>\n                <li>Grass hay per day (2x am/pm)</li>\n                <li>Stable at night/Stable cleaning</li>\n                <li>Paddock cleaning</li>\n              </ul>\n            </div>\n          </div>\n  \n          <!-- Column 2: Full Form -->\n          <div class=\"three-col-column\">\n            <label for=\"horseID\">Select Horse:</label>\n            <select name=\"horseID\" id=\"horseID\" required>\n              <option value=\"\">-- Select Horse --</option>\n              ", "\n            </select>\n  \n            <label for=\"serviceType\">Service Type:</label>\n            <select name=\"serviceType\" id=\"serviceType\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Extra Hay\">Extra Hay</option>\n              <option value=\"Rug Change\">Rug Change</option>\n              <option value=\"Holding for Vet\">Holding for Vet</option>\n              <option value=\"Exercise/Training\">Exercise/Training</option>\n              <option value=\"Lesson\">Lesson</option>\n              <option value=\"Other\">Other</option>\n            </select>\n  \n            <label for=\"notes\">Notes:</label>\n            <textarea\n              name=\"notes\"\n              id=\"notes\"\n              rows=\"5\"\n              placeholder=\"Include preferred dates, time, or additional instructions...\"\n            ></textarea>\n  \n            <!-- Desktop Submit -->\n            <div class=\"form-submit-container desktop-only\">\n              <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n            </div>\n          </div>\n  \n          <!-- Hide third column completely -->\n          <div class=\"three-col-column hide-column\"></div>\n  \n          <!-- Mobile Submit -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14103,27 +14158,70 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class RequestsView {
-  init() {
-    console.log('requestsView.init');
+class ServiceRequestsView {
+  constructor() {
+    this.horses = [];
+  }
+
+  async init() {
+    console.log('ServiceRequestsView.init');
     document.title = 'Request Services';
+
+    try {
+      const res = await fetch("".concat(_App.default.apiBase, "/horse"));
+      const horses = await res.json();
+      this.horses = horses.filter(h => h.ownerID === _Auth.default.currentUser._id);
+    } catch (err) {
+      console.error('Failed to load horses', err);
+
+      _Toast.default.show('Could not load horses', 'error');
+    }
+
     this.render();
 
-    _Utils.default.pageIntroAnim(); // is this necessary??  
+    _Utils.default.pageIntroAnim();
+  }
 
+  async submitHandler(e) {
+    e.preventDefault();
+    const form = e.target;
+    const requestData = {
+      horseID: form.horseID.value,
+      serviceType: form.serviceType.value,
+      notes: form.notes.value
+    };
+
+    if (!requestData.horseID || !requestData.serviceType) {
+      _Toast.default.show('Please fill in all required fields', 'error');
+
+      return;
+    }
+
+    try {
+      const res = await _ServiceRequestsAPI.default.createServiceRequest(requestData);
+
+      _Toast.default.show('Service request submitted');
+
+      (0, _Router.gotoRoute)('/dashboard');
+    } catch (err) {
+      console.error('Submit error:', err);
+
+      _Toast.default.show(err.message || 'Something went wrong', 'error');
+    }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    const horses = this.horses;
+    const template = (0, _litHtml.html)(_templateObject(), this.submitHandler, horses.map(horse => (0, _litHtml.html)(_templateObject2(), horse._id, horse.name)));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
 }
 
-var _default = new RequestsView();
+var _default = new ServiceRequestsView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/calendar.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","../../Toast":"Toast.js","./../../ServiceRequestsAPI":"ServiceRequestsAPI.js"}],"views/pages/calendar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14353,8 +14451,28 @@ var _sampleCalendarEvents = require("../../data/sampleCalendarEvents");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n                <ag-tile-button\n                  label=\"My Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Request Services\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/serviceRequests\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["  \n                <ag-tile-button\n                  label=\"Manage Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Service Requests\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/viewRequests\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n<ag-tile-grid .center=", ">\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <ag-calendar-preview\n        .events=", "\n      ></ag-calendar-preview>\n            </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Welcome, ", "!</h1>\n  \n        <ag-tile-grid .center=", ">\n          ", "\n        </ag-tile-grid>\n  \n        <ag-calendar-preview .events=", "></ag-calendar-preview>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14382,7 +14500,10 @@ class DashboardView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, true, _sampleCalendarEvents.sampleCalendarEvents);
+    var _Auth$currentUser;
+
+    const isAdmin = ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === 'admin';
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, true, isAdmin ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3()), _sampleCalendarEvents.sampleCalendarEvents);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14455,6 +14576,8 @@ var _App = _interopRequireDefault(require("./../../App"));
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
 var _Auth = _interopRequireDefault(require("./../../Auth"));
+
+var _HorseAPI = _interopRequireDefault(require("./../../HorseAPI"));
 
 var _litHtml = require("lit-html");
 
@@ -14560,30 +14683,7 @@ class AddHorseView {
 var _default = new AddHorseView();
 
 exports.default = _default;
-},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Toast":"Toast.js","./../../Router":"Router.js"}],"ServiceRequestsAPI.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _App = _interopRequireDefault(require("./App.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-class ServiceRequestAPI {
-  async getServiceRequestsByHorse(horseId) {
-    const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests/horse/").concat(horseId));
-    return await res.json();
-  }
-
-}
-
-var _default = new ServiceRequestAPI();
-
-exports.default = _default;
-},{"./App.js":"App.js"}],"views/pages/horse.js":[function(require,module,exports) {
+},{"./../../App":"App.js","./../../Utils":"Utils.js","./../../Auth":"Auth.js","./../../HorseAPI":"HorseAPI.js","lit-html":"../node_modules/lit-html/lit-html.js","../../Toast":"Toast.js","./../../Router":"Router.js"}],"views/pages/horse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14622,7 +14722,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n                <div class=\"service-request\">\n                  <strong>", "</strong><br />\n                  ", "</p>\n                  <small>", "</small>\n                </div>\n              "]);
+  const data = _taggedTemplateLiteral(["\n                <div class=\"service-request\" ><sl-card class=\"card-basic\">\n                  <strong>", "</strong><br />\n                  ", "</p>\n                  <small>", "</small>\n                  </sl-card>\n\n                </div>\n              "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -14709,7 +14809,7 @@ class HorseView {
   render() {
     const horse = this.horse;
     const services = this.serviceRequests;
-    const template = (0, _litHtml.html)(_templateObject(), horse.name, horse.breed || "—", horse.age || "—", horse.height || "—", horse.sex || "—", horse.colour || "—", horse.microchipNumber || "—", horse.notes || "No notes available.", services.length > 0 ? (0, _litHtml.html)(_templateObject2(), services.map(service => (0, _litHtml.html)(_templateObject3(), service.serviceType, service.notes || "", (0, _moment.default)(service.date).format("DD MMM YYYY")))) : (0, _litHtml.html)(_templateObject4()), horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : "", () => document.getElementById("delete-horse-modal").show(), () => this.deleteHorse(), () => document.getElementById("delete-horse-modal").hide());
+    const template = (0, _litHtml.html)(_templateObject(), horse.name, horse.breed || "—", horse.age || "—", horse.height || "—", horse.sex || "—", horse.colour || "—", horse.microchipNumber || "—", horse.notes || "No notes available.", services.length > 0 ? (0, _litHtml.html)(_templateObject2(), services.map(service => (0, _litHtml.html)(_templateObject3(), service.serviceType, service.notes || "No notes provided", (0, _moment.default)(service.date).format("DD MMM YYYY")))) : (0, _litHtml.html)(_templateObject4()), horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : "", () => document.getElementById("delete-horse-modal").show(), () => this.deleteHorse(), () => document.getElementById("delete-horse-modal").hide());
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14742,7 +14842,7 @@ var _editProfile = _interopRequireDefault(require("./views/pages/editProfile"));
 
 var _horses = _interopRequireDefault(require("./views/pages/horses"));
 
-var _requests = _interopRequireDefault(require("./views/pages/requests"));
+var _serviceRequests = _interopRequireDefault(require("./views/pages/serviceRequests"));
 
 var _calendar = _interopRequireDefault(require("./views/pages/calendar"));
 
@@ -14770,7 +14870,7 @@ const routes = {
   '/profile': _profile.default,
   '/editProfile': _editProfile.default,
   '/horses': _horses.default,
-  '/requests': _requests.default,
+  '/serviceRequests': _serviceRequests.default,
   '/calendar': _calendar.default,
   '/guide': _guide.default,
   '/adminDashboard': _adminDashboard.default,
@@ -14852,7 +14952,7 @@ function anchorRoute(e) {
   const pathname = e.target.closest('a').pathname;
   AppRouter.gotoRoute(pathname);
 }
-},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/requests":"views/pages/requests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js","./views/pages/horse":"views/pages/horse.js"}],"App.js":[function(require,module,exports) {
+},{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/serviceRequests":"views/pages/serviceRequests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js","./views/pages/horse":"views/pages/horse.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16405,7 +16505,7 @@ var _UserAPI = _interopRequireDefault(require("../UserAPI"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n                  <a href=\"/\" @click=", ">Home/Dashboard</a>\n                  <a href=\"/dashboard\" @click=", ">Dashboard</a>\n                  <a href=\"/horses\" @click=", ">My Horses</a>\n                  <a href=\"/requests\" @click=", ">Request Services</a>\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
+  const data = _taggedTemplateLiteral(["\n                  <a href=\"/dashboard\" @click=", ">Home/Dashboard</a>\n                  <a href=\"/horses\" @click=", ">My Horses</a>\n                  <a href=\"/serviceRequests\" @click=", ">Request Services</a>\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -16504,7 +16604,7 @@ customElements.define("ag-app-sidebar", class AgAppSidebar extends _lit.LitEleme
   render() {
     var _this$user, _this$user2;
 
-    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, _Router.anchorRoute, this.user && this.user.profileImage ? (0, _lit.html)(_templateObject2(), _App.default.apiBase, this.user.profileImage) : (0, _lit.html)(_templateObject3(), (_this$user = this.user) !== null && _this$user !== void 0 && _this$user.firstName ? this.user.firstName[0].toUpperCase() : "U"), ((_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : _this$user2.accessLevel) === "admin" ? (0, _lit.html)(_templateObject4(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute) : (0, _lit.html)(_templateObject5(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute), () => _Auth.default.signOut(), _App.default.version);
+    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, _Router.anchorRoute, this.user && this.user.profileImage ? (0, _lit.html)(_templateObject2(), _App.default.apiBase, this.user.profileImage) : (0, _lit.html)(_templateObject3(), (_this$user = this.user) !== null && _this$user !== void 0 && _this$user.firstName ? this.user.firstName[0].toUpperCase() : "U"), ((_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : _this$user2.accessLevel) === "admin" ? (0, _lit.html)(_templateObject4(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute) : (0, _lit.html)(_templateObject5(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute), () => _Auth.default.signOut(), _App.default.version);
   }
 
 });
@@ -16598,7 +16698,7 @@ var _lit = require("lit");
 var _Router = require("../Router");
 
 function _templateObject6() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 180px;\n      height: 180px;\n      background-color: #d2691e;\n      border: 10px solid #5A3E2B-; /* Border color */\n\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .icon-image {\n      width: 48px;\n      height: 48px;\n      margin-bottom: 0.8rem;\n      object-fit: contain;\n      filter: brightness(0) invert(1); /* Optional: make white if needed */\n    }\n\n    .icon-image,\n    .icon,\n    .circle-image {\n      margin-bottom: 0.4rem; /* was 0.8rem */\n    }\n\n    .tile-content {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: center;\n      height: 100%;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n\n@media (max-width: 768px) {\n  :host {\n    width: 100%;\n    height: auto;\n    border-radius: 10px;\n    padding: 1rem 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: flex-start;\n    gap: 1rem;\n  }\n\n  .tile-content {\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n    gap: 1.2rem;\n    margin-left: 1.5rem; /* Push tile content slightly to the right */\n  }\n\n  .icon-image,\n  .circle-image {\n    width: 42px;\n    height: 42px;\n    margin: 0;\n    flex-shrink: 0;\n  }\n\n  .label {\n    font-size: 1rem;\n    text-align: left;\n    line-height: 1.2;\n  }\n}\n\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      width: 180px;\n      height: 180px;\n      background-color: #d2691e;\n      border: 10px solid #5A3E2B-; /* Border color */\n\n      border-radius: 20px;\n      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);\n      color: white;\n      font-family: \"Quicksand\", sans-serif;\n      text-align: center;\n      padding: 1rem;\n      box-sizing: border-box;\n      transition: transform 0.2s ease, box-shadow 0.2s ease;\n      cursor: pointer;\n    }\n\n    :host(:hover) {\n      transform: scale(1.05);\n      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);\n    }\n\n    .circle-image {\n      width: 80px;\n      height: 80px;\n      border-radius: 50%;\n      object-fit: cover;\n      margin-bottom: 0.8rem;\n      border: 2px solid white;\n    }\n\n    .icon {\n      font-size: 2.5rem;\n      margin-bottom: 0.8rem;\n    }\n\n    .icon-image {\n      width: 52px;\n      height: 52px;\n      margin-bottom: 0.8rem;\n      object-fit: contain;\n      filter: brightness(0) invert(1); /* Optional: make white if needed */\n    }\n\n    .icon-image,\n    .icon,\n    .circle-image {\n      margin-bottom: 0.4rem; /* was 0.8rem */\n    }\n\n    .tile-content {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: center;\n      height: 100%;\n    }\n\n    .label {\n      font-size: 1.1rem;\n      font-weight: 500;\n    }\n\n@media (max-width: 768px) {\n  :host {\n    width: 100%;\n    height: auto;\n    border-radius: 10px;\n    padding: 1rem 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: flex-start;\n    gap: 1rem;\n  }\n\n  .tile-content {\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n    gap: 1.2rem;\n    margin-left: 1.5rem; /* Push tile content slightly to the right */\n  }\n\n  .icon-image,\n  .circle-image {\n    width: 42px;\n    height: 42px;\n    margin: 0;\n    flex-shrink: 0;\n  }\n\n  .label {\n    font-size: 1rem;\n    text-align: left;\n    line-height: 1.2;\n  }\n}\n\n    }\n  "]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -17171,7 +17271,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64578" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60655" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

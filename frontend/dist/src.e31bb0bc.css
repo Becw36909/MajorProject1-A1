@@ -536,6 +536,72 @@ sl-icon-button {
   float: right;
 }
 
+.card-basic::part(base) {
+  padding: 0rem;
+  border-color: 5px solid var(--green);
+  border-radius: 8px;
+}
+
+.service-request {
+  margin-bottom: 0.5rem;
+}
+
+/* Convert 3-column layout into a 2-column layout visually */
+.two-column-layout {
+  grid-template-columns: 1fr 2fr !important;
+  padding: 1.5rem;
+}
+
+/* Align both columns to the top */
+.two-column-layout .three-col-column {
+  align-self: start;
+  /* Makes sure both columns start from the top */
+}
+
+/* Add column padding only when inside the 2-column layout form */
+.two-column-layout .three-col-column {
+  padding: 1.5rem;
+}
+@media (max-width: 768px) {
+  .two-column-layout .three-col-column {
+    padding: 1rem;
+  }
+}
+
+.two-column-layout .three-col-column select,
+.two-column-layout .three-col-column label {
+  margin-top: 0;
+}
+
+/* Hide third column (avatar) */
+.hide-column {
+  display: none;
+}
+
+/* Style the green info box */
+.service-info-box {
+  background-color: #6b8e23;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  margin-bottom: 0rem;
+}
+.service-info-box h3 {
+  color: #fff;
+  margin-top: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.service-info-box ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.service-info-box ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 1270px) {
   .horse-avatar {
     display: flex;
@@ -580,6 +646,20 @@ sl-icon-button {
 
   .three-col-container.form-content label {
     text-align: left;
+  }
+
+  .two-column-layout .three-col-column {
+    margin-bottom: 0rem;
+  }
+
+  .two-column-layout .three-col-column:last-of-type {
+    margin-bottom: 0;
+    /* no extra space under last column */
+  }
+
+  .service-info-box {
+    margin-bottom: 0rem;
+    /* reduce spacing below green box */
   }
 }
 

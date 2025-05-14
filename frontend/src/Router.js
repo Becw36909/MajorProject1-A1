@@ -6,7 +6,7 @@ import signupView from './views/pages/signup'
 import profileView from './views/pages/profile'
 import editProfileView from './views/pages/editProfile'
 import horsesView from './views/pages/horses'
-import requestsView from './views/pages/requests'
+import serivceRequestsView from './views/pages/serviceRequests'
 import calendarView from './views/pages/calendar'
 import guideView from './views/pages/guide'
 import adminDashboardView from './views/pages/adminDashboard'
@@ -26,7 +26,7 @@ const routes = {
 	'/profile': profileView,
 	'/editProfile': editProfileView,
 	'/horses': horsesView, 
-	'/requests': requestsView, 
+	'/serviceRequests': serivceRequestsView, 
 	'/calendar': calendarView, 
 	'/guide': guideView, 
 	'/adminDashboard': adminDashboardView, 

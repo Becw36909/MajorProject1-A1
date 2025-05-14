@@ -99,10 +99,12 @@ class HorseView {
               services.length > 0
                 ? html`${services.map(
                     (service) => html`
-                <div class="service-request">
+                <div class="service-request" ><sl-card class="card-basic">
                   <strong>${service.serviceType}</strong><br />
-                  ${service.notes || ""}</p>
+                  ${service.notes || "No notes provided"}</p>
                   <small>${moment(service.date).format("DD MMM YYYY")}</small>
+                  </sl-card>
+
                 </div>
               `
                   )}`

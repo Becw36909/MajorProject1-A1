@@ -67,7 +67,7 @@ class Auth {
         gotoRoute('/guide');
 
       }else{
-        gotoRoute('/');
+        gotoRoute('/dashboard');
 
       }
       return data;

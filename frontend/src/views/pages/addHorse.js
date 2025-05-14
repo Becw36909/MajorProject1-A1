@@ -1,6 +1,8 @@
 import App from './../../App'
 import Utils from "./../../Utils";
 import Auth from "./../../Auth";
+import HorseAPI from "./../../HorseAPI";
+
 import {html, render } from 'lit-html'
 import Toast from "../../Toast";
 import { gotoRoute, anchorRoute } from "./../../Router";
