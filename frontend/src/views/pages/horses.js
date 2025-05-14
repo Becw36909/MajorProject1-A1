@@ -1,54 +1,70 @@
 import App from "./../../App";
 import { html, render } from "lit-html";
-import { gotoRoute, anchorRoute } from "./../../Router";
+import { gotoRoute } from "./../../Router";
 import Auth from "./../../Auth";
 import Utils from "./../../Utils";
 import HorseAPI from "../../HorseAPI";
 import Toast from "../../Toast";
+import Router from "./../../Router";
 
 class HorsesView {
-  init() {
-    console.log("HorseView.init");
-    document.title = "Horses";
-    this.horses = null;
-    this.render();
-    Utils.pageIntroAnim();
-    this.getHorses();
+  constructor() {
+    this.horses = [];
   }
 
-  async getHorses() {
+  async init() {
+    console.log("HorsesView.init");
+    document.title = "My Horses | AgistEase";
+
     try {
-      this.horses = await HorseAPI.getHorses();
-      console.log(this.horses);
-      this.render()
+      const horses = await HorseAPI.getHorses();
+      const user = Auth.currentUser;
+
+      if (user.accessLevel === 'admin') {
+        this.horses = horses;
+      } else {
+        this.horses = horses.filter(horse => horse.ownerID === user._id);
+      }
+
+      this.render();
+      Utils.pageIntroAnim();
     } catch (err) {
-      Toast.show(err, "error");
+      console.error(err);
+      Toast.show("Failed to load horses", "error");
     }
   }
 
   render() {
     const template = html`
-      <div class="page-content">
-        <h1 class="anim-in">this is the Horses view</h1>
+      <ag-app-layout>
+        <h1>${Auth.currentUser.accessLevel === 'admin' ? 'Manage Horses' : 'My Horses'}</h1>
+  
+<ag-tile-grid .center=${false}>
+  ${this.horses.length > 0
+    ? this.horses.map(horse => html`
+        <ag-tile-button
+          label="${horse.name}"
+          image="${horse.image ? `${App.apiBase}/images/${horse.image}` : ''}"
+          route="${Router.getHorseRoute(horse._id)}"
+        ></ag-tile-button>
+      `)
+    : html`<p>No horses found.</p>`}
 
-        <h3>Button example:</h3>
-        <sl-button class="anim-in" @click=${() => gotoRoute("/")}
-          >back to home</sl-button
-        >
+  <!-- ✅ Always show Add Horse tile -->
+  <ag-tile-button
+    class="add-horse-tile"
+    label="Add Horse"
+    iconImage="/images/icons/plus-solid.svg"
+    route="/addHorse"
+  ></ag-tile-button>
+</ag-tile-grid>
 
-        ${this.horses == 0
-          ? html` <h1 class="anim-in">NO HORSES - ONLY SHOW ADD HORSE BUTTON</h1>
-          <sl-button size="large"> 
-           <p>ADD HORSE BUTTON</p> </sl-button> `
-          : html`
-              <h1 class="anim-in">
-                HERE ARE THE HORSES... LOOP ALL HORSES AS BUTTONS PLUS ADD HORSE BUTTON
-              </h1>
-            `}
-      </div>
+      </ag-app-layout>
     `;
+  
     render(template, App.rootEl);
   }
+  
 }
 
 export default new HorsesView();

@@ -26,7 +26,7 @@ class DashboardView {
       <h1>Welcome, ${Auth.currentUser.firstName}!</h1>
 
       <!-- Tile buttons row -->
-      <ag-tile-grid>
+<ag-tile-grid .center=${true}>
         <ag-tile-button
           label="My Horses"
           iconImage="/images/icons/horse-solid.svg"

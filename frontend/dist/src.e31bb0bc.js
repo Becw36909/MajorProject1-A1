@@ -13984,7 +13984,7 @@ var _App = _interopRequireDefault(require("./../../App"));
 
 var _litHtml = require("lit-html");
 
-var _Router = require("./../../Router");
+var _Router = _interopRequireWildcard(require("./../../Router"));
 
 var _Auth = _interopRequireDefault(require("./../../Auth"));
 
@@ -13994,10 +13994,14 @@ var _HorseAPI = _interopRequireDefault(require("../../HorseAPI"));
 
 var _Toast = _interopRequireDefault(require("../../Toast"));
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n              <h1 class=\"anim-in\">\n                HERE ARE THE HORSES... LOOP ALL HORSES AS BUTTONS PLUS ADD HORSE BUTTON\n              </h1>\n            "]);
+  const data = _taggedTemplateLiteral(["<p>No horses found.</p>"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -14007,7 +14011,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral([" <h1 class=\"anim-in\">NO HORSES - ONLY SHOW ADD HORSE BUTTON</h1>\n          <sl-button size=\"large\"> \n           <p>ADD HORSE BUTTON</p> </sl-button> "]);
+  const data = _taggedTemplateLiteral(["\n        <ag-tile-button\n          label=\"", "\"\n          image=\"", "\"\n          route=\"", "\"\n        ></ag-tile-button>\n      "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14017,7 +14021,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the Horses view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >back to home</sl-button\n        >\n\n        ", "\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>", "</h1>\n  \n<ag-tile-grid .center=", ">\n  ", "\n\n  <!-- \u2705 Always show Add Horse tile -->\n  <ag-tile-button\n    class=\"add-horse-tile\"\n    label=\"Add Horse\"\n    iconImage=\"/images/icons/plus-solid.svg\"\n    route=\"/addHorse\"\n  ></ag-tile-button>\n</ag-tile-grid>\n\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14029,29 +14033,36 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 class HorsesView {
-  init() {
-    console.log("HorseView.init");
-    document.title = "Horses";
-    this.horses = null;
-    this.render();
-
-    _Utils.default.pageIntroAnim();
-
-    this.getHorses();
+  constructor() {
+    this.horses = [];
   }
 
-  async getHorses() {
+  async init() {
+    console.log("HorsesView.init");
+    document.title = "My Horses | AgistEase";
+
     try {
-      this.horses = await _HorseAPI.default.getHorses();
-      console.log(this.horses);
+      const horses = await _HorseAPI.default.getHorses();
+      const user = _Auth.default.currentUser;
+
+      if (user.accessLevel === 'admin') {
+        this.horses = horses;
+      } else {
+        this.horses = horses.filter(horse => horse.ownerID === user._id);
+      }
+
       this.render();
+
+      _Utils.default.pageIntroAnim();
     } catch (err) {
-      _Toast.default.show(err, "error");
+      console.error(err);
+
+      _Toast.default.show("Failed to load horses", "error");
     }
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)("/"), this.horses == 0 ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3()));
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.accessLevel === 'admin' ? 'Manage Horses' : 'My Horses', false, this.horses.length > 0 ? this.horses.map(horse => (0, _litHtml.html)(_templateObject2(), horse.name, horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : '', _Router.default.getHorseRoute(horse._id))) : (0, _litHtml.html)(_templateObject3()));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14343,7 +14354,7 @@ var _sampleCalendarEvents = require("../../data/sampleCalendarEvents");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n      <ag-tile-grid>\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <ag-calendar-preview\n        .events=", "\n      ></ag-calendar-preview>\n            </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n\n      <h1>Welcome, ", "!</h1>\n\n      <!-- Tile buttons row -->\n<ag-tile-grid .center=", ">\n        <ag-tile-button\n          label=\"My Horses\"\n          iconImage=\"/images/icons/horse-solid.svg\"\n          route=\"/horses\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Request Services\"\n          iconImage=\"/images/icons/bell-solid.svg\"\n          route=\"/requests\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"My Profile\"\n          iconImage=\"/images/icons/user-solid.svg\"\n          route=\"/profile\"\n        ></ag-tile-button>\n\n        <ag-tile-button\n          label=\"Calendar\"\n          iconImage=\"/images/icons/calendar-days-solid.svg\"\n          route=\"/calendar\"\n        ></ag-tile-button>\n      </ag-tile-grid>\n\n      <!-- Placeholder calendar section -->\n      <ag-calendar-preview\n        .events=", "\n      ></ag-calendar-preview>\n            </ag-app-layout>\n\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14371,7 +14382,7 @@ class DashboardView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, _sampleCalendarEvents.sampleCalendarEvents);
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, true, _sampleCalendarEvents.sampleCalendarEvents);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -16698,7 +16709,7 @@ customElements.define("ag-tile-button", AgTileButton);
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n  :host {\n    display: block; /* makes margin auto actually work */\n  }\n\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n    gap: 2.5rem;\n    justify-items: center;\n    padding: 2rem;\n    max-width: 1200px;\n    margin: 0 auto;\n    box-sizing: border-box;\n  }\n\n  @media (max-width: 768px) {\n  .grid {\n    grid-template-columns: 1fr; /* one tile per row */\n    justify-items: stretch; /* stretch tiles to full width */\n    gap: 1rem;\n    padding: 1rem;\n  }\n"]);
+  const data = _taggedTemplateLiteral(["\n  :host {\n    display: block; /* makes margin auto actually work */\n  }\n\n  .grid {\n    display: grid;\n    gap: 2.5rem;\n    padding: 2rem;\n    max-width: 1200px;\n    margin: 0 auto;\n    box-sizing: border-box;\n          align-items: start;\n\n  }\n\n    .grid-center {\n        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* evenly spaced */\n\n    justify-items: center;\n  }\n\n  .grid-left {\n      grid-template-columns: repeat(auto-fit, minmax(180px, max-content)); /* natural wrapping */\n\n    justify-items: start;\n  }\n\n  @media (max-width: 768px) {\n  .grid {\n    grid-template-columns: 1fr; /* one tile per row */\n    justify-items: stretch; /* stretch tiles to full width */\n    gap: 1rem;\n    padding: 1rem;\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -16708,7 +16719,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["<div class=\"grid\"><slot></slot></div>"]);
+  const data = _taggedTemplateLiteral(["\n    <div class=\"grid ", "\">\n      <slot></slot>\n    </div>\n  "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16722,11 +16733,22 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class AgTileGrid extends _lit.LitElement {
+  constructor() {
+    super();
+    this.center = true; // default is centered
+  }
+
   render() {
-    return (0, _lit.html)(_templateObject());
+    return (0, _lit.html)(_templateObject(), this.center ? 'grid-center' : 'grid-left');
   }
 
 }
+
+_defineProperty(AgTileGrid, "properties", {
+  center: {
+    type: Boolean
+  }
+});
 
 _defineProperty(AgTileGrid, "styles", (0, _lit.css)(_templateObject2()));
 
