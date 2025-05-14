@@ -13653,6 +13653,23 @@ class HorseAPI {
     return await fetch("".concat(_App.default.apiBase, "/horse/").concat(id)).then(res => res.json());
   }
 
+  async createHorse(formData) {
+    const res = await fetch("".concat(_App.default.apiBase, "/horse"), {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.accessToken)
+      },
+      body: formData
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Problem adding horse");
+    }
+
+    return await res.json();
+  }
+
 }
 
 var _default = new HorseAPI();
@@ -13719,7 +13736,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong class=\"emphasis\">Name:</strong><br />", " ", "</p>\n            <p><strong class=\"emphasis\">Email:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong class=\"emphasis\">Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 180px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong class=\"emphasis\">My Horses:</strong></p>\n\n   ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong class=\"emphasis\">Name:</strong><br />", " ", "</p>\n            <p><strong class=\"emphasis\">Email:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong class=\"emphasis\">Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 240px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong class=\"emphasis\">My Horses:</strong></p>\n\n   ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14021,7 +14038,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>", "</h1>\n  \n<ag-tile-grid .center=", ">\n  ", "\n\n  <!-- \u2705 Always show Add Horse tile -->\n  <ag-tile-button\n    class=\"add-horse-tile\"\n    label=\"Add Horse\"\n    iconImage=\"/images/icons/plus-solid.svg\"\n    route=\"/addHorse\"\n  ></ag-tile-button>\n</ag-tile-grid>\n\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>", "</h1>\n  \n<ag-tile-grid .center=", ">\n  ", "\n\n  <!-- Add Horse tile -->\n  <ag-tile-button\n    class=\"add-horse-tile\"\n    label=\"Add Horse\"\n    iconImage=\"/images/icons/plus-solid.svg\"\n    route=\"/addHorse\"\n  ></ag-tile-button>\n</ag-tile-grid>\n\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14107,6 +14124,21 @@ class ServiceRequestAPI {
     return await res.json();
   }
 
+  async getAllServiceRequests() {
+    const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests"), {
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.accessToken)
+      }
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message);
+    }
+
+    return await res.json();
+  }
+
 }
 
 var _default = new ServiceRequestAPI();
@@ -14147,7 +14179,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Request a Service</h1>\n  \n        <form class=\"three-col-container form-content app-form-style two-column-layout\" @submit=", ">\n          <!-- Column 1: Info Box -->\n          <div class=\"three-col-column\">\n            <div class=\"service-info-box\">\n              <h3>Base Services Included</h3>\n              <ul>\n                <li>Private paddock</li>\n                <li>Hard feeds per day (1x am/pm)</li>\n                <li>Grass hay per day (2x am/pm)</li>\n                <li>Stable at night/Stable cleaning</li>\n                <li>Paddock cleaning</li>\n              </ul>\n            </div>\n          </div>\n  \n          <!-- Column 2: Full Form -->\n          <div class=\"three-col-column\">\n            <label for=\"horseID\">Select Horse:</label>\n            <select name=\"horseID\" id=\"horseID\" required>\n              <option value=\"\">-- Select Horse --</option>\n              ", "\n            </select>\n  \n            <label for=\"serviceType\">Service Type:</label>\n            <select name=\"serviceType\" id=\"serviceType\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Extra Hay\">Extra Hay</option>\n              <option value=\"Rug Change\">Rug Change</option>\n              <option value=\"Holding for Vet\">Holding for Vet</option>\n              <option value=\"Exercise/Training\">Exercise/Training</option>\n              <option value=\"Lesson\">Lesson</option>\n              <option value=\"Other\">Other</option>\n            </select>\n  \n            <label for=\"notes\">Notes:</label>\n            <textarea\n              name=\"notes\"\n              id=\"notes\"\n              rows=\"5\"\n              placeholder=\"Include preferred dates, time, or additional instructions...\"\n            ></textarea>\n  \n            <!-- Desktop Submit -->\n            <div class=\"form-submit-container desktop-only\">\n              <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n            </div>\n          </div>\n  \n          <!-- Hide third column completely -->\n          <div class=\"three-col-column hide-column\"></div>\n  \n          <!-- Mobile Submit -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Request a Service</h1>\n  \n        <form class=\"three-col-container form-content app-form-style two-column-layout\" @submit=", ">\n          <!-- Column 1: Info Box -->\n          <div class=\"three-col-column\">\n            <div class=\"service-info-box\">\n              <h3>Base Services Included</h3>\n              <ul>\n                <li>Private paddock</li>\n                <li>Hard feeds per day (1x am/pm)</li>\n                <li>Grass hay per day (2x am/pm)</li>\n                <li>Stable at night/Stable cleaning</li>\n                <li>Paddock cleaning</li>\n              </ul>\n            </div>\n          </div>\n  \n          <!-- Column 2: Full Form -->\n          <div class=\"three-col-column\">\n            <label for=\"horseID\">Select Horse:</label>\n            <select name=\"horseID\" id=\"horseID\" required>\n              <option value=\"\">-- Select Horse --</option>\n              ", "\n            </select>\n  \n            <label for=\"serviceType\">Service Type:</label>\n            <select name=\"serviceType\" id=\"serviceType\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Extra Hay\">Extra Hay</option>\n              <option value=\"Rug Change\">Rug Change</option>\n              <option value=\"Holding for Vet\">Holding for Vet</option>\n              <option value=\"Exercise/Training\">Exercise/Training</option>\n              <option value=\"Lesson\">Lesson</option>\n              <option value=\"Other\">Other</option>\n            </select>\n  \n            <label for=\"notes\">Notes:</label>\n            <textarea\n              name=\"notes\"\n              id=\"notes\"\n              rows=\"5\"\n              placeholder=\"Include preferred dates, time, or additional instructions...\"\n            ></textarea>\n  \n            <!-- Desktop Submit -->\n<div class=\"form-submit-container desktop-only request-submit-container\">\n              <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n            </div>\n          </div>\n  \n          <!-- Hide third column completely -->\n          <div class=\"three-col-column hide-column\"></div>\n  \n          <!-- Mobile Submit -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14530,10 +14562,46 @@ var _Auth = _interopRequireDefault(require("./../../Auth"));
 
 var _Utils = _interopRequireDefault(require("./../../Utils"));
 
+var _Toast = _interopRequireDefault(require("./../../Toast"));
+
+var _ServiceRequestsAPI = _interopRequireDefault(require("./../../ServiceRequestsAPI"));
+
+var _moment = _interopRequireDefault(require("moment"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["\n                      <tr>\n                        <td>", "</td>\n                        <td>", "</td>\n                        <td>", "</td>\n                        <td>", "</td>\n                      </tr>\n                    "]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n              <div class=\"request-table-wrapper\">\n                <table class=\"request-table\">\n                  <thead>\n                    <tr>\n                      <th>Service Type</th>\n                      <th>Horse</th>\n                      <th>Notes</th>\n                      <th>Date</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    ", "\n                  </tbody>\n                </table>\n              </div>\n            "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["<p>No service requests found.</p>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      \n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">this is the view all service requests view</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", ">back to home</sl-button>\n\n      </div>\n     \n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>All Service Requests</h1>\n\n        ", "\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14544,26 +14612,41 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-class viewRequestsView {
-  init() {
-    console.log('requestsView.init');
-    document.title = 'View All Requests';
+class ViewRequestsView {
+  async init() {
+    console.log('ViewRequestsView.init');
+    document.title = 'All Service Requests';
+
+    try {
+      this.requests = await _ServiceRequestsAPI.default.getAllServiceRequests();
+    } catch (err) {
+      console.error(err);
+
+      _Toast.default.show('Failed to load service requests', 'error');
+
+      this.requests = [];
+    }
+
     this.render();
 
     _Utils.default.pageIntroAnim();
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'));
+    const template = (0, _litHtml.html)(_templateObject(), this.requests.length === 0 ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3(), this.requests.map(req => {
+      var _req$horseID;
+
+      return (0, _litHtml.html)(_templateObject4(), req.serviceType, ((_req$horseID = req.horseID) === null || _req$horseID === void 0 ? void 0 : _req$horseID.name) || 'Unknown', req.notes || '—', (0, _moment.default)(req.date).format('DD MMM YYYY'));
+    })));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
 }
 
-var _default = new viewRequestsView();
+var _default = new ViewRequestsView();
 
 exports.default = _default;
-},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js"}],"views/pages/addHorse.js":[function(require,module,exports) {
+},{"./../../App":"App.js","lit-html":"../node_modules/lit-html/lit-html.js","./../../Router":"Router.js","./../../Auth":"Auth.js","./../../Utils":"Utils.js","./../../Toast":"Toast.js","./../../ServiceRequestsAPI":"ServiceRequestsAPI.js","moment":"../node_modules/moment/moment.js"}],"views/pages/addHorse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14642,31 +14725,13 @@ class AddHorseView {
     }
 
     try {
-      const res = await fetch("".concat(_App.default.apiBase, "/horse"), {
-        method: "POST",
-        body: formData
-      });
-
-      if (!res.ok) {
-        let errMessage = "Error adding horse";
-
-        try {
-          const err = await res.json();
-          errMessage = err.message || errMessage;
-        } catch (jsonErr) {
-          console.warn("Non-JSON error response", jsonErr);
-        }
-
-        _Toast.default.show(errMessage, "error");
-
-        return;
-      }
+      await _HorseAPI.default.createHorse(formData);
 
       _Toast.default.show("Horse added successfully");
 
       (0, _Router.gotoRoute)("/horses");
     } catch (err) {
-      _Toast.default.show("Something went wrong", "error");
+      _Toast.default.show(err.message || "Something went wrong", "error");
 
       console.error("Horse submit error:", err);
     }

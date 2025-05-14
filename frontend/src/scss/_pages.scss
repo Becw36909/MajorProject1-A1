@@ -264,6 +264,42 @@ sl-icon-button {
   }
 }
 
+.request-submit-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.request-table-wrapper {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.request-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.request-table thead {
+  background-color: lighten(#6b8e23, 10%);
+  color: #fff;
+}
+
+.request-table th,
+.request-table td {
+  padding: 1rem;
+  border: 1px solid  #000;
+  text-align: left;
+}
+
+.request-table tbody tr:nth-child(even) {
+  background-color: lighten(#6b8e23, 40%);
+}
+
+.request-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
 
 
 @media (max-width: 1270px) {

@@ -50,7 +50,7 @@ class HorsesView {
       `)
     : html`<p>No horses found.</p>`}
 
-  <!-- ✅ Always show Add Horse tile -->
+  <!-- Add Horse tile -->
   <ag-tile-button
     class="add-horse-tile"
     label="Add Horse"

@@ -62,7 +62,7 @@ class ProfileView {
             <p><strong class="emphasis">Notes:</strong></p>
             <p>${user.bio || 'No bio available.'}</p>
             <sl-avatar
-              style="--size: 180px; margin-top: 1.5rem;"
+              style="--size: 240px; margin-top: 1.5rem;"
               image="${user.profileImage
                 ? `${App.apiBase}/images/${user.profileImage}`
                 : ''}"

@@ -30,6 +30,24 @@ class HorseAPI {
   async getHorse(id) {
     return await fetch(`${App.apiBase}/horse/${id}`).then(res => res.json());
   }
+
+  async createHorse(formData) {
+    const res = await fetch(`${App.apiBase}/horse`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      },
+      body: formData,
+    });
+  
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Problem adding horse");
+    }
+  
+    return await res.json();
+  }
+  
   
 }
 

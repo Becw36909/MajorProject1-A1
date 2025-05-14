@@ -25,6 +25,22 @@ class ServiceRequestAPI {
     return await res.json()
   }
 
+  async getAllServiceRequests() {
+    const res = await fetch(`${App.apiBase}/serviceRequests`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }
+    })
+  
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.message)
+    }
+  
+    return await res.json()
+  }
+  
+
 
 }
 

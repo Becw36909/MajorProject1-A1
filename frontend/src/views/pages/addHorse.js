@@ -53,27 +53,11 @@ class AddHorseView  {
     }
 
     try {
-      const res = await fetch(`${App.apiBase}/horse`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        let errMessage = "Error adding horse";
-        try {
-          const err = await res.json();
-          errMessage = err.message || errMessage;
-        } catch (jsonErr) {
-          console.warn("Non-JSON error response", jsonErr);
-        }
-        Toast.show(errMessage, "error");
-        return;
-      }
-
+      await HorseAPI.createHorse(formData);
       Toast.show("Horse added successfully");
       gotoRoute("/horses");
     } catch (err) {
-      Toast.show("Something went wrong", "error");
+      Toast.show(err.message || "Something went wrong", "error");
       console.error("Horse submit error:", err);
     }
   }

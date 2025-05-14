@@ -109,7 +109,7 @@ class ServiceRequestsView {
             ></textarea>
   
             <!-- Desktop Submit -->
-            <div class="form-submit-container desktop-only">
+<div class="form-submit-container desktop-only request-submit-container">
               <button type="submit" class="custom-button">Submit Request</button>
             </div>
           </div>
