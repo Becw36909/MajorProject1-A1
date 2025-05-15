@@ -27,18 +27,42 @@ class GuideView {
 
   }
 
-  render(){
+  render() {
     const template = html`
-      <ag-app-header title="Guide" user="${JSON.stringify(Auth.currentUser)}"></ag-app-header>
-      <div class="page-content">        
-        <h1>Guide</h1>
-        <p>Page content ...</p>
-                <sl-button class="anim-in" @click=${() => gotoRoute('/')}>Go To Home</sl-button>
+        <h1 style="margin-bottom: 0;">Welcome to AgistEase</h1>
+        <p style="margin-top: 0;">Let’s have a quick rundown of how it works, and what we do!</p>
+  
+        <div class="carousel-full-wrapper">
 
-      </div>      
-    `
-    render(template, App.rootEl)
+        <sl-carousel class="guide-carousel" navigation loop>
+          <!-- Slide 1: Dashboard Overview -->
+          <sl-carousel-item>
+            <div class="guide-slide">
+              <div class="guide-text">
+                <h2>🐴 Welcome to Your Dashboard</h2>
+                <p>Here’s where you’ll manage everything day to day — from requesting services to updating your horse’s details.</p>
+                <p>Use the sidebar to navigate between your horses, profile, calendar and more. You’re all set to make agisting simpler and more organised!</p>
+              </div>
+              <div class="guide-image">
+                <img src="/images/guideImages/dashboard-preview.png" alt="Dashboard Preview" />
+              </div>
+            </div>
+          </sl-carousel-item>
+  
+          <!-- Add additional slides here if needed -->
+  
+        </sl-carousel>
+        </div>
+
+  
+        <div style="text-align: center; margin-top: 2rem;">
+          <sl-button variant="primary" @click=${() => gotoRoute('/dashboard')}>Get Started</sl-button>
+        </div>
+    `;
+  
+    render(template, App.rootEl);
   }
+  
 }
 
 

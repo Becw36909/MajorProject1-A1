@@ -112,8 +112,8 @@ customElements.define(
           }
 
           .avatar {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             border: 3px solid #f7f1df;
             margin: 0 auto 0.5rem;

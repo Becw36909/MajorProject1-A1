@@ -302,6 +302,93 @@ sl-icon-button {
 
 
 
+/* Overall layout */
+body.guide-page {
+  background-color: var(--body-bg); // cream base tone
+}
+
+.carousel-full-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background-color: #6b8e23;
+
+  /* Only wrap tightly around the carousel height */
+  padding: 2rem 0;
+
+
+}
+
+
+/* Carousel container */
+.guide-carousel {
+  --scroll-behavior: smooth;
+  max-width: 100%;
+  background-color: transparent !important; // removes Shoelace background
+  height: 425px;
+
+
+  ::part(navigation-button) {
+    color: #5a3e2b;
+    font-size: 1.5rem;
+  }
+
+}
+
+
+
+/* Each slide */
+.guide-slide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem 5vw;
+  color: #fff;
+  background-color: transparent; // already inside green wrapper
+  min-height: 400px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 2rem;
+  }
+}
+
+/* Left text */
+.guide-text h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.guide-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Image */
+.guide-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1.6rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--body-bg);
+}
+
+.guide-carousel + div sl-button {
+  background-color: #fff;
+  color: #6b8e23;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.guide-carousel + div {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+
+
 @media (max-width: 1270px) {
 
   .horse-avatar {
@@ -368,3 +455,46 @@ sl-icon-button {
 
 
 }
+
+/* Mobile layout fix for guide carousel */
+@media (max-width: 768px) {
+  .guide-carousel::part(scroll-container) {
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+  }
+
+  .guide-carousel {
+    --aspect-ratio: unset !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .guide-slide {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 1.5rem 1rem !important;
+    gap: 2rem !important;
+  }
+
+  .guide-text,
+  .guide-image {
+    width: 100% !important;
+    max-width: 500px !important;
+  }
+
+  .guide-image img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .carousel-full-wrapper {
+    overflow: visible !important;
+  }
+}
+
