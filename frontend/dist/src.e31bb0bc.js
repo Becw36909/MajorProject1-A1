@@ -14323,8 +14323,58 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject6() {
+  const data = _taggedTemplateLiteral(["\n                      <sl-carousel-item>\n                        ", "\n                      </sl-carousel-item>\n                    "]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  const data = _taggedTemplateLiteral(["\n                  <sl-carousel class=\"guide-carousel\" navigation loop pagination>\n                    ", "\n                  </sl-carousel>\n                "]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  const data = _taggedTemplateLiteral(["", ""]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  const data = _taggedTemplateLiteral(["\n      <div class=\"guide-page-scroll-container\">\n        <div class=\"guide-page-wrapper\">\n          <div class=\"guide-logo-container\">\n    <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"guide-logo\" />\n  </div>\n  \n  <h1 class=\"guide-heading\">Welcome to AgistEase - let\u2019s have a quick rundown of how it works, and what we do!</h1>\n          <div class=\"carousel-full-wrapper\">\n            ", "\n          </div>\n\n          <div style=\"text-align: center; margin-top: 2rem;\">\n            <button class=\"custom-button\" @click=", ">\n  Get Started\n</button>\n          </div>\n        </div>\n      </div>\n    "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  const data = _taggedTemplateLiteral(["<p>", "</p>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n        <h1 style=\"margin-bottom: 0;\">Welcome to AgistEase</h1>\n        <p style=\"margin-top: 0;\">Let\u2019s have a quick rundown of how it works, and what we do!</p>\n  \n        <div class=\"carousel-full-wrapper\">\n\n        <sl-carousel class=\"guide-carousel\" navigation loop>\n          <!-- Slide 1: Dashboard Overview -->\n          <sl-carousel-item>\n            <div class=\"guide-slide\">\n              <div class=\"guide-text\">\n                <h2>\uD83D\uDC34 Welcome to Your Dashboard</h2>\n                <p>Here\u2019s where you\u2019ll manage everything day to day \u2014 from requesting services to updating your horse\u2019s details.</p>\n                <p>Use the sidebar to navigate between your horses, profile, calendar and more. You\u2019re all set to make agisting simpler and more organised!</p>\n              </div>\n              <div class=\"guide-image\">\n                <img src=\"/images/guideImages/dashboard-preview.png\" alt=\"Dashboard Preview\" />\n              </div>\n            </div>\n          </sl-carousel-item>\n  \n          <!-- Add additional slides here if needed -->\n  \n        </sl-carousel>\n        </div>\n\n  \n        <div style=\"text-align: center; margin-top: 2rem;\">\n          <sl-button variant=\"primary\" @click=", ">Get Started</sl-button>\n        </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"guide-slide\">\n        <div class=\"guide-text\">\n          <h2>", "</h2>\n          ", "\n        </div>\n        <div class=\"guide-image\">\n          <img src=\"", "\" alt=\"", "\" />\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14336,6 +14386,43 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 class GuideView {
+  constructor() {
+    this.isMobile = window.innerWidth <= 768;
+    this.slides = [{
+      title: "🐴 Welcome to Your Dashboard",
+      paragraphs: ["Here’s where you’ll manage everything day to day — from requesting services to updating your horse’s details.", "Use the sidebar to navigate between your horses, profile, calendar and more. You’re all set to make agisting simpler and more organised!"],
+      image: "/images/guideImages/dashboard-preview.png",
+      alt: "Dashboard Preview"
+    }, {
+      title: "👤 Keep Your Details Up to Date",
+      paragraphs: ["Your profile is where we keep your contact info and preferences — so make sure it's always current.", "Add a profile photo, update your number or email, and let us know the best way to reach you."],
+      image: "/images/guideImages/profile-view.png",
+      alt: "Profile Preview"
+    }, {
+      title: "🗓️ Stay Organised with the Calendar",
+      paragraphs: ["Check upcoming lessons, services, or events scheduled for your horse at a glance.", "The calendar keeps you in the loop so you never miss a booking or appointment."],
+      image: "/images/guideImages/calendar-view.png",
+      alt: "Calendar Preview"
+    }, {
+      title: "🐴 Add Your Horse in Seconds",
+      paragraphs: ["Use the Add Horse form to enter your horse’s details like breed, height, and microchip number.", "You can even upload a photo to personalise their profile — it only takes a moment!"],
+      image: "/images/guideImages/add-horse-view.png",
+      alt: "Add Horse Preview"
+    }, {
+      title: "✍️ Need Something Extra? Request Services Easily",
+      paragraphs: ["Select your horse, choose the extra service you need, and add a note if you'd like.", "Whether it’s a training session or extra feed, submitting a request is quick and simple."],
+      image: "/images/guideImages/request-service-view.png",
+      alt: "Request Services Preview"
+    }, {
+      title: "🐎 See All Your Horses at a Glance",
+      paragraphs: ["Tap a horse to view their details, notes, and any additional services they’ve received.", "Manage everything from microchip numbers to service history, all in one place."],
+      image: "/images/guideImages/horses-view.png",
+      alt: "Horses Preview"
+    } // Add more slides here if needed
+    ];
+    this.handleResize = this.handleResize.bind(this);
+  }
+
   init() {
     document.title = 'Guide Page';
     this.render();
@@ -14343,6 +14430,7 @@ class GuideView {
     _Utils.default.pageIntroAnim();
 
     this.updateCurrentUser();
+    window.addEventListener('resize', this.handleResize);
   }
 
   async updateCurrentUser() {
@@ -14355,8 +14443,19 @@ class GuideView {
     }
   }
 
+  handleResize() {
+    const isNowMobile = window.innerWidth <= 768;
+
+    if (isNowMobile !== this.isMobile) {
+      this.isMobile = isNowMobile;
+      this.render(); // re-render when crossing the breakpoint
+    }
+  }
+
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/dashboard'));
+    const renderSlide = slide => (0, _litHtml.html)(_templateObject(), slide.title, slide.paragraphs.map(p => (0, _litHtml.html)(_templateObject2(), p)), slide.image, slide.alt);
+
+    const template = (0, _litHtml.html)(_templateObject3(), this.isMobile ? (0, _litHtml.html)(_templateObject4(), this.slides.map(renderSlide)) : (0, _litHtml.html)(_templateObject5(), this.slides.map(slide => (0, _litHtml.html)(_templateObject6(), renderSlide(slide)))), () => (0, _Router.gotoRoute)("/dashboard"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
