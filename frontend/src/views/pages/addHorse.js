@@ -1,16 +1,13 @@
-import App from './../../App'
+import App from "./../../App";
 import Utils from "./../../Utils";
 import Auth from "./../../Auth";
 import HorseAPI from "./../../HorseAPI";
 
-import {html, render } from 'lit-html'
+import { html, render } from "lit-html";
 import Toast from "../../Toast";
 import { gotoRoute, anchorRoute } from "./../../Router";
 
-
-
-class AddHorseView  {
-
+class AddHorseView {
   init() {
     document.title = "Add Horse | AgistEase";
     this.render();
@@ -21,10 +18,9 @@ class AddHorseView  {
     const file = e.target.files[0];
     const preview = document.getElementById("image-preview");
     if (file && preview) {
-      preview.setAttribute('image', URL.createObjectURL(file));
+      preview.setAttribute("image", URL.createObjectURL(file));
     }
   }
-  
 
   async addHorseSubmitHandler(e) {
     e.preventDefault();
@@ -45,8 +41,6 @@ class AddHorseView  {
     formData.append("notes", form.notes.value);
     formData.append("sex", form.sex.value);
     formData.append("ownerID", Auth.currentUser._id);
-
-
 
     if (form.image.files.length > 0) {
       formData.append("image", form.image.files[0]);
@@ -69,7 +63,6 @@ class AddHorseView  {
         <form
           id="add-horse-form"
           class="three-col-container form-content app-form-style"
-          
         >
           <!-- Column 1 -->
           <div class="three-col-column">
@@ -89,10 +82,9 @@ class AddHorseView  {
             <input type="text" name="breed" id="breed" />
 
             <!-- Desktop placement (column 1) -->
-<div class="form-submit-container desktop-only">
-            <button type="submit" class="custom-button">Add Horse</button>
+            <div class="form-submit-container desktop-only">
+              <button type="submit" class="custom-button">Add Horse</button>
             </div>
-
           </div>
 
           <!-- Column 2 -->
@@ -100,13 +92,13 @@ class AddHorseView  {
             <label for="microchipNumber">Microchip Number:</label>
             <input type="text" name="microchipNumber" id="microchipNumber" />
 
-              <label for="sex">Sex:</label>
-  <select name="sex" id="sex" required>
-    <option value="">-- Select --</option>
-    <option value="Mare">Mare</option>
-    <option value="Gelding">Gelding</option>
-    <option value="Stallion">Stallion</option>
-  </select>
+            <label for="sex">Sex:</label>
+            <select name="sex" id="sex" required>
+              <option value="">-- Select --</option>
+              <option value="Mare">Mare</option>
+              <option value="Gelding">Gelding</option>
+              <option value="Stallion">Stallion</option>
+            </select>
 
             <label for="notes">Notes:</label>
             <textarea name="notes" id="notes" rows="4"></textarea>
@@ -119,23 +111,20 @@ class AddHorseView  {
               accept="image/*"
               @change=${this.handleImagePreview}
             />
-
-            
           </div>
 
           <!-- Column 3 -->
           <div class="three-col-column avatar-column">
-          
-<sl-avatar
-  id="image-preview"
-  style="--size: 250px; margin-top: 2rem;"
-  alt="Horse Preview"
-></sl-avatar>
+            <sl-avatar
+              id="image-preview"
+              style="--size: 250px; margin-top: 2rem;"
+              alt="Horse Preview"
+            ></sl-avatar>
           </div>
-                    <!-- Mobile placement (bottom of the form or another column) -->
-<div class="form-submit-container mobile-only">
-  <button type="submit" class="custom-button">Add Horse</button>
-</div>
+          <!-- Mobile placement (bottom of the form or another column) -->
+          <div class="form-submit-container mobile-only">
+            <button type="submit" class="custom-button">Add Horse</button>
+          </div>
         </form>
       </ag-app-layout>
     `;

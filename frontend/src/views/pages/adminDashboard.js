@@ -3,8 +3,7 @@ import Auth from "./../../Auth";
 import Toast from "../../Toast";
 import { html } from "lit-html";
 
-class DashboardView{
-
+class DashboardView {
   init() {
     const toastMessage = localStorage.getItem("toastMessage");
     if (toastMessage) {

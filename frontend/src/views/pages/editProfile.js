@@ -59,29 +59,53 @@ class EditProfileView {
     }
 
     const template = html`
- <ag-app-layout>
+      <ag-app-layout>
         <h1>Update Profile</h1>
-<form id="edit-profile-form" class="three-col-container form-content app-form-style">
+        <form
+          id="edit-profile-form"
+          class="three-col-container form-content app-form-style"
+        >
           <!-- Column 1 -->
           <div class="three-col-column">
             <label for="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName" .value=${this.user.firstName} />
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              .value=${this.user.firstName}
+            />
 
             <label for="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName" .value=${this.user.lastName} />
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              .value=${this.user.lastName}
+            />
 
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" .value=${this.user.email} />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              .value=${this.user.email}
+            />
 
             <label for="phoneNumber">Phone Number:</label>
-            <input type="tel" name="phoneNumber" id="phoneNumber" .value=${this.user.phoneNumber} />
-                      
-            <!-- Desktop placement (column 1) -->
-<div class="form-submit-container desktop-only">
-            <button type="submit" class="custom-button">Update Profile</button>
-</div>
+            <input
+              type="tel"
+              name="phoneNumber"
+              id="phoneNumber"
+              .value=${this.user.phoneNumber}
+            />
 
+            <!-- Desktop placement (column 1) -->
+            <div class="form-submit-container desktop-only">
+              <button type="submit" class="custom-button">
+                Update Profile
+              </button>
             </div>
+          </div>
 
           <!-- Column 2 -->
           <div class="three-col-column">
@@ -89,29 +113,27 @@ class EditProfileView {
             <input type="file" name="profileImage" id="profileImage" />
 
             <label for="bio">Notes:</label>
-            <textarea name="bio" id="bio" rows="4">${this.user.bio || ""}</textarea>
-
-
-
-
+            <textarea name="bio" id="bio" rows="4">
+${this.user.bio || ""}</textarea
+            >
           </div>
 
           <!-- Column 3 -->
-<div class="three-col-column avatar-column">
+          <div class="three-col-column avatar-column">
             <sl-avatar
               style="--size: 250px; margin-top: 2rem;"
-              image="${this.user.profileImage ? `${App.apiBase}/images/${this.user.profileImage}` : ""}"
+              image="${this.user.profileImage
+                ? `${App.apiBase}/images/${this.user.profileImage}`
+                : ""}"
             ></sl-avatar>
           </div>
 
           <!-- Mobile placement (bottom of the form or another column) -->
-<div class="form-submit-container mobile-only">
-  <button type="submit" class="custom-button">Update Profile</button>
-</div>
-
+          <div class="form-submit-container mobile-only">
+            <button type="submit" class="custom-button">Update Profile</button>
+          </div>
         </form>
       </ag-app-layout>
-
     `;
     render(template, App.rootEl);
     document

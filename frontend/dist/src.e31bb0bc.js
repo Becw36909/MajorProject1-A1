@@ -1924,7 +1924,7 @@ exports.default = void 0;
 var _litHtml = require("lit-html");
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n\n  <div class=\"app-splash\">\n    <div class=\"inner\">\n      <img class=\"agistease-logo\" src=\"/images/agistease-logo.svg\" />\n      <sl-spinner style=\"font-size: 2em;\"></sl-spinner>\n    </div>\n  </div>\n"]);
+  const data = _taggedTemplateLiteral(["\n  <div class=\"app-splash\">\n    <div class=\"inner\">\n      <img class=\"agistease-logo\" src=\"/images/agistease-logo.svg\" />\n      <sl-spinner style=\"font-size: 2em;\"></sl-spinner>\n    </div>\n  </div>\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7423,19 +7423,19 @@ class Toast {
   static init() {
     this.showDuration = 2.5; // create container element
 
-    this.containerEl = document.createElement('div');
-    this.containerEl.id = 'toasts'; // append to <body>
+    this.containerEl = document.createElement("div");
+    this.containerEl.id = "toasts"; // append to <body>
 
     document.body.appendChild(this.containerEl);
   }
 
   static show(content) {
-    let type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    let type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     if (!content) return; // create element
 
-    const toastEl = document.createElement('div');
-    toastEl.className = 'toast-entry';
-    if (type != "") toastEl.classList.add('is-error');
+    const toastEl = document.createElement("div");
+    toastEl.className = "toast-entry";
+    if (type != "") toastEl.classList.add("is-error");
     toastEl.innerText = content; // appened to container
 
     this.containerEl.appendChild(toastEl); // animate using gsap
@@ -7504,20 +7504,20 @@ class Auth {
     if (!response.ok) {
       // console log error
       const err = await response.json();
-      if (err) console.log(err); // show error      
+      if (err) console.log(err); // show error
 
       _Toast.default.show("Problem getting user: ".concat(response.status)); // run fail() functon if set
 
 
-      if (typeof fail == 'function') fail();
+      if (typeof fail == "function") fail();
       return; // add return here to stop further execution
     } /// sign up success - show toast and redirect to sign in page
 
 
-    _Toast.default.show('Account created, please sign in'); // redirect to signin
+    _Toast.default.show("Account created, please sign in"); // redirect to signin
 
 
-    (0, _Router.gotoRoute)('/signin');
+    (0, _Router.gotoRoute)("/signin");
   }
 
   async signIn(userData) {
@@ -7525,7 +7525,7 @@ class Auth {
 
     try {
       const response = await fetch("".concat(_App.default.apiBase, "/auth/signin"), {
-        method: 'POST',
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -7536,25 +7536,25 @@ class Auth {
       if (!response.ok) {
         console.error(data);
 
-        _Toast.default.show("Problem signing in: ".concat(data.message), 'error');
+        _Toast.default.show("Problem signing in: ".concat(data.message), "error");
 
-        if (typeof fail == 'function') fail();
+        if (typeof fail == "function") fail();
         return;
       }
 
       _Toast.default.show("Welcome ".concat(data.user.firstName));
 
-      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem("accessToken", data.accessToken);
       this.currentUser = data.user;
 
-      _Router.default.init(); // redirection 
+      _Router.default.init(); // redirection
 
 
       if (data.user.newUser == true) {
         // new user - redirect to the guide page
-        (0, _Router.gotoRoute)('/guide');
+        (0, _Router.gotoRoute)("/guide");
       } else {
-        (0, _Router.gotoRoute)('/dashboard');
+        (0, _Router.gotoRoute)("/dashboard");
       }
 
       return data;
@@ -7568,23 +7568,23 @@ class Auth {
   }
 
   async check(success) {
-    // show splash screen while loading ...   
+    // show splash screen while loading ...
     (0, _litHtml.render)(_splash.default, _App.default.rootEl); // check local token is there
 
     if (!localStorage.accessToken) {
       // no local token!
-      _Toast.default.show("Please sign in"); // redirect to sign in page      
+      _Toast.default.show("Please sign in"); // redirect to sign in page
 
 
-      (0, _Router.gotoRoute)('/signin');
+      (0, _Router.gotoRoute)("/signin");
       return;
     } // token must exist - validate token via the backend
 
 
     const response = await fetch("".concat(_App.default.apiBase, "/auth/validate"), {
-      method: 'GET',
+      method: "GET",
       headers: {
-        "Authorization": "Bearer ".concat(localStorage.accessToken)
+        Authorization: "Bearer ".concat(localStorage.accessToken)
       }
     }); // if response not ok
 
@@ -7593,12 +7593,12 @@ class Auth {
       const err = await response.json();
       if (err) console.log(err); // delete local token
 
-      localStorage.removeItem('accessToken');
+      localStorage.removeItem("accessToken");
 
-      _Toast.default.show("session expired, please sign in"); // redirect to sign in      
+      _Toast.default.show("session expired, please sign in"); // redirect to sign in
 
 
-      (0, _Router.gotoRoute)('/signin');
+      (0, _Router.gotoRoute)("/signin");
       return;
     } // token is valid!
 
@@ -7615,9 +7615,9 @@ class Auth {
     _Toast.default.show("You are signed out"); // delete local token
 
 
-    localStorage.removeItem('accessToken'); // redirect to sign in    
+    localStorage.removeItem("accessToken"); // redirect to sign in
 
-    (0, _Router.gotoRoute)('/signin'); // unset currentUser
+    (0, _Router.gotoRoute)("/signin"); // unset currentUser
 
     this.currentUser = null;
   }
@@ -7651,7 +7651,7 @@ class Utils {
   }
 
   pageIntroAnim() {
-    const pageContent = document.querySelector('.page-content');
+    const pageContent = document.querySelector(".page-content");
     if (!pageContent) return;
 
     _gsap.default.fromTo(pageContent, {
@@ -7660,8 +7660,8 @@ class Utils {
     }, {
       opacity: 1,
       y: 0,
-      ease: 'power2.out',
-      duration: 0.3
+      ease: "power2.out",
+      duration: 0.7
     });
   }
 
@@ -7691,7 +7691,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Home\"\n        user=", "\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >View Profile</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >My Horses</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Request Services</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Calendar</sl-button\n        >\n\n                <sl-button class=\"anim-in\" @click=", "\n          >DASHBOARD</sl-button\n        >\n\n        <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-header\n        title=\"Home\"\n        user=", "\n      ></ag-app-header>\n\n      <div class=\"page-content\">\n        <h1 class=\"anim-in\">Hey ", "</h1>\n\n        <h3>Button example:</h3>\n        <sl-button class=\"anim-in\" @click=", "\n          >View Profile</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >My Horses</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Request Services</sl-button\n        >\n        <sl-button class=\"anim-in\" @click=", "\n          >Calendar</sl-button\n        >\n\n        <sl-button class=\"anim-in\" @click=", "\n          >DASHBOARD</sl-button\n        >\n\n        <sl-button @click=\"", "\">Sign Out</sl-button>\n\n        <p>&nbsp;</p>\n        <h3>Link example</h3>\n        <a href=\"/profile\" @click=", ">View Profile</a>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7736,7 +7736,7 @@ var _litHtml = require("lit-html");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["    \n      <div class=\"calign\">\n        <h1>Oopps!</h1>\n        <p>Sorry, we couldn't find that.</p>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"calign\">\n        <h1>Oopps!</h1>\n        <p>Sorry, we couldn't find that.</p>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7749,8 +7749,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class FourOFourView {
   init() {
-    console.log('FourOFourView.init');
-    document.title = '404 File not found';
+    console.log("FourOFourView.init");
+    document.title = "404 File not found";
     this.render();
   }
 
@@ -7787,7 +7787,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"signin-page\">\n        <div class=\"signin-box\">\n        \n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n          \n          <form class=\"form-signin\" id=\"signin-form\">\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n            \n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n            \n            <button type=\"submit\" class=\"btn-primary\">Sign in</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Need an account? Sign up <a href=\"/signup\" @click=", ">HERE</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"signin-page\">\n        <div class=\"signin-box\">\n          <img\n            src=\"/images/agistease-logo.svg\"\n            alt=\"AgistEase Logo\"\n            class=\"signin-logo\"\n          />\n\n          <form class=\"form-signin\" id=\"signin-form\">\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n\n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n\n            <button type=\"submit\" class=\"btn-primary\">Sign in</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Need an account? Sign up\n            <a href=\"/signup\" @click=", ">HERE</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7874,7 +7874,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n           <div class=\"signin-page\">\n        <div class=\"signin-box\">\n          <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"signin-logo\" />\n\n          <form class=\"form-signin\" id=\"signup-form\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" id=\"firstName\" name=\"firstName\" required />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" id=\"lastName\" name=\"lastName\" required />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n\n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n\n            <fieldset>\n              <legend>I am a:</legend>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"user\" required />\n                Horse Owner\n              </label>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"admin\" required />\n                Stable Manager\n              </label>\n            </fieldset>\n\n            <button type=\"submit\" class=\"btn-primary\">Sign Up</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Already registered? <a href=\"/signin\" @click=", ">Sign in</a>\n          </p>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"signin-page\">\n        <div class=\"signin-box\">\n          <img\n            src=\"/images/agistease-logo.svg\"\n            alt=\"AgistEase Logo\"\n            class=\"signin-logo\"\n          />\n\n          <form class=\"form-signin\" id=\"signup-form\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" id=\"firstName\" name=\"firstName\" required />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" id=\"lastName\" name=\"lastName\" required />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required />\n\n            <label for=\"password\">Password:</label>\n            <input type=\"password\" id=\"password\" name=\"password\" required />\n\n            <fieldset>\n              <legend>I am a:</legend>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"user\" required />\n                Horse Owner\n              </label>\n              <label>\n                <input type=\"radio\" name=\"accessLevel\" value=\"admin\" required />\n                Stable Manager\n              </label>\n            </fieldset>\n\n            <button type=\"submit\" class=\"btn-primary\">Sign Up</button>\n          </form>\n\n          <p class=\"signup-cta\">\n            Already registered?\n            <a href=\"/signin\" @click=", ">Sign in</a>\n          </p>\n        </div>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13631,16 +13631,16 @@ class HorseAPI {
     // fetch the json data
     const response = await fetch("".concat(_App.default.apiBase, "/horse"), {
       headers: {
-        "Authorization": "Bearer ".concat(localStorage.accessToken)
+        Authorization: "Bearer ".concat(localStorage.accessToken)
       }
     }); // if response not ok
 
     if (!response.ok) {
       // console log error
       const err = await response.json();
-      if (err) console.log(err); // throw error (exit this function)      
+      if (err) console.log(err); // throw error (exit this function)
 
-      throw new Error('Problem getting horses');
+      throw new Error("Problem getting horses");
     } // convert response payload into json - store as data
 
 
@@ -13716,7 +13716,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n                      <button class=\"horse-button\" @click=", ">\n                        <img\n                          class=\"horse-icon\"\n                          src=\"", "/images/", "\"\n                          alt=\"", "\"\n                        />\n                        ", "\n                      </button>\n                    "]);
+  const data = _taggedTemplateLiteral(["\n                      <button\n                        class=\"horse-button\"\n                        @click=", "\n                      >\n                        <img\n                          class=\"horse-icon\"\n                          src=\"", "/images/", "\"\n                          alt=\"", "\"\n                        />\n                        ", "\n                      </button>\n                    "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -13736,7 +13736,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n   <ag-app-layout>\n               <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p><strong class=\"emphasis\">Name:</strong><br />", " ", "</p>\n            <p><strong class=\"emphasis\">Email:</strong><br />", "</p>\n            <p><strong class=\"emphasis\">Phone Number:</strong><br />", "</p>\n<button class=\"custom-button\" @click=", ">\n  Update Profile\n</button>\n\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong class=\"emphasis\">Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 240px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n           <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong class=\"emphasis\">My Horses:</strong></p>\n\n   ", "\n\n            <button class=\"horse-button add-horse\" @click=", ">\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>My Profile</h1>\n\n        <div class=\"three-col-container\">\n          <!-- Left Column: User Info -->\n          <div class=\"three-col-column profile-info\">\n            <p>\n              <strong class=\"emphasis\">Name:</strong><br />", "\n              ", "\n            </p>\n            <p><strong class=\"emphasis\">Email:</strong><br />", "</p>\n            <p>\n              <strong class=\"emphasis\">Phone Number:</strong\n              ><br />", "\n            </p>\n            <button\n              class=\"custom-button\"\n              @click=", "\n            >\n              Update Profile\n            </button>\n          </div>\n\n          <!-- Middle Column: Notes + Avatar -->\n          <div class=\"three-col-column profile-notes\">\n            <p><strong class=\"emphasis\">Notes:</strong></p>\n            <p>", "</p>\n            <sl-avatar\n              style=\"--size: 240px; margin-top: 1.5rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n          <!-- Right Column -->\n          <div class=\"three-col-column profile-horses\">\n            <p><strong class=\"emphasis\">My Horses:</strong></p>\n\n            ", "\n\n            <button\n              class=\"horse-button add-horse\"\n              @click=", "\n            >\n              <sl-icon name=\"plus-circle\" label=\"Add Horse\"></sl-icon> Add Horse\n            </button>\n          </div>\n        </div>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13753,16 +13753,16 @@ class ProfileView {
   }
 
   async init() {
-    const toastMessage = localStorage.getItem('toastMessage');
+    const toastMessage = localStorage.getItem("toastMessage");
 
     if (toastMessage) {
       _Toast.default.show(toastMessage);
 
-      localStorage.removeItem('toastMessage');
+      localStorage.removeItem("toastMessage");
     }
 
-    console.log('ProfileView.init');
-    document.title = 'My Profile | AgistEase';
+    console.log("ProfileView.init");
+    document.title = "My Profile | AgistEase";
 
     try {
       const horses = await _HorseAPI.default.getHorses();
@@ -13771,7 +13771,7 @@ class ProfileView {
     } catch (err) {
       console.error(err);
 
-      _Toast.default.show('Failed to load horses', 'error');
+      _Toast.default.show("Failed to load horses", "error");
     }
 
     this.render();
@@ -13781,7 +13781,7 @@ class ProfileView {
 
   render() {
     const user = _Auth.default.currentUser;
-    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phoneNumber, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || 'No bio available.', user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : '', this.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), this.horses.map(horse => (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)(_Router.default.getHorseRoute(horse._id)), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)('/addHorse'));
+    const template = (0, _litHtml.html)(_templateObject(), user.firstName, user.lastName, user.email, user.phoneNumber, () => (0, _Router.gotoRoute)("/editProfile"), user.bio || "No bio available.", user.profileImage ? "".concat(_App.default.apiBase, "/images/").concat(user.profileImage) : "", this.horses.length > 0 ? (0, _litHtml.html)(_templateObject2(), this.horses.map(horse => (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)(_Router.default.getHorseRoute(horse._id)), _App.default.apiBase, horse.image, horse.name, horse.name))) : (0, _litHtml.html)(_templateObject4()), () => (0, _Router.gotoRoute)("/addHorse"));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -13808,25 +13808,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class UserAPI {
   async updateUser(userId, userData) {
-    let dataType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'form';
+    let dataType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "form";
     // validate
     if (!userId || !userData) return;
     let responseHeader; // form data
 
-    if (dataType == 'form') {
+    if (dataType == "form") {
       // fetch response header normal (form data)
       responseHeader = {
         method: "PUT",
         headers: {
-          "Authorization": "Bearer ".concat(localStorage.accessToken)
+          Authorization: "Bearer ".concat(localStorage.accessToken)
         },
         body: userData
       }; // json data
-    } else if (dataType == 'json') {
+    } else if (dataType == "json") {
       responseHeader = {
         method: "PUT",
         headers: {
-          "Authorization": "Bearer ".concat(localStorage.accessToken),
+          Authorization: "Bearer ".concat(localStorage.accessToken),
           "Content-Type": "application/json"
         },
         body: JSON.stringify(userData)
@@ -13839,9 +13839,9 @@ class UserAPI {
     if (!response.ok) {
       // console log error
       const err = await response.json();
-      if (err) console.log(err); // throw error (exit this function)      
+      if (err) console.log(err); // throw error (exit this function)
 
-      throw new Error('Problem updating user');
+      throw new Error("Problem updating user");
     } // convert response payload into json - store as data
 
 
@@ -13856,16 +13856,16 @@ class UserAPI {
 
     const response = await fetch("".concat(_App.default.apiBase, "/user/").concat(userId), {
       headers: {
-        "Authorization": "Bearer ".concat(localStorage.accessToken)
+        Authorization: "Bearer ".concat(localStorage.accessToken)
       }
     }); // if response not ok
 
     if (!response.ok) {
       // console log error
       const err = await response.json();
-      if (err) console.log(err); // throw error (exit this function)      
+      if (err) console.log(err); // throw error (exit this function)
 
-      throw new Error('Problem getting user');
+      throw new Error("Problem getting user");
     } // convert response payload into json - store as data
 
 
@@ -13906,7 +13906,7 @@ var _moment = _interopRequireDefault(require("moment"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n <ag-app-layout>\n        <h1>Update Profile</h1>\n<form id=\"edit-profile-form\" class=\"three-col-container form-content app-form-style\">\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"firstName\">First Name:</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" .value=", " />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input type=\"text\" name=\"lastName\" id=\"lastName\" .value=", " />\n\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" name=\"email\" id=\"email\" .value=", " />\n\n            <label for=\"phoneNumber\">Phone Number:</label>\n            <input type=\"tel\" name=\"phoneNumber\" id=\"phoneNumber\" .value=", " />\n                      \n            <!-- Desktop placement (column 1) -->\n<div class=\"form-submit-container desktop-only\">\n            <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n</div>\n\n            </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"profileImage\">Photo Upload:</label>\n            <input type=\"file\" name=\"profileImage\" id=\"profileImage\" />\n\n            <label for=\"bio\">Notes:</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">", "</textarea>\n\n\n\n\n          </div>\n\n          <!-- Column 3 -->\n<div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              style=\"--size: 250px; margin-top: 2rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n          <!-- Mobile placement (bottom of the form or another column) -->\n<div class=\"form-submit-container mobile-only\">\n  <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n</div>\n\n        </form>\n      </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Update Profile</h1>\n        <form\n          id=\"edit-profile-form\"\n          class=\"three-col-container form-content app-form-style\"\n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"firstName\">First Name:</label>\n            <input\n              type=\"text\"\n              name=\"firstName\"\n              id=\"firstName\"\n              .value=", "\n            />\n\n            <label for=\"lastName\">Last Name:</label>\n            <input\n              type=\"text\"\n              name=\"lastName\"\n              id=\"lastName\"\n              .value=", "\n            />\n\n            <label for=\"email\">Email:</label>\n            <input\n              type=\"email\"\n              name=\"email\"\n              id=\"email\"\n              .value=", "\n            />\n\n            <label for=\"phoneNumber\">Phone Number:</label>\n            <input\n              type=\"tel\"\n              name=\"phoneNumber\"\n              id=\"phoneNumber\"\n              .value=", "\n            />\n\n            <!-- Desktop placement (column 1) -->\n            <div class=\"form-submit-container desktop-only\">\n              <button type=\"submit\" class=\"custom-button\">\n                Update Profile\n              </button>\n            </div>\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"profileImage\">Photo Upload:</label>\n            <input type=\"file\" name=\"profileImage\" id=\"profileImage\" />\n\n            <label for=\"bio\">Notes:</label>\n            <textarea name=\"bio\" id=\"bio\" rows=\"4\">\n", "</textarea\n            >\n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              style=\"--size: 250px; margin-top: 2rem;\"\n              image=\"", "\"\n            ></sl-avatar>\n          </div>\n\n          <!-- Mobile placement (bottom of the form or another column) -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Update Profile</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14028,7 +14028,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n        <ag-tile-button\n          label=\"", "\"\n          image=\"", "\"\n          route=\"", "\"\n        ></ag-tile-button>\n      "]);
+  const data = _taggedTemplateLiteral(["\n                  <ag-tile-button\n                    label=\"", "\"\n                    image=\"", "\"\n                    route=\"", "\"\n                  ></ag-tile-button>\n                "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14038,7 +14038,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>", "</h1>\n  \n<ag-tile-grid .center=", ">\n  ", "\n\n  <!-- Add Horse tile -->\n  <ag-tile-button\n    class=\"add-horse-tile\"\n    label=\"Add Horse\"\n    iconImage=\"/images/icons/plus-solid.svg\"\n    route=\"/addHorse\"\n  ></ag-tile-button>\n</ag-tile-grid>\n\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>\n          ", "\n        </h1>\n\n        <ag-tile-grid .center=", ">\n          ", "\n\n          <!-- Add Horse tile -->\n          <ag-tile-button\n            class=\"add-horse-tile\"\n            label=\"Add Horse\"\n            iconImage=\"/images/icons/plus-solid.svg\"\n            route=\"/addHorse\"\n          ></ag-tile-button>\n        </ag-tile-grid>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14062,7 +14062,7 @@ class HorsesView {
       const horses = await _HorseAPI.default.getHorses();
       const user = _Auth.default.currentUser;
 
-      if (user.accessLevel === 'admin') {
+      if (user.accessLevel === "admin") {
         this.horses = horses;
       } else {
         this.horses = horses.filter(horse => horse.ownerID === user._id);
@@ -14079,7 +14079,7 @@ class HorsesView {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.accessLevel === 'admin' ? 'Manage Horses' : 'My Horses', false, this.horses.length > 0 ? this.horses.map(horse => (0, _litHtml.html)(_templateObject2(), horse.name, horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : '', _Router.default.getHorseRoute(horse._id))) : (0, _litHtml.html)(_templateObject3()));
+    const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.accessLevel === "admin" ? "Manage Horses" : "My Horses", false, this.horses.length > 0 ? this.horses.map(horse => (0, _litHtml.html)(_templateObject2(), horse.name, horse.image ? "".concat(_App.default.apiBase, "/images/").concat(horse.image) : "", _Router.default.getHorseRoute(horse._id))) : (0, _litHtml.html)(_templateObject3()));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
 
@@ -14108,10 +14108,10 @@ class ServiceRequestAPI {
 
   async createServiceRequest(data) {
     const res = await fetch("".concat(_App.default.apiBase, "/serviceRequests"), {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(localStorage.accessToken)
+        "Content-Type": "application/json",
+        Authorization: "Bearer ".concat(localStorage.accessToken)
       },
       body: JSON.stringify(data)
     });
@@ -14179,7 +14179,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Request a Service</h1>\n  \n        <form class=\"three-col-container form-content app-form-style two-column-layout\" @submit=", ">\n          <!-- Column 1: Info Box -->\n          <div class=\"three-col-column\">\n            <div class=\"service-info-box\">\n              <h3>Base Services Included</h3>\n              <ul>\n                <li>Private paddock</li>\n                <li>Hard feeds per day (1x am/pm)</li>\n                <li>Grass hay per day (2x am/pm)</li>\n                <li>Stable at night/Stable cleaning</li>\n                <li>Paddock cleaning</li>\n              </ul>\n            </div>\n          </div>\n  \n          <!-- Column 2: Full Form -->\n          <div class=\"three-col-column\">\n            <label for=\"horseID\">Select Horse:</label>\n            <select name=\"horseID\" id=\"horseID\" required>\n              <option value=\"\">-- Select Horse --</option>\n              ", "\n            </select>\n  \n            <label for=\"serviceType\">Service Type:</label>\n            <select name=\"serviceType\" id=\"serviceType\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Extra Hay\">Extra Hay</option>\n              <option value=\"Rug Change\">Rug Change</option>\n              <option value=\"Holding for Vet\">Holding for Vet</option>\n              <option value=\"Exercise/Training\">Exercise/Training</option>\n              <option value=\"Lesson\">Lesson</option>\n              <option value=\"Other\">Other</option>\n            </select>\n  \n            <label for=\"notes\">Notes:</label>\n            <textarea\n              name=\"notes\"\n              id=\"notes\"\n              rows=\"5\"\n              placeholder=\"Include preferred dates, time, or additional instructions...\"\n            ></textarea>\n  \n            <!-- Desktop Submit -->\n<div class=\"form-submit-container desktop-only request-submit-container\">\n              <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n            </div>\n          </div>\n  \n          <!-- Hide third column completely -->\n          <div class=\"three-col-column hide-column\"></div>\n  \n          <!-- Mobile Submit -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Request a Service</h1>\n\n        <form\n          class=\"three-col-container form-content app-form-style two-column-layout\"\n          @submit=", "\n        >\n          <!-- Column 1: Info Box -->\n          <div class=\"three-col-column\">\n            <div class=\"service-info-box\">\n              <h3>Base Services Included</h3>\n              <ul>\n                <li>Private paddock</li>\n                <li>Hard feeds per day (1x am/pm)</li>\n                <li>Grass hay per day (2x am/pm)</li>\n                <li>Stable at night/Stable cleaning</li>\n                <li>Paddock cleaning</li>\n              </ul>\n            </div>\n          </div>\n\n          <!-- Column 2: Full Form -->\n          <div class=\"three-col-column\">\n            <label for=\"horseID\">Select Horse:</label>\n            <select name=\"horseID\" id=\"horseID\" required>\n              <option value=\"\">-- Select Horse --</option>\n              ", "\n            </select>\n\n            <label for=\"serviceType\">Service Type:</label>\n            <select name=\"serviceType\" id=\"serviceType\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Extra Hay\">Extra Hay</option>\n              <option value=\"Rug Change\">Rug Change</option>\n              <option value=\"Holding for Vet\">Holding for Vet</option>\n              <option value=\"Exercise/Training\">Exercise/Training</option>\n              <option value=\"Lesson\">Lesson</option>\n              <option value=\"Other\">Other</option>\n            </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea\n              name=\"notes\"\n              id=\"notes\"\n              rows=\"5\"\n              placeholder=\"Include preferred dates, time, or additional instructions...\"\n            ></textarea>\n\n            <!-- Desktop Submit -->\n            <div\n              class=\"form-submit-container desktop-only request-submit-container\"\n            >\n              <button type=\"submit\" class=\"custom-button\">\n                Submit Request\n              </button>\n            </div>\n          </div>\n\n          <!-- Hide third column completely -->\n          <div class=\"three-col-column hide-column\"></div>\n\n          <!-- Mobile Submit -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Submit Request</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14196,17 +14196,17 @@ class ServiceRequestsView {
   }
 
   async init() {
-    console.log('ServiceRequestsView.init');
-    document.title = 'Request Services';
+    console.log("ServiceRequestsView.init");
+    document.title = "Request Services";
 
     try {
       const res = await fetch("".concat(_App.default.apiBase, "/horse"));
       const horses = await res.json();
       this.horses = horses.filter(h => h.ownerID === _Auth.default.currentUser._id);
     } catch (err) {
-      console.error('Failed to load horses', err);
+      console.error("Failed to load horses", err);
 
-      _Toast.default.show('Could not load horses', 'error');
+      _Toast.default.show("Could not load horses", "error");
     }
 
     this.render();
@@ -14224,7 +14224,7 @@ class ServiceRequestsView {
     };
 
     if (!requestData.horseID || !requestData.serviceType) {
-      _Toast.default.show('Please fill in all required fields', 'error');
+      _Toast.default.show("Please fill in all required fields", "error");
 
       return;
     }
@@ -14232,13 +14232,13 @@ class ServiceRequestsView {
     try {
       const res = await _ServiceRequestsAPI.default.createServiceRequest(requestData);
 
-      _Toast.default.show('Service request submitted');
+      _Toast.default.show("Service request submitted");
 
-      (0, _Router.gotoRoute)('/dashboard');
+      (0, _Router.gotoRoute)("/dashboard");
     } catch (err) {
-      console.error('Submit error:', err);
+      console.error("Submit error:", err);
 
-      _Toast.default.show(err.message || 'Something went wrong', 'error');
+      _Toast.default.show(err.message || "Something went wrong", "error");
     }
   }
 
@@ -14270,7 +14270,7 @@ var _Utils = _interopRequireDefault(require("./../../Utils"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n          <ag-app-layout>\n      <h1>My Calendar</h1>\n      <ag-calendar-full></ag-calendar-full>\n                  </ag-app-layout>\n\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>My Calendar</h1>\n        <ag-calendar-full></ag-calendar-full>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14324,7 +14324,7 @@ var _Toast = _interopRequireDefault(require("../../Toast"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject6() {
-  const data = _taggedTemplateLiteral(["\n                      <sl-carousel-item>\n                        ", "\n                      </sl-carousel-item>\n                    "]);
+  const data = _taggedTemplateLiteral(["\n                            <sl-carousel-item>\n                              ", "\n                            </sl-carousel-item>\n                          "]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -14334,7 +14334,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n                  <sl-carousel class=\"guide-carousel\" navigation loop pagination>\n                    ", "\n                  </sl-carousel>\n                "]);
+  const data = _taggedTemplateLiteral(["\n                      <sl-carousel\n                        class=\"guide-carousel\"\n                        navigation\n                        loop\n                        pagination\n                      >\n                        ", "\n                      </sl-carousel>\n                    "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -14354,7 +14354,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n      <div class=\"guide-page-scroll-container\">\n        <div class=\"guide-page-wrapper\">\n          <div class=\"guide-logo-container\">\n    <img src=\"/images/agistease-logo.svg\" alt=\"AgistEase Logo\" class=\"guide-logo\" />\n  </div>\n  \n  <h1 class=\"guide-heading\">Welcome to AgistEase - let\u2019s have a quick rundown of how it works, and what we do!</h1>\n          <div class=\"carousel-full-wrapper\">\n            ", "\n          </div>\n\n          <div style=\"text-align: center; margin-top: 2rem;\">\n            <button class=\"custom-button\" @click=", ">\n  Get Started\n</button>\n          </div>\n        </div>\n      </div>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"guide-page-root\">\n        <div class=\"page-content\">\n          <div class=\"guide-page-scroll-container\">\n            <div class=\"guide-page-wrapper\">\n              <div class=\"guide-logo-container\">\n                <img\n                  src=\"/images/agistease-logo.svg\"\n                  alt=\"AgistEase Logo\"\n                  class=\"guide-logo\"\n                />\n              </div>\n\n              <h1 class=\"guide-heading\">\n                Welcome to AgistEase - let\u2019s have a quick rundown of how it\n                works, and what we do!\n              </h1>\n              <div class=\"carousel-full-wrapper\">\n                ", "\n              </div>\n\n              <div style=\"text-align: center; margin-top: 2rem;\">\n                <button\n                  class=\"custom-button\"\n                  @click=", "\n                >\n                  Get Started\n                </button>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -14424,22 +14424,22 @@ class GuideView {
   }
 
   init() {
-    document.title = 'Guide Page';
+    document.title = "Guide Page";
     this.render();
 
     _Utils.default.pageIntroAnim();
 
     this.updateCurrentUser();
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
   }
 
   async updateCurrentUser() {
     try {
       const updatedUser = await _UserAPI.default.updateUser(_Auth.default.currentUser._id, {
         newUser: false
-      }, 'json');
+      }, "json");
     } catch (err) {
-      _Toast.default.show(err, 'error');
+      _Toast.default.show(err, "error");
     }
   }
 
@@ -14583,7 +14583,7 @@ var _sampleCalendarEvents = require("../../data/sampleCalendarEvents");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n                <ag-tile-button\n                  label=\"My Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Request Services\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/serviceRequests\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
+  const data = _taggedTemplateLiteral(["\n                <ag-tile-button\n                  label=\"My Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"Request Services\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/serviceRequests\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -14593,7 +14593,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["  \n                <ag-tile-button\n                  label=\"Manage Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Service Requests\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/viewRequests\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n  \n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
+  const data = _taggedTemplateLiteral(["\n                <ag-tile-button\n                  label=\"Manage Horses\"\n                  iconImage=\"/images/icons/horse-solid.svg\"\n                  route=\"/horses\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"Service Requests\"\n                  iconImage=\"/images/icons/bell-solid.svg\"\n                  route=\"/viewRequests\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"My Profile\"\n                  iconImage=\"/images/icons/user-solid.svg\"\n                  route=\"/profile\"\n                ></ag-tile-button>\n\n                <ag-tile-button\n                  label=\"Calendar\"\n                  iconImage=\"/images/icons/calendar-days-solid.svg\"\n                  route=\"/calendar\"\n                ></ag-tile-button>\n              "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -14603,7 +14603,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Welcome, ", "!</h1>\n  \n        <ag-tile-grid .center=", ">\n          ", "\n        </ag-tile-grid>\n  \n        <ag-calendar-preview .events=", "></ag-calendar-preview>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Welcome, ", "!</h1>\n\n        <ag-tile-grid .center=", ">\n          ", "\n        </ag-tile-grid>\n\n        <ag-calendar-preview\n          .events=", "\n        ></ag-calendar-preview>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14633,7 +14633,7 @@ class DashboardView {
   render() {
     var _Auth$currentUser;
 
-    const isAdmin = ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === 'admin';
+    const isAdmin = ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin";
     const template = (0, _litHtml.html)(_templateObject(), _Auth.default.currentUser.firstName, true, isAdmin ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3()), _sampleCalendarEvents.sampleCalendarEvents);
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
@@ -14670,7 +14670,7 @@ var _moment = _interopRequireDefault(require("moment"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n                      <tr>\n                        <td>", "</td>\n                        <td>", "</td>\n                        <td>", "</td>\n                        <td>", "</td>\n                      </tr>\n                    "]);
+  const data = _taggedTemplateLiteral(["\n                        <tr>\n                          <td>", "</td>\n                          <td>", "</td>\n                          <td>", "</td>\n                          <td>", "</td>\n                        </tr>\n                      "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -14713,15 +14713,15 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 class ViewRequestsView {
   async init() {
-    console.log('ViewRequestsView.init');
-    document.title = 'All Service Requests';
+    console.log("ViewRequestsView.init");
+    document.title = "All Service Requests";
 
     try {
       this.requests = await _ServiceRequestsAPI.default.getAllServiceRequests();
     } catch (err) {
       console.error(err);
 
-      _Toast.default.show('Failed to load service requests', 'error');
+      _Toast.default.show("Failed to load service requests", "error");
 
       this.requests = [];
     }
@@ -14735,7 +14735,7 @@ class ViewRequestsView {
     const template = (0, _litHtml.html)(_templateObject(), this.requests.length === 0 ? (0, _litHtml.html)(_templateObject2()) : (0, _litHtml.html)(_templateObject3(), this.requests.map(req => {
       var _req$horseID;
 
-      return (0, _litHtml.html)(_templateObject4(), req.serviceType, ((_req$horseID = req.horseID) === null || _req$horseID === void 0 ? void 0 : _req$horseID.name) || 'Unknown', req.notes || '—', (0, _moment.default)(req.date).format('DD MMM YYYY'));
+      return (0, _litHtml.html)(_templateObject4(), req.serviceType, ((_req$horseID = req.horseID) === null || _req$horseID === void 0 ? void 0 : _req$horseID.name) || "Unknown", req.notes || "—", (0, _moment.default)(req.date).format("DD MMM YYYY"));
     })));
     (0, _litHtml.render)(template, _App.default.rootEl);
   }
@@ -14770,7 +14770,7 @@ var _Router = require("./../../Router");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Add New Horse</h1>\n        <form\n          id=\"add-horse-form\"\n          class=\"three-col-container form-content app-form-style\"\n          \n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"name\">Horse Name:</label>\n            <input type=\"text\" name=\"name\" id=\"name\" required />\n\n            <label for=\"age\">DOB:</label>\n            <input type=\"text\" name=\"age\" id=\"age\" placeholder=\"DD/MM/YYYY\" />\n\n            <label for=\"height\">Height:</label>\n            <input type=\"text\" name=\"height\" id=\"height\" />\n\n            <label for=\"colour\">Colour/Markings:</label>\n            <input type=\"text\" name=\"colour\" id=\"colour\" />\n\n            <label for=\"breed\">Breed:</label>\n            <input type=\"text\" name=\"breed\" id=\"breed\" />\n\n            <!-- Desktop placement (column 1) -->\n<div class=\"form-submit-container desktop-only\">\n            <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n            </div>\n\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"microchipNumber\">Microchip Number:</label>\n            <input type=\"text\" name=\"microchipNumber\" id=\"microchipNumber\" />\n\n              <label for=\"sex\">Sex:</label>\n  <select name=\"sex\" id=\"sex\" required>\n    <option value=\"\">-- Select --</option>\n    <option value=\"Mare\">Mare</option>\n    <option value=\"Gelding\">Gelding</option>\n    <option value=\"Stallion\">Stallion</option>\n  </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea name=\"notes\" id=\"notes\" rows=\"4\"></textarea>\n\n            <label for=\"image\">Photo Upload:</label>\n            <input\n              type=\"file\"\n              name=\"image\"\n              id=\"image\"\n              accept=\"image/*\"\n              @change=", "\n            />\n\n            \n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n          \n<sl-avatar\n  id=\"image-preview\"\n  style=\"--size: 250px; margin-top: 2rem;\"\n  alt=\"Horse Preview\"\n></sl-avatar>\n          </div>\n                    <!-- Mobile placement (bottom of the form or another column) -->\n<div class=\"form-submit-container mobile-only\">\n  <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n</div>\n        </form>\n      </ag-app-layout>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <ag-app-layout>\n        <h1>Add New Horse</h1>\n        <form\n          id=\"add-horse-form\"\n          class=\"three-col-container form-content app-form-style\"\n        >\n          <!-- Column 1 -->\n          <div class=\"three-col-column\">\n            <label for=\"name\">Horse Name:</label>\n            <input type=\"text\" name=\"name\" id=\"name\" required />\n\n            <label for=\"age\">DOB:</label>\n            <input type=\"text\" name=\"age\" id=\"age\" placeholder=\"DD/MM/YYYY\" />\n\n            <label for=\"height\">Height:</label>\n            <input type=\"text\" name=\"height\" id=\"height\" />\n\n            <label for=\"colour\">Colour/Markings:</label>\n            <input type=\"text\" name=\"colour\" id=\"colour\" />\n\n            <label for=\"breed\">Breed:</label>\n            <input type=\"text\" name=\"breed\" id=\"breed\" />\n\n            <!-- Desktop placement (column 1) -->\n            <div class=\"form-submit-container desktop-only\">\n              <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n            </div>\n          </div>\n\n          <!-- Column 2 -->\n          <div class=\"three-col-column\">\n            <label for=\"microchipNumber\">Microchip Number:</label>\n            <input type=\"text\" name=\"microchipNumber\" id=\"microchipNumber\" />\n\n            <label for=\"sex\">Sex:</label>\n            <select name=\"sex\" id=\"sex\" required>\n              <option value=\"\">-- Select --</option>\n              <option value=\"Mare\">Mare</option>\n              <option value=\"Gelding\">Gelding</option>\n              <option value=\"Stallion\">Stallion</option>\n            </select>\n\n            <label for=\"notes\">Notes:</label>\n            <textarea name=\"notes\" id=\"notes\" rows=\"4\"></textarea>\n\n            <label for=\"image\">Photo Upload:</label>\n            <input\n              type=\"file\"\n              name=\"image\"\n              id=\"image\"\n              accept=\"image/*\"\n              @change=", "\n            />\n          </div>\n\n          <!-- Column 3 -->\n          <div class=\"three-col-column avatar-column\">\n            <sl-avatar\n              id=\"image-preview\"\n              style=\"--size: 250px; margin-top: 2rem;\"\n              alt=\"Horse Preview\"\n            ></sl-avatar>\n          </div>\n          <!-- Mobile placement (bottom of the form or another column) -->\n          <div class=\"form-submit-container mobile-only\">\n            <button type=\"submit\" class=\"custom-button\">Add Horse</button>\n          </div>\n        </form>\n      </ag-app-layout>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -14794,7 +14794,7 @@ class AddHorseView {
     const preview = document.getElementById("image-preview");
 
     if (file && preview) {
-      preview.setAttribute('image', URL.createObjectURL(file));
+      preview.setAttribute("image", URL.createObjectURL(file));
     }
   }
 
@@ -15027,21 +15027,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import views
 // define routes
 const routes = {
-  '/': _home.default,
-  '404': _.default,
-  '/signin': _signin.default,
-  '/signup': _signup.default,
-  '/profile': _profile.default,
-  '/editProfile': _editProfile.default,
-  '/horses': _horses.default,
-  '/serviceRequests': _serviceRequests.default,
-  '/calendar': _calendar.default,
-  '/guide': _guide.default,
-  '/adminDashboard': _adminDashboard.default,
-  '/dashboard': _dashboard.default,
-  '/viewRequests': _viewRequests.default,
-  '/addHorse': _addHorse.default,
-  '/horse': _horse.default
+  "/": _home.default,
+  404: _.default,
+  "/signin": _signin.default,
+  "/signup": _signup.default,
+  "/profile": _profile.default,
+  "/editProfile": _editProfile.default,
+  "/horses": _horses.default,
+  "/serviceRequests": _serviceRequests.default,
+  "/calendar": _calendar.default,
+  "/guide": _guide.default,
+  "/adminDashboard": _adminDashboard.default,
+  "/dashboard": _dashboard.default,
+  "/viewRequests": _viewRequests.default,
+  "/addHorse": _addHorse.default,
+  "/horse": _horse.default
 };
 
 class Router {
@@ -15053,28 +15053,16 @@ class Router {
     // initial call
     this.route(window.location.pathname); // on back/forward
 
-    window.addEventListener('popstate', () => {
+    window.addEventListener("popstate", () => {
       this.route(window.location.pathname);
     });
-  } // route(fullPathname){
-  // 	// extract path without params
-  // 	const pathname = fullPathname.split('?')[0]
-  // 	const route = this.routes[pathname]
-  // 	if(route){
-  // 		// if route exists, run init() of the view
-  // 		this.routes[window.location.pathname].init()
-  // 	}else{			
-  // 		// show 404 view instead
-  // 		this.routes['404'].init()			
-  // 	}
-  // }
-
+  }
 
   route(fullPathname) {
-    const pathname = fullPathname.split('?')[0]; // manual dynamic route support
+    const pathname = fullPathname.split("?")[0]; // manual dynamic route support
 
-    if (pathname.startsWith('/horse/')) {
-      this.routes['/horse'].init();
+    if (pathname.startsWith("/horse/")) {
+      this.routes["/horse"].init();
       return;
     } // exact route match
 
@@ -15084,7 +15072,7 @@ class Router {
     if (route) {
       route.init();
     } else {
-      this.routes['404'].init();
+      this.routes["404"].init();
     }
   }
 
@@ -15113,7 +15101,7 @@ function gotoRoute(pathname) {
 
 function anchorRoute(e) {
   e.preventDefault();
-  const pathname = e.target.closest('a').pathname;
+  const pathname = e.target.closest("a").pathname;
   AppRouter.gotoRoute(pathname);
 }
 },{"./views/pages/home":"views/pages/home.js","./views/pages/404":"views/pages/404.js","./views/pages/signin":"views/pages/signin.js","./views/pages/signup":"views/pages/signup.js","./views/pages/profile":"views/pages/profile.js","./views/pages/editProfile":"views/pages/editProfile.js","./views/pages/horses":"views/pages/horses.js","./views/pages/serviceRequests":"views/pages/serviceRequests.js","./views/pages/calendar":"views/pages/calendar.js","./views/pages/guide":"views/pages/guide.js","./views/pages/adminDashboard":"views/pages/adminDashboard.js","./views/pages/dashboard":"views/pages/dashboard.js","./views/pages/viewRequests":"views/pages/viewRequests.js","./views/pages/addHorse":"views/pages/addHorse.js","./views/pages/horse":"views/pages/horse.js"}],"App.js":[function(require,module,exports) {
@@ -15136,7 +15124,7 @@ class App {
   constructor() {
     this.name = "AgistEase";
     this.version = "1.0.0";
-    this.apiBase = 'http://localhost:3000';
+    this.apiBase = "http://localhost:3000";
     this.rootEl = document.getElementById("root");
     this.version = "1.0.0";
   }
@@ -15144,7 +15132,7 @@ class App {
   init() {
     console.log("App.init"); // Toast init
 
-    _Toast.default.init(); // Authentication check    
+    _Toast.default.init(); // Authentication check
 
 
     _Auth.default.check(() => {
@@ -15170,7 +15158,7 @@ var _Auth = _interopRequireDefault(require("../Auth"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n            <sl-button @click=", ">Sign In</sl-button>\n          "]);
+  const data = _taggedTemplateLiteral(["\n                <sl-button @click=", "\n                  >Sign In</sl-button\n                >\n              "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -15180,7 +15168,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n            <sl-dropdown>\n              <sl-button slot=\"trigger\" caret>", "</sl-button>\n              <sl-menu>\n                <sl-menu-item>\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                </sl-menu-item>\n                <sl-menu-item>\n                  <a href=\"/editProfile\" @click=", ">Edit Profile</a>\n                </sl-menu-item>\n                <sl-menu-item @click=", ">Sign Out</sl-menu-item>\n              </sl-menu>\n            </sl-dropdown>\n          "]);
+  const data = _taggedTemplateLiteral(["\n                <sl-dropdown>\n                  <sl-button slot=\"trigger\" caret\n                    >", "</sl-button\n                  >\n                  <sl-menu>\n                    <sl-menu-item>\n                      <a href=\"/profile\" @click=", ">My Profile</a>\n                    </sl-menu-item>\n                    <sl-menu-item>\n                      <a href=\"/editProfile\" @click=", "\n                        >Edit Profile</a\n                      >\n                    </sl-menu-item>\n                    <sl-menu-item @click=", "\n                      >Sign Out</sl-menu-item\n                    >\n                  </sl-menu>\n                </sl-dropdown>\n              "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -15190,7 +15178,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n      <header class=\"app-header\">\n        <div class=\"app-header-left\">\n          <img class=\"logo\" src=\"/images/agistease-logo.svg\" @click=", " style=\"cursor: pointer;\" />\n        </div>\n        <div class=\"app-header-right\">\n          ", "\n        </div>\n      </header>\n    "]);
+  const data = _taggedTemplateLiteral(["\n      <header class=\"app-header\">\n        <div class=\"app-header-left\">\n          <img\n            class=\"logo\"\n            src=\"/images/agistease-logo.svg\"\n            @click=", "\n            style=\"cursor: pointer;\"\n          />\n        </div>\n        <div class=\"app-header-right\">\n          ", "\n        </div>\n      </header>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -15213,13 +15201,13 @@ class AgAppHeader extends HTMLElement {
   }
 
   render() {
-    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)('/'), _Auth.default.currentUser ? (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser.firstName, _Router.anchorRoute, _Router.anchorRoute, this.signOutHandler) : (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)('/signin')));
+    const template = (0, _litHtml.html)(_templateObject(), () => (0, _Router.gotoRoute)("/"), _Auth.default.currentUser ? (0, _litHtml.html)(_templateObject2(), _Auth.default.currentUser.firstName, _Router.anchorRoute, _Router.anchorRoute, this.signOutHandler) : (0, _litHtml.html)(_templateObject3(), () => (0, _Router.gotoRoute)("/signin")));
     (0, _litHtml.render)(template, this);
   }
 
 }
 
-customElements.define('ag-app-header', AgAppHeader);
+customElements.define("ag-app-header", AgAppHeader);
 },{"lit-html":"../node_modules/lit-html/lit-html.js","../Router":"Router.js","../Auth":"Auth.js"}],"../node_modules/@lit/reactive-element/css-tag.js":[function(require,module,exports) {
 "use strict";
 
@@ -16669,7 +16657,7 @@ var _UserAPI = _interopRequireDefault(require("../UserAPI"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n                  <a href=\"/dashboard\" @click=", ">Home/Dashboard</a>\n                  <a href=\"/horses\" @click=", ">My Horses</a>\n                  <a href=\"/serviceRequests\" @click=", ">Request Services</a>\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
+  const data = _taggedTemplateLiteral(["\n                  <a href=\"/dashboard\" @click=", ">Home/Dashboard</a>\n                  <a href=\"/horses\" @click=", ">My Horses</a>\n                  <a href=\"/serviceRequests\" @click=", "\n                    >Request Services</a\n                  >\n                  <a href=\"/profile\" @click=", ">My Profile</a>\n                  <a href=\"/calendar\" @click=", ">Calendar</a>\n                "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -16709,7 +16697,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n        <style>\n          :host {\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n            width: 280px;\n            height: 100vh;\n            background-color: var(--app-sidebar-bg);\n            box-sizing: border-box;\n            padding: 2rem 1rem;\n            overflow: hidden;\n            transition: width 0.3s ease;\n          }\n\n          .sidebar-main {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: flex-start;\n          }\n\n          .logo {\n            text-align: center;\n            margin-bottom: 2rem;\n          }\n\n          .logo a {\n            text-decoration: none;\n          }\n\n          .logo img {\n            width: 100px;\n          }\n\n          .logo-text {\n            font-family: \"Playfair Display\", serif;\n            font-weight: 600;\n            font-size: 2.8rem;\n            color: #e8c872;\n          }\n\n          .profile {\n            text-align: center;\n            margin-bottom: 1rem;\n          }\n\n          .profile a {\n            text-decoration: none;\n          }\n\n          .avatar {\n            width: 180px;\n            height: 180px;\n            border-radius: 50%;\n            border: 3px solid #f7f1df;\n            margin: 0 auto 0.5rem;\n            box-sizing: border-box;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            background-color: #444; /* fallback bg if image fails */\n            background-position: center;\n          }\n\n          .avatar:hover {\n            box-shadow: 0 0 6px #e8c872;\n            cursor: pointer;\n            transform: scale(1.1);\n          }\n\n          .avatar-initials {\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 3rem;\n            font-weight: bold;\n            color: #e8c872;\n            background-color: #6b8e23; /* background behind initials */\n            text-transform: uppercase;\n          }\n\n          .sidebar-links {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            padding: 1rem 0;\n          }\n\n          .sidebar-links a {\n            color: #f7f1df;\n            text-decoration: none;\n            font-size: 1.5rem;\n            padding-left: 1.2rem;\n            font-weight: 400;\n            transition: 0.2s;\n          }\n\n          .sidebar-links a:hover,\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: 600;\n            text-decoration: none;\n          }\n\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: bold;\n            text-decoration: underline;\n          }\n\n          .sign-out-btn {\n            margin-top: auto;\n            display: flex;\n            justify-content: center;\n          }\n\n          sl-button::part(base) {\n            background-color: #6b8e23;\n            color: #f7f1df;\n            font-family: \"Quicksand\", sans-serif;\n            font-weight: 600;\n            font-size: 1.2rem;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            border: 3px solid #f7f1df;\n          }\n\n          sl-button::part(base):hover {\n            transform: scale(1.08);\n            box-shadow: 0 0 8px #e8c872;\n            cursor: pointer;\n          }\n\n          .sidebar-footer {\n            margin-top: auto;\n            text-align: center;\n            font-size: 1rem;\n            font-weight: 400;\n            font-family: \"Quicksand\", sans-serif;\n            color: #f7f1df;\n            opacity: 0.7;\n            padding-top: 2.8rem;\n          }\n\n          @media (max-width: 1024px) {\n            :host {\n              width: 200px;\n            }\n\n            .logo-text {\n              font-size: 1.8rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.8rem;\n              padding-left: 0.8rem;\n            }\n\n            sl-button::part(base) {\n              font-size: 1rem;\n            }\n\n            .avatar {\n              width: 80px;\n              height: 80px;\n            }\n\n            .avatar-initials {\n              font-size: 2rem;\n            }\n          }\n\n          @media (max-height: 900px) {\n            .sidebar-links {\n              gap: 1.5rem;\n            }\n          }\n\n          @media (max-height: 850px) {\n            .logo img {\n              width: 80px;\n            }\n\n            .logo-text {\n              font-size: 2.2rem;\n            }\n\n            .avatar {\n              width: 90px;\n              height: 90px;\n            }\n\n            .avatar-initials {\n              font-size: 2rem;\n            }\n\n            .sidebar-links {\n              gap: 0.9rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.5rem;\n            }\n\n            .sidebar-footer {\n              font-size: 0.85rem;\n              padding-top: 2rem;\n            }\n\n            sl-button::part(base) {\n              font-size: 0.9rem;\n              padding: 0.4rem 1rem;\n            }\n          }\n\n          @media (max-height: 790px) {\n            .logo img {\n              width: 60px;\n            }\n\n            .logo-text {\n              font-size: 1.8rem;\n            }\n\n            .avatar {\n              width: 70px;\n              height: 70px;\n            }\n\n            .avatar-initials {\n              font-size: 1.6rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.5rem;\n              padding-left: 1rem;\n            }\n\n            .sidebar-footer {\n              padding-top: 1.5rem;\n            }\n\n            sl-button::part(base) {\n              font-size: 0.85rem;\n            }\n          }\n        </style>\n\n        <div class=\"sidebar-main\">\n          <!-- logo -->\n          <div class=\"logo\">\n            <a href=\"/\" @click=", ">\n              <img src=\"/images/horse-head.svg\" alt=\"AgistEase Logo\" />\n              <div class=\"logo-text\">AgistEase</div></a\n            >\n          </div>\n\n          <!-- profile -->\n\n          <div class=\"profile\">\n            <a href=\"/profile\" @click=", ">\n              ", "\n            </a>\n          </div>\n\n          <!-- links -->\n\n          <nav class=\"sidebar-links\">\n            ", "\n          </nav>\n\n          <!-- sign-out -->\n\n          <div class=\"sign-out-btn\">\n            <a href=\"#\" @click=", "\n              ><sl-button size=\"medium\" pill>Sign Out</sl-button></a\n            >\n          </div>\n\n          <!-- footer -->\n\n          <div class=\"sidebar-footer\">\n            <span>AgistEase v", "</span>\n          </div>\n        </div>\n      "]);
+  const data = _taggedTemplateLiteral(["\n        <style>\n          :host {\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n            width: 280px;\n            height: 100vh;\n            background-color: var(--app-sidebar-bg);\n            box-sizing: border-box;\n            padding: 2rem 1rem;\n            overflow: hidden;\n            transition: width 0.3s ease;\n          }\n\n          .sidebar-main {\n            flex-grow: 1;\n            display: flex;\n            flex-direction: column;\n            justify-content: flex-start;\n          }\n\n          .logo {\n            text-align: center;\n            margin-bottom: 2rem;\n          }\n\n          .logo a {\n            text-decoration: none;\n          }\n\n          .logo img {\n            width: 100px;\n          }\n\n          .logo-text {\n            font-family: \"Playfair Display\", serif;\n            font-weight: 600;\n            font-size: 2.8rem;\n            color: #e8c872;\n          }\n\n          .profile {\n            text-align: center;\n            margin-bottom: 1rem;\n          }\n\n          .profile a {\n            text-decoration: none;\n          }\n\n          .avatar {\n            width: 180px;\n            height: 180px;\n            border-radius: 50%;\n            border: 3px solid #f7f1df;\n            margin: 0 auto 0.5rem;\n            box-sizing: border-box;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n            background-color: #444; /* fallback bg if image fails */\n            background-position: center;\n          }\n\n          .avatar:hover {\n            box-shadow: 0 0 6px #e8c872;\n            cursor: pointer;\n            transform: scale(1.1);\n          }\n\n          .avatar-initials {\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 3rem;\n            font-weight: bold;\n            color: #e8c872;\n            background-color: #6b8e23; /* background behind initials */\n            text-transform: uppercase;\n          }\n\n          .sidebar-links {\n            display: flex;\n            flex-direction: column;\n            gap: 1.2rem;\n            padding: 1rem 0;\n          }\n\n          .sidebar-links a {\n            color: #f7f1df;\n            text-decoration: none;\n            font-size: 1.5rem;\n            padding-left: 1.2rem;\n            font-weight: 400;\n            transition: 0.2s;\n          }\n\n          .sidebar-links a:hover,\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: 600;\n            text-decoration: none;\n          }\n\n          .sidebar-links a.active {\n            color: #e8c872;\n            font-weight: bold;\n            text-decoration: underline;\n          }\n\n          .sign-out-btn {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            margin-top: 3rem;\n            padding: 2rem 0;\n          }\n\n          .custom-button {\n            background-color: #6b8e23;\n            color: #f7f1df;\n            font-family: \"Quicksand\", sans-serif;\n            font-weight: 600;\n            font-size: 1.2rem;\n            padding: 0.6rem 1.2rem;\n            border: 3px solid #f7f1df;\n            border-radius: 50px;\n            transition: transform 0.3s ease, box-shadow 0.3s ease;\n          }\n\n          .custom-button:hover {\n            transform: scale(1.08);\n            box-shadow: 0 0 8px #e8c872;\n            cursor: pointer;\n          }\n\n          .sidebar-footer {\n            margin-top: auto;\n            text-align: center;\n            font-size: 1rem;\n            font-weight: 400;\n            font-family: \"Quicksand\", sans-serif;\n            color: #f7f1df;\n            opacity: 0.7;\n            padding-top: 2.8rem;\n          }\n\n          @media (max-width: 1024px) {\n            :host {\n              width: 200px;\n            }\n\n            .logo-text {\n              font-size: 1.8rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.8rem;\n              padding-left: 0.8rem;\n            }\n\n            sl-button::part(base) {\n              font-size: 1rem;\n            }\n\n            .avatar {\n              width: 80px;\n              height: 80px;\n            }\n\n            .avatar-initials {\n              font-size: 2rem;\n            }\n          }\n\n          .sign-out-btn {\n            margin-top: 1rem;\n          }\n\n          @media (max-height: 900px) {\n            .sidebar-links {\n              gap: 1.5rem;\n            }\n          }\n\n          @media (max-height: 850px) {\n            .logo img {\n              width: 80px;\n            }\n\n            .logo-text {\n              font-size: 2.2rem;\n            }\n\n            .avatar {\n              width: 90px;\n              height: 90px;\n            }\n\n            .avatar-initials {\n              font-size: 2rem;\n            }\n\n            .sidebar-links {\n              gap: 0.9rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.5rem;\n            }\n\n            .sidebar-footer {\n              font-size: 0.85rem;\n              padding-top: 2rem;\n            }\n\n            sl-button::part(base) {\n              font-size: 0.9rem;\n              padding: 0.4rem 1rem;\n            }\n          }\n          .sign-out-btn {\n            margin-top: 0.5rem;\n          }\n\n          @media (max-height: 790px) {\n            .logo img {\n              width: 60px;\n            }\n\n            .logo-text {\n              font-size: 1.8rem;\n            }\n\n            .avatar {\n              width: 70px;\n              height: 70px;\n            }\n\n            .avatar-initials {\n              font-size: 1.6rem;\n            }\n\n            .sidebar-links a {\n              font-size: 1.5rem;\n              padding-left: 1rem;\n            }\n\n            .sidebar-footer {\n              padding-top: 1.5rem;\n            }\n\n            .sign-out-btn {\n              margin-top: 0.1rem;\n            }\n          }\n        </style>\n\n        <div class=\"sidebar-main\">\n          <!-- logo -->\n          <div class=\"logo\">\n            <a href=\"/\" @click=", ">\n              <img src=\"/images/horse-head.svg\" alt=\"AgistEase Logo\" />\n              <div class=\"logo-text\">AgistEase</div></a\n            >\n          </div>\n\n          <!-- profile -->\n\n          <div class=\"profile\">\n            <a href=\"/profile\" @click=", ">\n              ", "\n            </a>\n          </div>\n\n          <!-- links -->\n\n          <nav class=\"sidebar-links\">\n            ", "\n          </nav>\n\n          <!-- sign-out -->\n\n          <div class=\"sign-out-btn\">\n            <button class=\"custom-button\" @click=", ">\n              Sign Out\n            </button>\n          </div>\n\n          <!-- footer -->\n\n          <div class=\"sidebar-footer\">\n            <span>AgistEase v", "</span>\n          </div>\n        </div>\n      "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -16794,7 +16782,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n              <a href=\"/\" @click=", ">Home/Dashboard</a>\n              <a href=\"/dashboard\" @click=", ">Dashboard</a>\n              <a href=\"/horses\" @click=", ">My Horses</a>\n              <a href=\"/requests\" @click=", ">Request Services</a>\n              <a href=\"/profile\" @click=", ">My Profile</a>\n              <a href=\"/calendar\" @click=", ">Calendar</a>\n              <a href=\"#\" @click=", ">Sign Out</a>\n            "]);
+  const data = _taggedTemplateLiteral(["\n              <a href=\"/dashboard\" @click=", ">Home/Dashboard</a>\n              <a href=\"/horses\" @click=", ">My Horses</a>\n              <a href=\"/serviceRequests\" @click=", "\n                >Request Services</a\n              >\n              <a href=\"/profile\" @click=", ">My Profile</a>\n              <a href=\"/calendar\" @click=", ">Calendar</a>\n              <a href=\"#\" @click=", ">Sign Out</a>\n            "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -16840,7 +16828,7 @@ class AgTopbar extends _lit.LitElement {
   render() {
     var _Auth$currentUser;
 
-    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, this.toggleNav, this.navOpen ? "show" : "", ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin" ? (0, _lit.html)(_templateObject2(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()) : (0, _lit.html)(_templateObject3(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()));
+    return (0, _lit.html)(_templateObject(), _Router.anchorRoute, this.toggleNav, this.navOpen ? "show" : "", ((_Auth$currentUser = _Auth.default.currentUser) === null || _Auth$currentUser === void 0 ? void 0 : _Auth$currentUser.accessLevel) === "admin" ? (0, _lit.html)(_templateObject2(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()) : (0, _lit.html)(_templateObject3(), _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, _Router.anchorRoute, () => _Auth.default.signOut()));
   }
 
 }
@@ -16983,7 +16971,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n    <div class=\"grid ", "\">\n      <slot></slot>\n    </div>\n  "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"grid ", "\">\n        <slot></slot>\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -17003,7 +16991,7 @@ class AgTileGrid extends _lit.LitElement {
   }
 
   render() {
-    return (0, _lit.html)(_templateObject(), this.center ? 'grid-center' : 'grid-left');
+    return (0, _lit.html)(_templateObject(), this.center ? "grid-center" : "grid-left");
   }
 
 }
@@ -17023,7 +17011,7 @@ customElements.define("ag-tile-grid", AgTileGrid);
 var _lit = require("lit");
 
 function _templateObject7() {
-  const data = _taggedTemplateLiteral(["\n    .calendar-preview {\n      background-color: #628c2a;\n      padding: 2rem;\n      border-radius: 2rem;\n      margin-top: 2rem;\n    }\n\n    h2 {\n      color: #fff;\n      font-size: 1.5rem;\n      text-align: center;\n      margin-bottom: 1rem;\n      \n    }\n\n    table {\n      width: 100%;\n      border-collapse: collapse;\n      background-color: #f8f1df;\n      font-size: 1rem;\n      \n    }\n\n    th, td {\n      padding: 0.6rem 1rem;\n      border: 1px solid #5a3e2b;\n      text-align: left;\n    }\n\n    thead {\n      background-color: #f1e8cf;\n    }\n\n\n    .notes-row td {\n  font-style: italic;\n  background-color: #f1e8cf;\n}\n\n@media screen and (max-width: 768px) {\n  th {\n    display: none;\n  }\n\n  td {\n    display: block;\n    width: 100%;\n    box-sizing: border-box;\n    border: none;\n    padding: 0.4rem 1.2rem; /* Added horizontal padding */\n    background-color: #f8f1df;\n    font-style: normal; /* Ensure normal style for all */\n  }\n\n  .notes-row td {\n    background-color: #f8f1df;\n    font-style: italic;\n  }\n\n  tr {\n    border-bottom: 1px solid #5a3e2b;\n    margin-bottom: 1rem;\n  }\n\n  tr:last-child {\n    border-bottom: none;\n  }\n\n  table {\n    font-size: 0.95rem;\n    border-collapse: separate;\n    border-spacing: 0 1rem;\n  }\n}\n\n\n\n  "]);
+  const data = _taggedTemplateLiteral(["\n    .calendar-preview {\n      background-color: #628c2a;\n      padding: 2rem;\n      border-radius: 2rem;\n      margin-top: 2rem;\n    }\n\n    h2 {\n      color: #fff;\n      font-size: 1.5rem;\n      text-align: center;\n      margin-bottom: 1rem;\n    }\n\n    table {\n      width: 100%;\n      border-collapse: collapse;\n      background-color: #f8f1df;\n      font-size: 1rem;\n    }\n\n    th,\n    td {\n      padding: 0.6rem 1rem;\n      border: 1px solid #5a3e2b;\n      text-align: left;\n    }\n\n    thead {\n      background-color: #f1e8cf;\n    }\n\n    .notes-row td {\n      font-style: italic;\n      background-color: #f1e8cf;\n    }\n\n    @media screen and (max-width: 768px) {\n      th {\n        display: none;\n      }\n\n      td {\n        display: block;\n        width: 100%;\n        box-sizing: border-box;\n        border: none;\n        padding: 0.4rem 1.2rem; /* Added horizontal padding */\n        background-color: #f8f1df;\n        font-style: normal; /* Ensure normal style for all */\n      }\n\n      .notes-row td {\n        background-color: #f8f1df;\n        font-style: italic;\n      }\n\n      tr {\n        border-bottom: 1px solid #5a3e2b;\n        margin-bottom: 1rem;\n      }\n\n      tr:last-child {\n        border-bottom: none;\n      }\n\n      table {\n        font-size: 0.95rem;\n        border-collapse: separate;\n        border-spacing: 0 1rem;\n      }\n    }\n  "]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -17033,7 +17021,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  const data = _taggedTemplateLiteral(["\n                  <tr class=\"notes-row\">\n                    <td><strong>Notes:</strong> ", "</td>\n                  </tr>\n                "]);
+  const data = _taggedTemplateLiteral(["\n                    <tr class=\"notes-row\">\n                      <td><strong>Notes:</strong> ", "</td>\n                    </tr>\n                  "]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -17043,7 +17031,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  const data = _taggedTemplateLiteral(["\n            <tr>\n              <td><strong>Date:</strong> ", "</td>\n            </tr>\n            <tr>\n              <td><strong>Time:</strong> ", "</td>\n            </tr>\n            <tr>\n              <td><strong>Horse:</strong> ", "</td>\n            </tr>\n            <tr>\n              <td><strong>Service:</strong> ", "</td>\n            </tr>\n            ", "\n            <tr><td><hr /></td></tr>\n          "]);
+  const data = _taggedTemplateLiteral(["\n              <tr>\n                <td><strong>Date:</strong> ", "</td>\n              </tr>\n              <tr>\n                <td><strong>Time:</strong> ", "</td>\n              </tr>\n              <tr>\n                <td><strong>Horse:</strong> ", "</td>\n              </tr>\n              <tr>\n                <td><strong>Service:</strong> ", "</td>\n              </tr>\n              ", "\n              <tr>\n                <td><hr /></td>\n              </tr>\n            "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -17053,7 +17041,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  const data = _taggedTemplateLiteral(["\n    <table>\n      <tbody>\n        ", "\n      </tbody>\n    </table>\n  "]);
+  const data = _taggedTemplateLiteral(["\n      <table>\n        <tbody>\n          ", "\n        </tbody>\n      </table>\n    "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -17063,7 +17051,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  const data = _taggedTemplateLiteral(["\n            <tr>\n              <td>", "</td>\n              <td>", "</td>\n              <td>", "</td>\n              <td>", "</td>\n              <td>", "</td>\n            </tr>\n          "]);
+  const data = _taggedTemplateLiteral(["\n              <tr>\n                <td>", "</td>\n                <td>", "</td>\n                <td>", "</td>\n                <td>", "</td>\n                <td>", "</td>\n              </tr>\n            "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -17073,7 +17061,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    <table>\n      <thead>\n        <tr>\n          <th>Date:</th>\n          <th>Time:</th>\n          <th>Horse:</th>\n          <th>Service:</th>\n          <th>Notes:</th>\n        </tr>\n      </thead>\n      <tbody>\n        ", "\n      </tbody>\n    </table>\n  "]);
+  const data = _taggedTemplateLiteral(["\n      <table>\n        <thead>\n          <tr>\n            <th>Date:</th>\n            <th>Time:</th>\n            <th>Horse:</th>\n            <th>Service:</th>\n            <th>Notes:</th>\n          </tr>\n        </thead>\n        <tbody>\n          ", "\n        </tbody>\n      </table>\n    "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -17083,7 +17071,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  const data = _taggedTemplateLiteral(["\n    <div class=\"calendar-preview\">\n      <h2>Upcoming calendar events</h2>\n      ", "\n    </div>\n  "]);
+  const data = _taggedTemplateLiteral(["\n      <div class=\"calendar-preview\">\n        <h2>Upcoming calendar events</h2>\n        ", "\n      </div>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -17155,7 +17143,7 @@ exports.AgCalendarFull = void 0;
 var _lit = require("lit");
 
 function _templateObject2() {
-  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      background-color: #f8f1df;\n      padding: 2rem;\n      border-radius: 1.5rem;\n      overflow-x: auto;\n    }\n\n    #calendar {\n      max-width: 100%;\n    }\n\n        .fc {\n      width: 100%;\n    }\n\n    .fc-toolbar-title {\n      font-size: 1.5rem;\n      color: #5a3e2b;\n    }\n\n    .fc-button {\n      background-color: #628c2a !important;\n      border: none !important;\n      color: white !important;\n      padding: 0.3rem 1rem;\n      border-radius: 1rem;\n      font-weight: bold;\n      text-transform: uppercase;\n      cursor: pointer !important;\n    }\n\n    .fc-button:hover {\n      background-color: #4a6d21 !important;\n    }\n\n    .fc-button:disabled {\n      opacity: 0.5 !important;\n      cursor: not-allowed !important;\n    }\n\n    .fc-event {\n      background-color: #628c2a !important;\n      color: #fff !important;\n      font-weight: bold;\n      padding: 0.2rem 0.4rem;\n      border-radius: 0.3rem;\n    }\n\n    .fc-daygrid-day-frame,\n    .fc-timegrid-slot,\n    .fc-list-event {\n      cursor: pointer;\n    }\n\n    .fc-daygrid-day:hover {\n      background-color: #f1e8cf;\n    }\n  "]);
+  const data = _taggedTemplateLiteral(["\n    :host {\n      display: block;\n      background-color: #f8f1df;\n      padding: 2rem;\n      border-radius: 1.5rem;\n      overflow-x: auto;\n    }\n\n    #calendar {\n      max-width: 100%;\n    }\n\n    .fc {\n      width: 100%;\n    }\n\n    .fc-toolbar-title {\n      font-size: 1.5rem;\n      color: #5a3e2b;\n    }\n\n    .fc-button {\n      background-color: #628c2a !important;\n      border: none !important;\n      color: white !important;\n      padding: 0.3rem 1rem;\n      border-radius: 1rem;\n      font-weight: bold;\n      text-transform: uppercase;\n      cursor: pointer !important;\n    }\n\n    .fc-button:hover {\n      background-color: #4a6d21 !important;\n    }\n\n    .fc-button:disabled {\n      opacity: 0.5 !important;\n      cursor: not-allowed !important;\n    }\n\n    .fc-event {\n      background-color: #628c2a !important;\n      color: #fff !important;\n      font-weight: bold;\n      padding: 0.2rem 0.4rem;\n      border-radius: 0.3rem;\n    }\n\n    .fc-daygrid-day-frame,\n    .fc-timegrid-slot,\n    .fc-list-event {\n      cursor: pointer;\n    }\n\n    .fc-daygrid-day:hover {\n      background-color: #f1e8cf;\n    }\n  "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -17186,47 +17174,47 @@ class AgCalendarFull extends _lit.LitElement {
   }
 
   firstUpdated() {
-    const calendarEl = this.renderRoot.querySelector('#calendar'); // If calendar already exists, destroy before re-render
+    const calendarEl = this.renderRoot.querySelector("#calendar"); // If calendar already exists, destroy before re-render
 
     if (this.calendar) {
       this.calendar.destroy();
     } // Load FullCalendar script
 
 
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js';
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js";
 
     script.onload = () => {
       const {
         Calendar
       } = window.FullCalendar;
       this.calendar = new Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
+        initialView: "dayGridMonth",
         headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          left: "prev,next",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay"
         },
         selectable: true,
         events: [{
-          title: '7am Training',
-          date: '2025-06-15',
-          color: '#D2691E'
+          title: "7am Training",
+          date: "2025-06-15",
+          color: "#D2691E"
         }, {
-          title: '4pm Lesson',
-          date: '2025-06-10',
-          color: '#628c2a'
+          title: "4pm Lesson",
+          date: "2025-06-10",
+          color: "#628c2a"
         }, {
-          title: '10am Lesson',
-          date: '2025-06-26',
-          color: '#628c2a'
+          title: "10am Lesson",
+          date: "2025-06-26",
+          color: "#628c2a"
         }],
         dateClick: info => {
           alert("Clicked on date: ".concat(info.dateStr));
         }
       });
       this.calendar.render();
-      window.addEventListener('resize', this.handleResize);
+      window.addEventListener("resize", this.handleResize);
     };
 
     document.head.appendChild(script);
@@ -17234,7 +17222,7 @@ class AgCalendarFull extends _lit.LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   handleResize() {
@@ -17253,7 +17241,7 @@ exports.AgCalendarFull = AgCalendarFull;
 
 _defineProperty(AgCalendarFull, "styles", (0, _lit.css)(_templateObject2()));
 
-customElements.define('ag-calendar-full', AgCalendarFull);
+customElements.define("ag-calendar-full", AgCalendarFull);
 },{"lit":"../node_modules/lit/index.js"}],"components/ag-app-layout.js":[function(require,module,exports) {
 "use strict";
 
@@ -17404,7 +17392,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // components (custom web components)
 // styles
 // app.init
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   _App.default.init();
 });
 },{"./App.js":"App.js","./components/ag-app-header":"components/ag-app-header.js","./components/ag-app-sidebar":"components/ag-app-sidebar.js","./components/ag-topbar":"components/ag-topbar.js","./components/ag-tile-button":"components/ag-tile-button.js","./components/ag-tile-grid":"components/ag-tile-grid.js","./components/ag-calendar-preview":"components/ag-calendar-preview.js","./components/ag-calendar-full":"components/ag-calendar-full.js","./components/ag-app-layout":"components/ag-app-layout.js","./scss/master.scss":"scss/master.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {

@@ -2,11 +2,9 @@
 
 .emphasis {
   font-weight: 700 !important;
-
   color: #1a1a1a;
   letter-spacing: 0.4px;
 }
-
 
 .three-col-container {
   display: flex;
@@ -19,7 +17,6 @@
   flex: 1;
   min-width: 250px;
 }
-
 
 .three-col-column p,
 .three-col-column strong {
@@ -125,7 +122,6 @@ select {
   align-items: flex-start;
 }
 
-
 // Specific styles for horse buttons 
 .custom-button {
   background-color: var(--green);
@@ -162,7 +158,6 @@ select {
   font-size: 1.2rem;
   width: 100%;
   min-height: 64px; // gives consistent height
-
   justify-content: flex-start; // image + text align nicely
 }
 
@@ -204,7 +199,6 @@ sl-icon-button {
   margin-bottom: 0.5rem; // spacing between cards
 }
 
-
 /* Convert 3-column layout into a 2-column layout visually */
 .two-column-layout {
   grid-template-columns: 1fr 2fr !important; // override 3-col
@@ -213,7 +207,8 @@ sl-icon-button {
 
 /* Align both columns to the top */
 .two-column-layout .three-col-column {
-  align-self: start; /* Makes sure both columns start from the top */
+  align-self: start;
+  /* Makes sure both columns start from the top */
 }
 
 /* Add column padding only when inside the 2-column layout form */
@@ -229,7 +224,6 @@ sl-icon-button {
 .two-column-layout .three-col-column label {
   margin-top: 0;
 }
-
 
 /* Hide third column (avatar) */
 .hide-column {
@@ -288,7 +282,7 @@ sl-icon-button {
 .request-table th,
 .request-table td {
   padding: 1rem;
-  border: 1px solid  #000;
+  border: 1px solid #000;
   text-align: left;
 }
 
@@ -300,7 +294,6 @@ sl-icon-button {
   background-color: #f1f1f1;
 }
 
-
 .guide-logo-container {
   margin: 1rem;
 
@@ -310,14 +303,12 @@ sl-icon-button {
   }
 }
 
-  .guide-heading {
-    font-size: 1.8rem;
-    margin: 0;
-    text-align: center;
-    margin: 1.8rem;
-  }
-
-
+.guide-heading {
+  font-size: 1.8rem;
+  margin: 0;
+  text-align: center;
+  margin: 1.8rem;
+}
 
 /* Overall layout */
 body.guide-page {
@@ -328,12 +319,9 @@ body.guide-page {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   background-color: #6b8e23;
-
   /* Only wrap tightly around the carousel height */
   padding: 1rem 1rem;
-
 }
-
 
 /* Carousel container */
 .guide-carousel {
@@ -341,14 +329,11 @@ body.guide-page {
   max-width: 100%;
   background-color: transparent !important; // removes Shoelace background
   height: 425px;
-
 }
 
 .guide-carousel::part(navigation-button) {
   color: var(--body-bg);
 }
-
-
 
 /* Each slide */
 .guide-slide {
@@ -360,7 +345,6 @@ body.guide-page {
   color: #fff;
   background-color: transparent; // already inside green wrapper
   min-height: 400px;
-
 }
 
 /* Left text */
@@ -382,17 +366,16 @@ body.guide-page {
   border-radius: 1.6rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   border: 3px solid var(--body-bg);
-
 }
 
-.guide-carousel + div sl-button {
+.guide-carousel+div sl-button {
   background-color: #fff;
-  color:#fff;
+  color: #fff;
   font-weight: bold;
   border-radius: 10px;
 }
 
-.guide-carousel + div {
+.guide-carousel+div {
   margin-top: 1rem;
   text-align: center;
 }
@@ -406,17 +389,17 @@ body.guide-page {
   padding-bottom: 4rem;
 }
 
-
+.guide-page-root {
+  overflow-x: hidden;
+}
 
 @media (max-width: 1270px) {
-
   .horse-avatar {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
-
 }
 
 @media (max-width: 950px) {
@@ -429,7 +412,6 @@ body.guide-page {
     display: flex;
     justify-content: center; // center horizontally
   }
-
 }
 
 // Responsive: Stack columns and center content
@@ -465,11 +447,13 @@ body.guide-page {
   }
 
   .two-column-layout .three-col-column:last-of-type {
-    margin-bottom: 0; /* no extra space under last column */
+    margin-bottom: 0;
+    /* no extra space under last column */
   }
 
   .service-info-box {
-    margin-bottom: 0rem; /* reduce spacing below green box */
+    margin-bottom: 0rem;
+    /* reduce spacing below green box */
   }
 
   .guide-text p {
@@ -516,13 +500,9 @@ body.guide-page {
 
   .guide-logo-container {
     margin: 1rem;
-  
+
     img.guide-logo {
       height: 90px;
     }
   }
 }
-
-
-
-

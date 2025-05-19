@@ -1,17 +1,14 @@
 import { LitElement, html, css } from "lit";
 
 class AgTileGrid extends LitElement {
-
   static properties = {
-    center: { type: Boolean }
+    center: { type: Boolean },
   };
 
   constructor() {
-    
     super();
     this.center = true; // default is centered
   }
-
 
   static styles = css`
   :host {
@@ -50,15 +47,13 @@ class AgTileGrid extends LitElement {
   }
 `;
 
-
-render() {
-  return html`
-    <div class="grid ${this.center ? 'grid-center' : 'grid-left'}">
-      <slot></slot>
-    </div>
-  `;
-}
-
+  render() {
+    return html`
+      <div class="grid ${this.center ? "grid-center" : "grid-left"}">
+        <slot></slot>
+      </div>
+    `;
+  }
 }
 
 customElements.define("ag-tile-grid", AgTileGrid);

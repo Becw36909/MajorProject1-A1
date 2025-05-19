@@ -36,7 +36,7 @@ class HomeView {
           >Calendar</sl-button
         >
 
-                <sl-button class="anim-in" @click=${() => gotoRoute("/dashboard")}
+        <sl-button class="anim-in" @click=${() => gotoRoute("/dashboard")}
           >DASHBOARD</sl-button
         >
 

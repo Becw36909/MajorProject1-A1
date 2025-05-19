@@ -23,8 +23,7 @@ router.post("/signin", (req, res) => {
       if (user == null)
         return res.status(400).json({ message: "No account found" });
       // user exists, now check password
-      if (Utils.verifyPassword(req.body.password, user.password))
-        {
+      if (Utils.verifyPassword(req.body.password, user.password)) {
         // credentials match - create JWT token
         let payload = {
           _id: user._id,

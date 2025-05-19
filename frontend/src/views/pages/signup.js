@@ -57,9 +57,13 @@ class SignUpView {
 
   render() {
     const template = html`
-           <div class="signin-page">
+      <div class="signin-page">
         <div class="signin-box">
-          <img src="/images/agistease-logo.svg" alt="AgistEase Logo" class="signin-logo" />
+          <img
+            src="/images/agistease-logo.svg"
+            alt="AgistEase Logo"
+            class="signin-logo"
+          />
 
           <form class="form-signin" id="signup-form">
             <label for="firstName">First Name:</label>
@@ -90,7 +94,8 @@ class SignUpView {
           </form>
 
           <p class="signup-cta">
-            Already registered? <a href="/signin" @click=${anchorRoute}>Sign in</a>
+            Already registered?
+            <a href="/signin" @click=${anchorRoute}>Sign in</a>
           </p>
         </div>
       </div>

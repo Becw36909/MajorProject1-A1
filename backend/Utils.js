@@ -2,10 +2,8 @@
 require("dotenv").config();
 let crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require('uuid')
-const path = require('path')
-
-
+const { v4: uuidv4 } = require("uuid");
+const path = require("path");
 
 // Utils class
 class Utils {
@@ -29,7 +27,7 @@ class Utils {
   }
 
   generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET,  {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "30min",
     });
   }

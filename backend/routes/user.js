@@ -1,12 +1,10 @@
 // User routes
 const express = require("express");
 const router = express.Router();
-const Utils = require("../Utils")
+const Utils = require("../Utils");
 const User = require("./../models/User");
-const path = require('path')
+const path = require("path");
 const { authenticateToken } = require("../Utils");
-
-
 
 // GET - get all users (auth required) -------------------------------------------------
 // endpoint = /user
@@ -106,16 +104,22 @@ router.put("/:id", authenticateToken, (req, res) => {
   let updateData = req.body;
 
   if (req.files && req.files.profileImage) {
-    Utils.uploadFile(req.files.profileImage, path.join(__dirname, "../public/images"), (filename) => {
-      updateData.profileImage = filename;
+    Utils.uploadFile(
+      req.files.profileImage,
+      path.join(__dirname, "../public/images"),
+      (filename) => {
+        updateData.profileImage = filename;
 
-      User.findByIdAndUpdate(req.params.id, updateData, { new: true })
-        .then((user) => res.json(user))
-        .catch((err) => {
-          console.log("error updating user", err);
-          res.status(500).json({ message: "problem updating user", error: err });
-        });
-    });
+        User.findByIdAndUpdate(req.params.id, updateData, { new: true })
+          .then((user) => res.json(user))
+          .catch((err) => {
+            console.log("error updating user", err);
+            res
+              .status(500)
+              .json({ message: "problem updating user", error: err });
+          });
+      }
+    );
   } else {
     // Ensure optional profileImage does not overwrite existing one with undefined
     if (!updateData.profileImage) delete updateData.profileImage;

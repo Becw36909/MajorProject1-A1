@@ -31,22 +31,21 @@ customElements.define(
     activateCurrentLink() {
       const currentPath = window.location.pathname;
       const navLinks = this.shadowRoot.querySelectorAll(".sidebar-links a");
-    
+
       // Map of canonical route paths to their aliases
       const routeAliases = {
         "/profile": ["/editProfile"],
         "/horses": ["/addHorse", "/horse/"],
 
-
         // can add more groups like:
         // "/horses": ["/addHorse", "/editHorse"]
       };
-    
+
       navLinks.forEach((link) => {
         const linkPath = link.pathname;
         const aliases = routeAliases[linkPath] || [];
 
-        const isAliasMatch = aliases.some(alias =>
+        const isAliasMatch = aliases.some((alias) =>
           currentPath.startsWith(alias)
         );
 
@@ -57,7 +56,6 @@ customElements.define(
         }
       });
     }
-    
 
     render() {
       return html`
@@ -170,22 +168,26 @@ customElements.define(
           }
 
           .sign-out-btn {
-            margin-top: auto;
             display: flex;
             justify-content: center;
+            align-items: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
           }
 
-          sl-button::part(base) {
+          .custom-button {
             background-color: #6b8e23;
             color: #f7f1df;
             font-family: "Quicksand", sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 0.6rem 1.2rem;
             border: 3px solid #f7f1df;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
 
-          sl-button::part(base):hover {
+          .custom-button:hover {
             transform: scale(1.08);
             box-shadow: 0 0 8px #e8c872;
             cursor: pointer;
@@ -230,6 +232,10 @@ customElements.define(
             }
           }
 
+          .sign-out-btn {
+            margin-top: 1rem;
+          }
+
           @media (max-height: 900px) {
             .sidebar-links {
               gap: 1.5rem;
@@ -272,6 +278,9 @@ customElements.define(
               padding: 0.4rem 1rem;
             }
           }
+          .sign-out-btn {
+            margin-top: 0.5rem;
+          }
 
           @media (max-height: 790px) {
             .logo img {
@@ -300,8 +309,8 @@ customElements.define(
               padding-top: 1.5rem;
             }
 
-            sl-button::part(base) {
-              font-size: 0.85rem;
+            .sign-out-btn {
+              margin-top: 0.1rem;
             }
           }
         </style>
@@ -353,7 +362,9 @@ customElements.define(
               : html`
                   <a href="/dashboard" @click=${anchorRoute}>Home/Dashboard</a>
                   <a href="/horses" @click=${anchorRoute}>My Horses</a>
-                  <a href="/serviceRequests" @click=${anchorRoute}>Request Services</a>
+                  <a href="/serviceRequests" @click=${anchorRoute}
+                    >Request Services</a
+                  >
                   <a href="/profile" @click=${anchorRoute}>My Profile</a>
                   <a href="/calendar" @click=${anchorRoute}>Calendar</a>
                 `}
@@ -362,9 +373,9 @@ customElements.define(
           <!-- sign-out -->
 
           <div class="sign-out-btn">
-            <a href="#" @click=${() => Auth.signOut()}
-              ><sl-button size="medium" pill>Sign Out</sl-button></a
-            >
+            <button class="custom-button" @click=${() => Auth.signOut()}>
+              Sign Out
+            </button>
           </div>
 
           <!-- footer -->

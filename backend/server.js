@@ -40,13 +40,12 @@ const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
 // horse
-const horseRouter = require('./routes/horse');
+const horseRouter = require("./routes/horse");
 app.use("/horse", horseRouter);
 
 // service request
-const requestRouter = require('./routes/request');
+const requestRouter = require("./routes/request");
 app.use("/serviceRequests", requestRouter);
-
 
 // run app (listen on port)-------------------------------------------
 app.listen(port, () => {

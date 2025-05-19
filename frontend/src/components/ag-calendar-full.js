@@ -1,5 +1,4 @@
-import { LitElement, html, css } from 'lit';
-
+import { LitElement, html, css } from "lit";
 
 export class AgCalendarFull extends LitElement {
   static styles = css`
@@ -15,7 +14,7 @@ export class AgCalendarFull extends LitElement {
       max-width: 100%;
     }
 
-        .fc {
+    .fc {
       width: 100%;
     }
 
@@ -66,10 +65,11 @@ export class AgCalendarFull extends LitElement {
   constructor() {
     super();
     this.calendar = null;
-    this.handleResize = this.handleResize.bind(this);  }
+    this.handleResize = this.handleResize.bind(this);
+  }
 
   firstUpdated() {
-    const calendarEl = this.renderRoot.querySelector('#calendar');
+    const calendarEl = this.renderRoot.querySelector("#calendar");
 
     // If calendar already exists, destroy before re-render
     if (this.calendar) {
@@ -77,32 +77,32 @@ export class AgCalendarFull extends LitElement {
     }
 
     // Load FullCalendar script
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js';
+    const script = document.createElement("script");
+    script.src =
+      "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js";
     script.onload = () => {
       const { Calendar } = window.FullCalendar;
 
       this.calendar = new Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
+        initialView: "dayGridMonth",
         headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          left: "prev,next",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay",
         },
         selectable: true,
         events: [
-          { title: '7am Training', date: '2025-06-15', color: '#D2691E' },
-          { title: '4pm Lesson', date: '2025-06-10', color: '#628c2a' },
-          { title: '10am Lesson', date: '2025-06-26', color: '#628c2a' }
+          { title: "7am Training", date: "2025-06-15", color: "#D2691E" },
+          { title: "4pm Lesson", date: "2025-06-10", color: "#628c2a" },
+          { title: "10am Lesson", date: "2025-06-26", color: "#628c2a" },
         ],
         dateClick: (info) => {
           alert(`Clicked on date: ${info.dateStr}`);
-        }
+        },
       });
 
       this.calendar.render();
-      window.addEventListener('resize', this.handleResize);
-
+      window.addEventListener("resize", this.handleResize);
     };
 
     document.head.appendChild(script);
@@ -110,7 +110,7 @@ export class AgCalendarFull extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   handleResize() {
@@ -124,4 +124,4 @@ export class AgCalendarFull extends LitElement {
   }
 }
 
-customElements.define('ag-calendar-full', AgCalendarFull);
+customElements.define("ag-calendar-full", AgCalendarFull);

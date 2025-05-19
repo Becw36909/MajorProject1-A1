@@ -1,27 +1,27 @@
-import App from './../../App'
-import { html, render } from 'lit-html'
-import { gotoRoute } from './../../Router'
-import Auth from './../../Auth'
-import Utils from './../../Utils'
-import Toast from './../../Toast'
-import ServiceRequestAPI from './../../ServiceRequestsAPI'
-import moment from 'moment'
+import App from "./../../App";
+import { html, render } from "lit-html";
+import { gotoRoute } from "./../../Router";
+import Auth from "./../../Auth";
+import Utils from "./../../Utils";
+import Toast from "./../../Toast";
+import ServiceRequestAPI from "./../../ServiceRequestsAPI";
+import moment from "moment";
 
 class ViewRequestsView {
   async init() {
-    console.log('ViewRequestsView.init')
-    document.title = 'All Service Requests'
+    console.log("ViewRequestsView.init");
+    document.title = "All Service Requests";
 
     try {
-      this.requests = await ServiceRequestAPI.getAllServiceRequests()
+      this.requests = await ServiceRequestAPI.getAllServiceRequests();
     } catch (err) {
-      console.error(err)
-      Toast.show('Failed to load service requests', 'error')
-      this.requests = []
+      console.error(err);
+      Toast.show("Failed to load service requests", "error");
+      this.requests = [];
     }
 
-    this.render()
-    Utils.pageIntroAnim()
+    this.render();
+    Utils.pageIntroAnim();
   }
 
   render() {
@@ -43,23 +43,25 @@ class ViewRequestsView {
                     </tr>
                   </thead>
                   <tbody>
-                    ${this.requests.map(req => html`
-                      <tr>
-                        <td>${req.serviceType}</td>
-                        <td>${req.horseID?.name || 'Unknown'}</td>
-                        <td>${req.notes || '—'}</td>
-                        <td>${moment(req.date).format('DD MMM YYYY')}</td>
-                      </tr>
-                    `)}
+                    ${this.requests.map(
+                      (req) => html`
+                        <tr>
+                          <td>${req.serviceType}</td>
+                          <td>${req.horseID?.name || "Unknown"}</td>
+                          <td>${req.notes || "—"}</td>
+                          <td>${moment(req.date).format("DD MMM YYYY")}</td>
+                        </tr>
+                      `
+                    )}
                   </tbody>
                 </table>
               </div>
             `}
       </ag-app-layout>
-    `
+    `;
 
-    render(template, App.rootEl)
+    render(template, App.rootEl);
   }
 }
 
-export default new ViewRequestsView()
+export default new ViewRequestsView();

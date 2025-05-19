@@ -9,7 +9,7 @@ const serviceRequestSchema = new mongoose.Schema({
   },
   serviceType: { type: String, required: true },
   notes: String,
-  
+
   date: { type: Date, default: Date.now },
 });
 

@@ -139,10 +139,11 @@ class AgTopbar extends LitElement {
               <a href="#" @click=${() => Auth.signOut()}>Sign Out</a>
             `
           : html`
-              <a href="/" @click=${anchorRoute}>Home/Dashboard</a>
-              <a href="/dashboard" @click=${anchorRoute}>Dashboard</a>
+              <a href="/dashboard" @click=${anchorRoute}>Home/Dashboard</a>
               <a href="/horses" @click=${anchorRoute}>My Horses</a>
-              <a href="/requests" @click=${anchorRoute}>Request Services</a>
+              <a href="/serviceRequests" @click=${anchorRoute}
+                >Request Services</a
+              >
               <a href="/profile" @click=${anchorRoute}>My Profile</a>
               <a href="/calendar" @click=${anchorRoute}>Calendar</a>
               <a href="#" @click=${() => Auth.signOut()}>Sign Out</a>

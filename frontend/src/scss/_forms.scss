@@ -51,79 +51,81 @@
     cursor: pointer;
     background-color: var(--green);
     transition: background-color 0.3s ease, transform 0.3s ease;
-  
+
     &:hover {
       background-color: var(--orange);
       transform: scale(1.05);
     }
   }
-  
+
 
   .signup-cta a {
-    color: var(--orange);;
+    color: var(--orange);
+    ;
     font-weight: bold;
     display: inline-block;
     transition: color 0.3s ease, transform 0.3s ease;
-  
+
     &:hover {
-      color: var(--green); 
+      color: var(--green);
       transform: scale(1.05);
     }
   }
-  
 
 
-// Responsive tweaks for sign in page
-@media (max-width: 768px) {
 
-  .signin-box {
-    width: 90%;
-    padding: 1.5rem;
+  // Responsive tweaks for sign in page
+  @media (max-width: 768px) {
+
+    .signin-box {
+      width: 90%;
+      padding: 1.5rem;
+    }
+
+    .form-signin input,
+    .form-signin button {
+      font-size: 1rem;
+    }
+
+    .form-signin .btn-primary {
+      display: block;
+      margin: 2rem auto 0 auto;
+      width: fit-content; // optional — lets the button size to its content
+    }
+
+    .signin-logo {
+      max-width: 400px;
+    }
+
+
   }
 
-  .form-signin input,
-  .form-signin button {
-    font-size: 1rem;
+  @media (max-width: 480px) {
+    .signin-box {
+      padding: 1rem;
+    }
+
+    .form-signin label {
+      font-size: 0.9rem;
+    }
+
+    .form-signin input,
+    .form-signin button {
+      font-size: 0.95rem;
+      padding: 0.5rem;
+    }
+
+    .signup-cta {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .signin-logo {
+      max-width: 250px;
+    }
   }
 
-  .form-signin .btn-primary {
-    display: block;
-    margin: 2rem auto 0 auto;
-    width: fit-content; // optional — lets the button size to its content
-  }
-  .signin-logo {
-    max-width: 400px;
-  }
-
-  
-}
-
-@media (max-width: 480px) {
-  .signin-box {
-    padding: 1rem;
-  }
-
-  .form-signin label {
-    font-size: 0.9rem;
-  }
-
-  .form-signin input,
-  .form-signin button {
-    font-size: 0.95rem;
-    padding: 0.5rem;
-  }
-
-  .signup-cta {
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  .signin-logo {
-    max-width: 250px;
-  }
-}
 
 
 
-  
 }

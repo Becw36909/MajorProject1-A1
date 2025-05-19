@@ -20,10 +20,10 @@ class HorsesView {
       const horses = await HorseAPI.getHorses();
       const user = Auth.currentUser;
 
-      if (user.accessLevel === 'admin') {
+      if (user.accessLevel === "admin") {
         this.horses = horses;
       } else {
-        this.horses = horses.filter(horse => horse.ownerID === user._id);
+        this.horses = horses.filter((horse) => horse.ownerID === user._id);
       }
 
       this.render();
@@ -37,34 +37,40 @@ class HorsesView {
   render() {
     const template = html`
       <ag-app-layout>
-        <h1>${Auth.currentUser.accessLevel === 'admin' ? 'Manage Horses' : 'My Horses'}</h1>
-  
-<ag-tile-grid .center=${false}>
-  ${this.horses.length > 0
-    ? this.horses.map(horse => html`
-        <ag-tile-button
-          label="${horse.name}"
-          image="${horse.image ? `${App.apiBase}/images/${horse.image}` : ''}"
-          route="${Router.getHorseRoute(horse._id)}"
-        ></ag-tile-button>
-      `)
-    : html`<p>No horses found.</p>`}
+        <h1>
+          ${Auth.currentUser.accessLevel === "admin"
+            ? "Manage Horses"
+            : "My Horses"}
+        </h1>
 
-  <!-- Add Horse tile -->
-  <ag-tile-button
-    class="add-horse-tile"
-    label="Add Horse"
-    iconImage="/images/icons/plus-solid.svg"
-    route="/addHorse"
-  ></ag-tile-button>
-</ag-tile-grid>
+        <ag-tile-grid .center=${false}>
+          ${this.horses.length > 0
+            ? this.horses.map(
+                (horse) => html`
+                  <ag-tile-button
+                    label="${horse.name}"
+                    image="${horse.image
+                      ? `${App.apiBase}/images/${horse.image}`
+                      : ""}"
+                    route="${Router.getHorseRoute(horse._id)}"
+                  ></ag-tile-button>
+                `
+              )
+            : html`<p>No horses found.</p>`}
 
+          <!-- Add Horse tile -->
+          <ag-tile-button
+            class="add-horse-tile"
+            label="Add Horse"
+            iconImage="/images/icons/plus-solid.svg"
+            route="/addHorse"
+          ></ag-tile-button>
+        </ag-tile-grid>
       </ag-app-layout>
     `;
-  
+
     render(template, App.rootEl);
   }
-  
 }
 
 export default new HorsesView();

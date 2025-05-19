@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema(
     newUser: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   { timestamps: true }
 );
