@@ -21,7 +21,7 @@ class SignUpView {
     const email = document.querySelector("#email")?.value.trim();
     const password = document.querySelector("#password")?.value;
     const accessLevel = document.querySelector(
-      "sl-radio-group[name='accessLevel']"
+      "input[name='accessLevel']:checked"
     )?.value;
 
     // Basic validations

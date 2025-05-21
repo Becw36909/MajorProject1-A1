@@ -735,6 +735,35 @@ body.guide-page {
   overflow-x: hidden;
 }
 
+.horse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.horse-header h1 {
+  margin: 0;
+}
+.horse-header .back-link {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #6b8e23;
+  border: 2px solid #6b8e23;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+.horse-header .back-link:hover {
+  background-color: #6b8e23;
+  color: white;
+}
+@media (max-width: 768px) {
+  .horse-header .back-link {
+    display: none;
+  }
+}
+
 @media (max-width: 1270px) {
   .horse-avatar {
     display: flex;
