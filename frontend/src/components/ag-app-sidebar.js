@@ -318,7 +318,7 @@ customElements.define(
         <div class="sidebar-main">
           <!-- logo -->
           <div class="logo">
-            <a href="/" @click=${anchorRoute}>
+            <a href="/dashboard" @click=${anchorRoute}>
               <img src="/images/horse-head.svg" alt="AgistEase Logo" />
               <div class="logo-text">AgistEase</div></a
             >

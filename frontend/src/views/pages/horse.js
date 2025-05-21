@@ -63,10 +63,10 @@ class HorseView {
 
     const template = html`
       <ag-app-layout>
-<div class="horse-header">
-  <h1>${horse.name}</h1>
-  <a href="/horses" @click=${anchorRoute} class="back-link">Back to Horses</a>
-</div>
+      <div class="horse-header">
+      <h1>${horse.name}</h1>
+      <a href="/horses" @click=${anchorRoute} class="back-link">Back to Horses</a>
+      </div>
 
         <div class="three-col-container">
           <!-- Column 1: Basic info -->
